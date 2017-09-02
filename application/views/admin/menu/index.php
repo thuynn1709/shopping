@@ -8,14 +8,14 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="col-xs-3">
-                    <button style="width: 150px" id="add_new" type="button" class="btn btn-block btn-primary">Thêm mới</button>  
+                    <button style="width: 150px" type="button" class="btn btn-block btn-primary">Thêm mới</button>  
                 </div>
             </div>
         </div>
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Danh mục sản phẩm</h3>
+              <h3 class="box-title">Danh sách menu</h3>
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -32,8 +32,9 @@
               <table class="table table-hover">
                 <tr>
                   <th>ID</th>
-                  <th>Danh mục sản phẩm</th>
+                  <th>Tên menu</th>
                   <th>Ngày tạo</th>
+                  <th>Ưu tiên</th>
                   <th>Trạng thái</th>
                   <th>Action</th>
                 </tr>
@@ -48,6 +49,7 @@
                       <td><?php echo $stt; ?></td>
                       <td><?php echo $rs->name; ?></td>
                       <td><?php echo $rs->created; ?></td>
+                      <td><?php echo $rs->priority; ?></td>
                       <?php 
                         if ($rs->status == 1) {
                         ?> 
@@ -83,17 +85,5 @@
     </section>
     
   </div>
-
-<script type="text/javascript">
-    $( document ).ready(function() {
-        console.log( "ready!" );
-        $('#add_new').click(function() {
-            window.location.href = '<?php echo base_url(); ?>product_category/add';
-            return false;
-        });
-    });
-    
-
-</script>
 
 
