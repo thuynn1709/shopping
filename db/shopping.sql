@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : ngocthuy
+Source Server         : nothing
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : shopping
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-02 09:03:31
+Date: 2017-09-02 16:49:13
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -226,6 +226,7 @@ CREATE TABLE `products_category` (
   `name` varchar(50) DEFAULT NULL,
   `status` tinyint(2) DEFAULT NULL,
   `priority` tinyint(2) DEFAULT NULL,
+  `menu_id` tinyint(3) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
@@ -233,10 +234,10 @@ CREATE TABLE `products_category` (
 -- ----------------------------
 -- Records of products_category
 -- ----------------------------
-INSERT INTO `products_category` VALUES ('1', 'fdafa', '1', '1', '2017-09-01 23:03:02');
-INSERT INTO `products_category` VALUES ('2', 'fafadf', '1', '3', '2017-09-01 23:03:02');
-INSERT INTO `products_category` VALUES ('3', 'fdaf', '0', '1', '2017-09-01 23:03:02');
-INSERT INTO `products_category` VALUES ('4', 'dfdafdaf', '0', '1', '2017-09-01 23:03:02');
+INSERT INTO `products_category` VALUES ('1', 'fdafa', '1', '1', null, '2017-09-01 23:03:02');
+INSERT INTO `products_category` VALUES ('2', 'fafadf', '1', '3', null, '2017-09-01 23:03:02');
+INSERT INTO `products_category` VALUES ('3', 'fdaf', '0', '1', null, '2017-09-01 23:03:02');
+INSERT INTO `products_category` VALUES ('4', 'dfdafdaf', '0', '1', null, '2017-09-01 23:03:02');
 
 -- ----------------------------
 -- Table structure for sales
