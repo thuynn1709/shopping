@@ -53,7 +53,7 @@ class Menu extends MY_Controller {
         $this->pagination->initialize($config);
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
         $data["results"] = $this->menu_model->get_all($config["per_page"], $page);
-        
+      
         $data["links"] = $this->pagination->create_links();
 
         // View data according to array.
@@ -64,7 +64,76 @@ class Menu extends MY_Controller {
     
     public function add(){
         $this->_loadAdminHeader();
-        $this->load->view('admin/menu_model/add');
+        if (isset($_POST['name'])){
+            
+            $name = $_POST['name'];
+            $alias =  str_replace(' ', '-', trim($name));
+            $priority = $_POST['priority'];
+            $status = $_POST['status'];
+            
+            $data = array('name'=> $name,
+                          'priority'=>$priority,
+                            'alias'=>$alias,
+                          'status'=>$status,
+                          'created' => date ("Y-m-d H:i:s")
+                    );
+            if ($this->menu_model->insert($data)) {
+                redirect('admin/menu/index');
+            } else{ 
+                redirect('admin/menu/add');
+            }
+            
+        }
+        $this->load->view('admin/menu/add');
         $this->_loadAdminFooter();
     }
+    
+    public function edit(){
+        $this->_loadAdminHeader();
+        $id = $this->uri->segment(4);
+        if (empty($id))
+        {
+            show_404();
+        }
+        
+      
+        $data['item'] = $this->menu_model->get_one($id);
+        if (!$data['item']) {
+            redirect('admin/menu/index');
+        }
+       
+        if (isset($_POST['name'])){
+            $name = $_POST['name'];
+            $alias =  str_replace(' ', '-', $name);
+            $priority = $_POST['priority'];
+            $status = $_POST['status'];
+            
+            $data = array('name'=> $name,
+                          'priority'=>$priority,
+                          'alias'=>$alias,
+                          'status'=>$status,
+                          'created' => date ("Y-m-d H:i:s")
+                    );
+            if ($this->menu_model->update($id, $data)) {
+                redirect('admin/menu/index');
+            } 
+        }
+        $this->load->view('admin/menu/edit', $data);
+        $this->_loadAdminFooter();
+    }
+    
+    public function delete()
+    {
+        $id = $this->uri->segment(4);
+        
+        if (empty($id))
+        {
+            show_404();
+        }
+
+        $this->menu_model->del_one($id);        
+        redirect('admin/menu/index');  
+    }
+    
+    
 }

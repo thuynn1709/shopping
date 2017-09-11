@@ -11,11 +11,12 @@
  *
  * @author Nguyen Ruy
  */
-class Product_category extends MY_Controller {
+class Product extends MY_Controller {
     //put your code here
     public function __construct() {
         parent::__construct();
         $this->load->model('admin/productcategory_model');
+        $this->load->model('admin/product_model');
         $this->load->model('admin/menu_model');
         $this->load->library('pagination');
     }
@@ -25,10 +26,10 @@ class Product_category extends MY_Controller {
         $this->_loadAdminHeader();
         
         $data = array();
-        $limit = 2;
+        $limit = 10;
         $config = array();
-        $config["base_url"] = base_url() . "admin/product_category/index";
-        $total_row = $this->productcategory_model->count_all_results();
+        $config["base_url"] = base_url() . "admin/product/index";
+        $total_row = $this->product_model->count_all_results();
         $config["total_rows"] = $total_row;
         $config["per_page"] = $limit;
         $config['use_page_numbers'] = TRUE;
@@ -53,13 +54,13 @@ class Product_category extends MY_Controller {
         
         $this->pagination->initialize($config);
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-        $data["results"] = $this->productcategory_model->get_all($config["per_page"], $page);
+        $data["results"] = $this->product_model->get_all($config["per_page"], $page);
         
         $data["links"] = $this->pagination->create_links();
 
         // View data according to array.
         
-        $this->load->view('admin/product_category/index', $data);
+        $this->load->view('admin/product/index', $data);
         $this->_loadAdminFooter();
     }
     
@@ -67,8 +68,6 @@ class Product_category extends MY_Controller {
         $this->_loadAdminHeader();
         $menu = array();
         $menu = $this->menu_model->get_all();
-        //echo '<pre>';
-        //var_dump($menu);die;
         
         if (isset($_POST['name'])){
             
@@ -85,16 +84,15 @@ class Product_category extends MY_Controller {
                           'menu_id' => $menu_id,
                           'created' => date ("Y-m-d H:i:s")
                     );
-            if ($this->product_category->insert($data)) {
-                redirect('admin/product_category/index');
+            if ($this->product_model->insert($data)) {
+                redirect('admin/product/index');
             } else{ 
-                redirect('admin/product_category/add');
+                redirect('admin/product/add');
             }
-            
         }
         
         $data['menu'] = $menu;
-        $this->load->view('admin/product_category/add', $data);
+        $this->load->view('admin/product/add', $data);
         $this->_loadAdminFooter();
     }
     
@@ -109,7 +107,7 @@ class Product_category extends MY_Controller {
       
         $data['item'] = $this->menu_model->get_one($id);
         if (!$data['item']) {
-            redirect('admin/product_category/index');
+            redirect('admin/product/index');
         }
        
         if (isset($_POST['name'])){
@@ -124,8 +122,8 @@ class Product_category extends MY_Controller {
                           'status'=>$status,
                           'created' => date ("Y-m-d H:i:s")
                     );
-            if ($this->menu_model->update($id, $data)) {
-                redirect('admin/product_category/index');
+            if ($this->product_model->update($id, $data)) {
+                redirect('admin/product/index');
             } 
         }
         
@@ -133,7 +131,7 @@ class Product_category extends MY_Controller {
         $menu = $this->menu_model->get_all();
         $data['menu'] = $menu;
         
-        $this->load->view('admin/product_category/edit', $data);
+        $this->load->view('admin/product/edit', $data);
         $this->_loadAdminFooter();
     }
     
@@ -146,7 +144,7 @@ class Product_category extends MY_Controller {
             show_404();
         }
 
-        $this->menu_model->del_one($id);        
-        redirect('admin/product_category/index');  
+        $this->product_model->del_one($id);        
+        redirect('admin/product/index');  
     }
 }

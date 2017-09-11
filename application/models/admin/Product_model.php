@@ -11,9 +11,9 @@
  *
  * @author Nguyen Ruy
  */
-class Menu_model extends CI_Model {
+class Product_model extends CI_Model {
    
-    public $table = 'menu';
+    public $table = 'products';
     //put your code here
     public function __construct() {
         parent::__construct();

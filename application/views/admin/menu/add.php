@@ -1,17 +1,11 @@
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <h1>
-        General Form Elements
-        <small>Preview</small>
-      </h1>
-      <ol class="breadcrumb">
+    <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Forms</a></li>
-        <li class="active">General Elements</li>
+        <li><a href="#">Quản lý danh mục sản phẩm</a></li>
+        <li class="active">Thêm mới danh mục sản phẩm</li>
       </ol>
-    </section>
 
     <!-- Main content -->
     <section class="content">
@@ -21,30 +15,34 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Quick Example</h3>
+              <h3 class="box-title"></h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form">
+            <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/menu/add') ; ?>">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Email address</label>
-                  <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email">
+                  <label for="exampleInputEmail1">Tên menu</label>
+                  <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter menu">
                 </div>
                 <div class="form-group">
-                  <label for="exampleInputPassword1">Password</label>
-                  <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password">
+                  <label>Ưu tiên</label>
+                  <select name="priority" class="form-control">
+                    <option value="1"> 1</option>
+                    <option value="2"> 2</option>
+                    <option value="3"> 3</option>
+                    <option value="4"> 4</option>
+                    <option value="5"> 5</option>
+                  </select>
                 </div>
-                <div class="form-group">
-                  <label for="exampleInputFile">File input</label>
-                  <input type="file" id="exampleInputFile">
-
-                  <p class="help-block">Example block-level help text here.</p>
-                </div>
-                <div class="checkbox">
-                  <label>
-                    <input type="checkbox"> Check me out
-                  </label>
+                  
+                  <div class="form-group">
+                  <label>Hiển thị</label>
+                  <select name="status" class="form-control">
+                    <option value="1"> Hiển thị</option>
+                    <option value="0"> Không hiển thị</option>
+                   
+                  </select>
                 </div>
               </div>
               <!-- /.box-body -->

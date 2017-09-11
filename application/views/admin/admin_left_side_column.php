@@ -38,6 +38,31 @@
             <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Dashboard v2</a></li>
           </ul>
         </li>
+        
+        <li>
+          <a href="../widgets.html">
+            <i class="fa fa-th"></i> <span>Quản lý menu</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-green"></small>
+            </span>
+          </a>
+        </li>
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa-pie-chart"></i>
+            <span>Quản lý sản phẩm</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="../charts/chartjs.html"><i class="fa fa-circle-o"></i> DS sản phẩm</a></li>
+            <li><a href="../charts/morris.html"><i class="fa fa-circle-o"></i> Thêm mới SP</a></li>
+            <li><a href="../charts/flot.html"><i class="fa fa-circle-o"></i> DS danh mục sản phẩm</a></li>
+            <li><a href="../charts/inline.html"><i class="fa fa-circle-o"></i> Thêm mới danh mục SP</a></li>
+          </ul>
+        </li>
+        <!--
         <li class="treeview">
           <a href="#">
             <i class="fa fa-files-o"></i>
@@ -196,5 +221,6 @@
         <li><a href="#"><i class="fa fa-circle-o text-aqua"></i> <span>Information</span></a></li>
       </ul>
     </section>
+        -->
     <!-- /.sidebar -->
   </aside>
