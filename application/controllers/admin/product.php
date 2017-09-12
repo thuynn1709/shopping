@@ -68,7 +68,7 @@ class Product extends MY_Controller {
     public function add(){
         if (isset($_POST['name'])){  
             $this->load->library('upload');
-            $dataInfo = array();
+            $imageInfo = array();
             $files = $_FILES;
             $cpt = count($_FILES['images']['name']);
             for($i=0; $i<$cpt; $i++)
@@ -81,7 +81,7 @@ class Product extends MY_Controller {
                     
                 $this->upload->initialize($this->set_upload_options());
                 $this->upload->do_upload('images');
-                $dataInfo[] = $this->upload->data();
+                $imageInfo[] = $this->upload->data();
             }
             
             $name = $_POST['name'];
