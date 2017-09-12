@@ -59,8 +59,8 @@
                       <?php } ?> 
                       <td>
                         <div class="btn-group">
-                            <button type="button" class="btn btn-info">Sửa</button>
-                            <button type="button" class="btn btn-warning">Xóa</button>
+                            <button type="button" ref="<?php echo base_url('admin/menu/edit/'). $rs->id ; ?>" id="edit" class="btn btn-info">Sửa</button>
+                            <button type="button" ref="<?php echo base_url('admin/menu/delete/'). $rs->id ; ?>" id="delete" class="btn btn-warning">Xóa</button>
                         </div>  
                         
                       </td>
@@ -85,5 +85,37 @@
     </section>
     
   </div>
+
+<script type="text/javascript">
+    $( document ).ready(function() {
+        console.log( "ready!" );
+        $('#add_new').click(function() {
+            window.location.href = '<?php echo base_url(); ?>product_category/add';
+            return false;
+        });
+        
+        $('#edit').click(function() {      
+            var url = $(this).attr('ref');          
+            window.location.href = url;
+            return false;
+        });
+        
+        $('#delete').click(function() {
+            var r = confirm("Chắc chắn xóa !");
+            if (r == true) {
+                
+                txt = "You pressed OK!";
+                var url = $(this).attr('ref');
+                window.location.href = url;
+            } else {
+                txt = "You pressed Cancel!";
+            }
+           
+            return false;
+        });
+    });
+    
+
+</script>
 
 

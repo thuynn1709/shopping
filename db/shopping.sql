@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : nothing
+Source Server         : ngocthuy
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : shopping
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-02 16:49:13
+Date: 2017-09-12 00:01:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,7 +20,7 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(40) DEFAULT NULL,
   `name` varchar(40) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
@@ -41,7 +41,7 @@ CREATE TABLE `contact` (
 -- ----------------------------
 DROP TABLE IF EXISTS `export`;
 CREATE TABLE `export` (
-  `id` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(30) DEFAULT NULL,
   `author` varchar(30) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
@@ -63,7 +63,7 @@ CREATE TABLE `export` (
 -- ----------------------------
 DROP TABLE IF EXISTS `extracost`;
 CREATE TABLE `extracost` (
-  `id` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL,
   `name` varchar(500) DEFAULT NULL,
   `price` float DEFAULT NULL,
   `author` varchar(50) DEFAULT NULL,
@@ -81,7 +81,7 @@ CREATE TABLE `extracost` (
 -- ----------------------------
 DROP TABLE IF EXISTS `import`;
 CREATE TABLE `import` (
-  `id` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL,
   `name` varchar(40) DEFAULT NULL,
   `author` varchar(30) DEFAULT NULL,
   `summer` int(11) DEFAULT NULL,
@@ -100,40 +100,48 @@ CREATE TABLE `import` (
 -- ----------------------------
 DROP TABLE IF EXISTS `marken`;
 CREATE TABLE `marken` (
-  `id` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) DEFAULT NULL,
   `country` varchar(30) DEFAULT NULL,
   `addresse` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of marken
 -- ----------------------------
+INSERT INTO `marken` VALUES ('1', 'Manhattan', 'Đức', 'Đức');
+INSERT INTO `marken` VALUES ('2', 'Catrice', 'Đức', 'Đức');
+INSERT INTO `marken` VALUES ('3', 'Humana', 'Đức', 'Đức');
+INSERT INTO `marken` VALUES ('4', 'Das Gesunde Plus', 'Đức', 'Đức');
+INSERT INTO `marken` VALUES ('5', 'Maybelline', 'Đức', 'Đức');
 
 -- ----------------------------
 -- Table structure for menu
 -- ----------------------------
 DROP TABLE IF EXISTS `menu`;
 CREATE TABLE `menu` (
-  `id` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) DEFAULT NULL,
-  `level` tinyint(3) DEFAULT NULL,
-  `parent_id` tinyint(3) DEFAULT NULL,
+  `alias` varchar(40) DEFAULT NULL,
+  `status` tinyint(3) DEFAULT NULL,
   `priority` tinyint(3) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
+INSERT INTO `menu` VALUES ('1', 'fdafaf fdafadf ', 'fdafaf-fdafadf-', '1', '3', '2017-09-11 21:49:30');
+INSERT INTO `menu` VALUES ('2', 'ttttt', 'ttttt', '1', '1', '2017-09-11 22:13:11');
 
 -- ----------------------------
 -- Table structure for news
 -- ----------------------------
 DROP TABLE IF EXISTS `news`;
 CREATE TABLE `news` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `category_id` tinyint(2) DEFAULT NULL,
   `desc` varchar(200) DEFAULT NULL,
@@ -154,7 +162,7 @@ CREATE TABLE `news` (
 -- ----------------------------
 DROP TABLE IF EXISTS `news_category`;
 CREATE TABLE `news_category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
   `status` tinyint(2) DEFAULT NULL,
   `menu_id` tinyint(3) DEFAULT NULL,
@@ -172,14 +180,14 @@ CREATE TABLE `news_category` (
 -- ----------------------------
 DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `status` tinyint(3) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of orders
@@ -190,23 +198,25 @@ CREATE TABLE `orders` (
 -- ----------------------------
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
   `category_id` tinyint(5) DEFAULT NULL,
   `marken_id` tinyint(5) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `madein` varchar(10) DEFAULT NULL,
-  `img` varchar(100) DEFAULT NULL,
   `img_thumb` varchar(100) DEFAULT NULL,
+  `img` varchar(100) DEFAULT NULL,
   `img_1` varchar(100) DEFAULT NULL,
   `img_2` varchar(100) DEFAULT NULL,
   `img_3` varchar(100) DEFAULT NULL,
   `describe` varchar(400) DEFAULT NULL,
   `expired` datetime DEFAULT NULL,
   `element` varchar(500) DEFAULT NULL COMMENT 'thanh phan san pham',
+  `guide` varchar(400) DEFAULT NULL,
   `warning` varchar(300) DEFAULT NULL,
   `price` varchar(15) DEFAULT NULL,
   `discount` varchar(10) DEFAULT NULL,
+  `color` varchar(20) DEFAULT NULL,
   `status` tinyint(2) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
@@ -222,8 +232,9 @@ CREATE TABLE `products` (
 -- ----------------------------
 DROP TABLE IF EXISTS `products_category`;
 CREATE TABLE `products_category` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(50) DEFAULT NULL,
+  `alias` varchar(50) DEFAULT NULL,
   `status` tinyint(2) DEFAULT NULL,
   `priority` tinyint(2) DEFAULT NULL,
   `menu_id` tinyint(3) DEFAULT NULL,
@@ -234,17 +245,17 @@ CREATE TABLE `products_category` (
 -- ----------------------------
 -- Records of products_category
 -- ----------------------------
-INSERT INTO `products_category` VALUES ('1', 'fdafa', '1', '1', null, '2017-09-01 23:03:02');
-INSERT INTO `products_category` VALUES ('2', 'fafadf', '1', '3', null, '2017-09-01 23:03:02');
-INSERT INTO `products_category` VALUES ('3', 'fdaf', '0', '1', null, '2017-09-01 23:03:02');
-INSERT INTO `products_category` VALUES ('4', 'dfdafdaf', '0', '1', null, '2017-09-01 23:03:02');
+INSERT INTO `products_category` VALUES ('1', 'fdafa', null, '1', '1', null, '2017-09-01 23:03:02');
+INSERT INTO `products_category` VALUES ('2', 'fafadf', null, '1', '3', null, '2017-09-01 23:03:02');
+INSERT INTO `products_category` VALUES ('3', 'fdaf', null, '0', '1', null, '2017-09-01 23:03:02');
+INSERT INTO `products_category` VALUES ('4', 'dfdafdaf', null, '0', '1', null, '2017-09-01 23:03:02');
 
 -- ----------------------------
 -- Table structure for sales
 -- ----------------------------
 DROP TABLE IF EXISTS `sales`;
 CREATE TABLE `sales` (
-  `id` int(11) NOT NULL,
+  `id` int(11) unsigned NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
@@ -263,7 +274,7 @@ CREATE TABLE `sales` (
 -- ----------------------------
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `email` varchar(50) NOT NULL,
   `password` varchar(100) NOT NULL,
   `fullname` varchar(100) DEFAULT NULL,
