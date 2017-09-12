@@ -88,7 +88,7 @@
     $( document ).ready(function() {
         console.log( "ready!" );
         $('#add_new').click(function() {
-            window.location.href = '<?php echo base_url(); ?>admin/product_category/add';
+            window.location.href = '<?php echo base_url(); ?>admin/product/add';
             return false;
         });
     });

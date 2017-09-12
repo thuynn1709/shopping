@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : ngocthuy
+Source Server         : nothing
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : shopping
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-12 00:01:34
+Date: 2017-09-12 14:17:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -200,10 +200,10 @@ DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(100) DEFAULT NULL,
+  `alilas` varchar(100) DEFAULT NULL,
   `category_id` tinyint(5) DEFAULT NULL,
   `marken_id` tinyint(5) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
-  `madein` varchar(10) DEFAULT NULL,
   `img_thumb` varchar(100) DEFAULT NULL,
   `img` varchar(100) DEFAULT NULL,
   `img_1` varchar(100) DEFAULT NULL,

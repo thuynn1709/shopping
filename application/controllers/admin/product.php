@@ -18,6 +18,7 @@ class Product extends MY_Controller {
         $this->load->model('admin/productcategory_model');
         $this->load->model('admin/product_model');
         $this->load->model('admin/menu_model');
+        $this->load->model('admin/marken_model');
         $this->load->library('pagination');
     }
     
@@ -65,9 +66,6 @@ class Product extends MY_Controller {
     }
     
     public function add(){
-        $this->_loadAdminHeader();
-        $menu = array();
-        $menu = $this->menu_model->get_all();
         
         if (isset($_POST['name'])){
             
@@ -91,7 +89,13 @@ class Product extends MY_Controller {
             }
         }
         
-        $data['menu'] = $menu;
+        $this->_loadAdminHeader();
+        $marken = array();
+        $category = array();
+        $marken = $this->marken_model->get_all();
+        $category = $this->productcategory_model->get_all();
+        $data['marken'] = $marken;
+        $data['category'] = $category;
         $this->load->view('admin/product/add', $data);
         $this->_loadAdminFooter();
     }
