@@ -25,7 +25,9 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form">
+      
+            <?php echo form_open('admin/menu/add/', "class='form-horizontal'"); ?>
+
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Email address</label>
