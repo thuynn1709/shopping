@@ -66,8 +66,23 @@ class Product extends MY_Controller {
     }
     
     public function add(){
-        
-        if (isset($_POST['name'])){
+        if (isset($_POST['name'])){  
+            $this->load->library('upload');
+            $dataInfo = array();
+            $files = $_FILES;
+            $cpt = count($_FILES['images']['name']);
+            for($i=0; $i<$cpt; $i++)
+            {           
+                $_FILES['images']['name']= $files['images']['name'][$i];
+                $_FILES['images']['type']= $files['images']['type'][$i];
+                $_FILES['images']['tmp_name']= $files['images']['tmp_name'][$i];
+                $_FILES['images']['error']= $files['images']['error'][$i];
+                $_FILES['images']['size']= $files['images']['size'][$i];    
+                    
+                $this->upload->initialize($this->set_upload_options());
+                $this->upload->do_upload('images');
+                $dataInfo[] = $this->upload->data();
+            }
             
             $name = $_POST['name'];
             $alias =  str_replace(' ', '-', trim($name));
@@ -150,5 +165,17 @@ class Product extends MY_Controller {
 
         $this->product_model->del_one($id);        
         redirect('admin/product/index');  
+    }
+    
+    private function set_upload_options()
+    {   
+        //upload an image options
+        $config = array();
+        $config['upload_path'] = './public/images/products/';
+        $config['allowed_types'] = 'gif|jpg|png';
+        $config['max_size']      = '0';
+        $config['overwrite']     = FALSE;
+
+        return $config;
     }
 }

@@ -19,17 +19,17 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/product/add') ; ?>">
+            <form role="form" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/product/add') ; ?>">
               <div class="box-body">
                 <div class="form-group">
                     <div class="row" >
                         <div class="col-md-6">
                             <label for="exampleInputEmail1">Tên danh mục sản phẩm</label>
-                            <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter menu">
+                            <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên sản phẩm">
                         </div>
                         <div class="col-md-6">
                             <label>Danh mục sản phẩm</label>
-                            <select name="menu" class="form-control">
+                            <select name="category" class="form-control">
                                <?php 
                                if (!empty($category)){
                                   foreach ($category as $ct) {                  
@@ -48,7 +48,7 @@
                     <div class="row" >
                         <div class="col-md-6">
                             <label>Thương hiệu</label>
-                            <select name="menu" class="form-control">
+                            <select name="marken" class="form-control">
                                <?php 
                                if (!empty($marken)){
                                   foreach ($marken as $mk) {                  
@@ -121,10 +121,10 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body pad">
-                      <form>
+                      
                         <textarea class="textarea" name="detail" placeholder="Viết mô tả thông tin sản phẩm"
                                   style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                      </form>
+                      
                     </div>
                 </div>
                   
@@ -146,10 +146,10 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body pad">
-                      <form>
+                      
                         <textarea class="textarea" name="element" placeholder="Viết mô tả thông tin sản phẩm"
                                   style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                      </form>
+                      
                     </div>
                 </div>
                   
@@ -171,10 +171,10 @@
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body pad">
-                      <form>
-                        <textarea class="textarea" name="element" placeholder="Viết mô tả thông tin sản phẩm"
+                      
+                        <textarea class="textarea" name="warning" placeholder="Viết mô tả thông tin sản phẩm"
                                   style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                      </form>
+                      
                     </div>
                 </div>
                 
@@ -250,7 +250,7 @@
               <!-- /.box-body -->
 
               <div class="box-footer">
-                  <button type="submit" id="add_new" class="btn btn-primary">Thêm mới</button>
+                  <button type="submit" class="btn btn-primary">Thêm mới</button>
                   <button type="submit" id="cancel" class="btn btn-primary">Hủy bỏ</button>
               </div>
             </form>
