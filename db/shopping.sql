@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-12 14:17:11
+Date: 2017-09-13 12:00:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -81,8 +81,9 @@ CREATE TABLE `extracost` (
 -- ----------------------------
 DROP TABLE IF EXISTS `import`;
 CREATE TABLE `import` (
-  `id` int(11) unsigned NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
   `author` varchar(30) DEFAULT NULL,
   `summer` int(11) DEFAULT NULL,
   `price` float DEFAULT NULL,
@@ -187,7 +188,7 @@ CREATE TABLE `orders` (
   `status` tinyint(3) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of orders

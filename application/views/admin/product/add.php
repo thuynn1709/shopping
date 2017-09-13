@@ -4,7 +4,7 @@
     
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Quản lý danh mục sản phẩm</a></li>
+        <li><a href="#">Quản lý sản phẩm</a></li>
         <li class="active">Thêm mới sản phẩm</li>
       </ol>
     <!-- Main content -->
@@ -24,7 +24,7 @@
                 <div class="form-group">
                     <div class="row" >
                         <div class="col-md-6">
-                            <label for="exampleInputEmail1">Tên danh mục sản phẩm</label>
+                            <label for="exampleInputEmail1">Tên sản phẩm</label>
                             <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên sản phẩm">
                         </div>
                         <div class="col-md-6">
@@ -68,10 +68,26 @@
                 </div>
                 
                 <div class="form-group">
-                    <label for="exampleInputFile">Ảnh trang sản phẩm</label>
-                    <input type="file" name="images[]" multiple="multiple">
-                    <p class="help-block">300 x 200 px.</p>
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <label for="exampleInputFile">Ảnh trang sản phẩm</label>
+                            <input type="file" name="images[]" multiple="multiple">
+                            <p class="help-block">300 x 200 px.</p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="exampleInputEmail1">Giá tiền</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-money"></i>
+                              </div>
+                                <input type="text" class="form-control" id="price" name="price"><br>
+                            </div>
+                        </div>
+                    </div>
                 </div>  
+                  
+                  
                   
                 <div class="form-group">
                     <div class="row" >
@@ -187,19 +203,15 @@
                               <div class="input-group-addon">
                                 <i class="fa fa-calendar"></i>
                               </div>
-                                <input type="text" class="form-control" name="expire" id="datemask" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                                <input type="text" class="form-control" name="expired" id="datemask" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
                             </div>
                         </div>
                         <div class="col-md-6">
-                            <label for="exampleInputEmail1">Giá tiền</label>
-                            <div class="input-group">
-                              <div class="input-group-addon">
-                                <i class="fa fa-money"></i>
-                              </div>
-                                <input type="text" class="form-control" id="price" name="price"><br>
-                            </div>
-                            
-                           
+                            <label>Hiển thị</label>
+                            <select name="status" class="form-control">
+                              <option value="1"> Hiển thị</option>
+                              <option value="0"> Không hiển thị</option> 
+                            </select>
                         </div>
                     </div>
                 </div>
@@ -222,30 +234,6 @@
                         </div>
                     </div>
                 </div>  
-                  
-                <div class="form-group">
-                    <div class="row" >
-                     
-                        <div class="col-md-6">
-                            <label>Ưu tiên</label>
-                            <select name="priority" class="form-control">
-                              <option value="1"> 1</option>
-                              <option value="2"> 2</option>
-                              <option value="3"> 3</option>
-                              <option value="4"> 4</option>
-                              <option value="5"> 5</option>
-                            </select>
-                        </div>
-                        <div class="col-md-6">
-                            <label>Hiển thị</label>
-                            <select name="status" class="form-control">
-                              <option value="1"> Hiển thị</option>
-                              <option value="0"> Không hiển thị</option> 
-                            </select>
-                        </div>
-                    </div>
-                </div>     
-               
               </div>
               <!-- /.box-body -->
 

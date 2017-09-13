@@ -86,17 +86,49 @@ class Product extends MY_Controller {
             
             $name = $_POST['name'];
             $alias =  str_replace(' ', '-', trim($name));
-            $priority = $_POST['priority'];
+            $category = $_POST['category'];
+            $marken = $_POST['marken'];
+            $amount = $_POST['amount'];
+            $img_thumb = $imageInfo[0]['name'];
+            $img = $imageInfo[1]['name'];
+            $img_1 = $imageInfo[2]['name'];
+            $img_2 = $imageInfo[3]['name'];
+            $img_3 = $imageInfo[4]['name'];
+            $describe = $_POST['describe'];
+            $expired = $_POST['expired'];
+            $element = $_POST['element'];
+            $guide = $_POST['guide'];
+            $warning = $_POST['warning'];
+            $price = $_POST['price'];
+            $discount = $_POST['discount'];
+            $color = $_POST['color'];
             $status = $_POST['status'];
-            $menu_id = $_POST['menu_id'];
+            $created = date('Y-m-d H:i:s');
+            $updated = date('Y-m-d H:i:s');
             
             $data = array('name'=> $name,
-                          'priority'=>$priority,
-                          'alias'=>$alias,
-                          'status'=>$status,
-                          'menu_id' => $menu_id,
-                          'created' => date ("Y-m-d H:i:s")
+                        'alias'=> $alias,
+                        'category_id'=> $category,
+                        'marken_id'=> $marken,
+                        'amount'=> $amount,
+                        'img_thumb' => $img_thumb,
+                        'img' => $img,
+                        'img_1' => $img_1,
+                        'img_2' => $img_2,
+                        'img_3' => $img_3,
+                        'describe' => $describe,
+                        'expired' => $expired,
+                        'element' => $element,
+                        'guide' => $guide,
+                        'warning' => $warning,
+                        'price' => $price,
+                        'discount' => $discount,
+                        'color' => $color,
+                        'status' => $status,
+                        'created' => $created,
+                        'updated' => $updated
                     );
+            
             if ($this->product_model->insert($data)) {
                 redirect('admin/product/index');
             } else{ 
@@ -116,40 +148,94 @@ class Product extends MY_Controller {
     }
     
     public function edit(){
-        $this->_loadAdminHeader();
         $id = $this->uri->segment(4);
-        if (empty($id))
-        {
+        if (empty($id)){
             show_404();
         }
-        
       
-        $data['item'] = $this->menu_model->get_one($id);
+        $product = $this->product_model->get_one($id);
         if (!$data['item']) {
             redirect('admin/product/index');
         }
        
-        if (isset($_POST['name'])){
+        if (isset($_POST['name'])){  
+            $this->load->library('upload');
+            $imageInfo = array();
+            $files = $_FILES;
+            $cpt = count($_FILES['images']['name']);
+            for($i=0; $i<$cpt; $i++)
+            {           
+                $_FILES['images']['name']= $files['images']['name'][$i];
+                $_FILES['images']['type']= $files['images']['type'][$i];
+                $_FILES['images']['tmp_name']= $files['images']['tmp_name'][$i];
+                $_FILES['images']['error']= $files['images']['error'][$i];
+                $_FILES['images']['size']= $files['images']['size'][$i];    
+                    
+                $this->upload->initialize($this->set_upload_options());
+                $this->upload->do_upload('images');
+                $imageInfo[] = $this->upload->data();
+            }
+            
             $name = $_POST['name'];
-            $alias =  str_replace(' ', '-', $name);
-            $priority = $_POST['priority'];
+            $alias =  str_replace(' ', '-', trim($name));
+            $category = $_POST['category'];
+            $marken = $_POST['marken'];
+            $amount = $_POST['amount'];
+            $img_thumb = $imageInfo[0]['name'];
+            $img = $imageInfo[1]['name'];
+            $img_1 = $imageInfo[2]['name'];
+            $img_2 = $imageInfo[3]['name'];
+            $img_3 = $imageInfo[4]['name'];
+            $describe = $_POST['describe'];
+            $expired = $_POST['expired'];
+            $element = $_POST['element'];
+            $guide = $_POST['guide'];
+            $warning = $_POST['warning'];
+            $price = $_POST['price'];
+            $discount = $_POST['discount'];
+            $color = $_POST['color'];
             $status = $_POST['status'];
+            $created = date('Y-m-d H:i:s');
+            $updated = date('Y-m-d H:i:s');
             
             $data = array('name'=> $name,
-                          'priority'=>$priority,
-                          'alias'=>$alias,
-                          'status'=>$status,
-                          'created' => date ("Y-m-d H:i:s")
+                        'alias'=> $alias,
+                        'category_id'=> $category,
+                        'marken_id'=> $marken,
+                        'amount'=> $amount,
+                        'img_thumb' => $img_thumb,
+                        'img' => $img,
+                        'img_1' => $img_1,
+                        'img_2' => $img_2,
+                        'img_3' => $img_3,
+                        'describe' => $describe,
+                        'expired' => $expired,
+                        'element' => $element,
+                        'guide' => $guide,
+                        'warning' => $warning,
+                        'price' => $price,
+                        'discount' => $discount,
+                        'color' => $color,
+                        'status' => $status,
+                        'created' => $created,
+                        'updated' => $updated
                     );
-            if ($this->product_model->update($id, $data)) {
+            
+            if ($this->product_model->insert($data)) {
                 redirect('admin/product/index');
-            } 
+            } else{ 
+                redirect('admin/product/add');
+            }
         }
         
-        $menu = array();
-        $menu = $this->menu_model->get_all();
-        $data['menu'] = $menu;
-        
+        $this->_loadAdminHeader();
+        $marken = array();
+        $category = array();
+        $marken = $this->marken_model->get_all();
+        $category = $this->productcategory_model->get_all();
+        $data['marken'] = $marken;
+        $data['category'] = $category;
+        $data['item'] = $product;
         $this->load->view('admin/product/edit', $data);
         $this->_loadAdminFooter();
     }

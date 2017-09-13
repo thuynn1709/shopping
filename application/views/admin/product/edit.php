@@ -1,70 +1,247 @@
  <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Quản lý danh mục sản phẩm</a></li>
-        <li class="active">Thêm mới danh mục sản phẩm</li>
+        <li><a href="#">Quản lý sản phẩm</a></li>
+        <li class="active">Cập nhật sản phẩm</li>
       </ol>
-
     <!-- Main content -->
     <section class="content">
       <div class="row">
         <!-- left column -->
-        <div class="col-md-6">
+        <div class="col-md-12">
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title"></h3>
+              <h3 class="box-title">Cập nhật sản phẩm</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/menu/edit/'). $item->id ; ?>">
+            <form role="form" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/product/edit') ; ?>">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Tên menu</label>
-                  <input type="text" name="name" class="form-control" id="exampleInputEmail1" value="<?php echo $item->name; ?> " placeholder="Enter menu">
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <label for="exampleInputEmail1">Tên sản phẩm</label>
+                            <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên sản phẩm">
+                        </div>
+                        <div class="col-md-6">
+                            <label>Danh mục sản phẩm</label>
+                            <select name="category" class="form-control">
+                               <?php 
+                               if (!empty($category)){
+                                  foreach ($category as $ct) {                  
+                              ?>
+                                      <option value="<?php echo $ct->id; ?>"> <?php echo $ct->name; ?></option>
+                               <?php                      
+                                  }                        
+                              }                
+                              ?>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                   
                 <div class="form-group">
-                  <label>Ưu tiên</label>
-                  <select name="menu" class="form-control">
-                    <?php 
-                     if (!empty($menu)){
-                        foreach ($menu as $mn) {                  
-                    ?>
-                            <option value="<?php echo $mn->id; ?>" <?php echo ($item->menu_id == $mn->id) ? 'selected="selected"' : '' ?>> <?php echo $mn->name; ?></option>
-                     <?php                      
-                        }                        
-                    }                
-                    ?>  
-                  </select>
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <label>Thương hiệu</label>
+                            <select name="marken" class="form-control">
+                               <?php 
+                               if (!empty($marken)){
+                                  foreach ($marken as $mk) {                  
+                              ?>
+                                      <option value="<?php echo $mk->id; ?>"> <?php echo $mk->name; ?></option>
+                               <?php                      
+                                  }                        
+                              }                
+                              ?>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="exampleInputEmail1">Số lượng</label>
+                            <input type="text" name="amount" class="form-control" id="exampleInputAmount" value=" <?php echo $item->amount ; ?>" placeholder="000">
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <label for="exampleInputFile">Ảnh trang sản phẩm</label>
+                            <input type="file" name="images[]" multiple="multiple">
+                            <p class="help-block">300 x 200 px.</p>
+                        </div>
+
+                        <div class="col-md-6">
+                            <label for="exampleInputEmail1">Giá tiền</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-money"></i>
+                              </div>
+                                <input type="text" class="form-control" id="price" value=" <?php echo $item->price ; ?>" name="price"><br>
+                            </div>
+                        </div>
+                    </div>
                 </div>  
                   
+                  
+                  
                 <div class="form-group">
-                  <label>Ưu tiên</label>
-                  <select name="priority" class="form-control">
-                    <option value="1" <?php echo ($item->priority == 1) ? 'selected="selected"' : '' ?>> 1</option>
-                    <option value="2" <?php echo ($item->priority == 2) ? 'selected="selected"' : '' ?>> 2</option>
-                    <option value="3" <?php echo ($item->priority == 3) ? 'selected="selected"' : '' ?>> 3</option>
-                    <option value="4" <?php echo ($item->priority == 4) ? 'selected="selected"' : '' ?>> 4</option>
-                    <option value="5" <?php echo ($item->priority == 5) ? 'selected="selected"' : '' ?>> 5</option>
-                  </select>
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <label for="exampleInputFile">Ảnh trang chi tiết 1</label>
+                            <input type="file" name="images[]" multiple="multiple">
+                            <p class="help-block">850 x 618 px.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="exampleInputFile">Ảnh trang chi tiết 2</label>
+                            <input type="file" name="images[]" multiple="multiple">
+                            <p class="help-block">850 x 618 px.</p>
+                        </div>
+                    </div>
+                </div> 
+                  
+                <div class="form-group">
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <label for="exampleInputFile">Ảnh trang chi tiết 3</label>
+                            <input type="file" name="images[]" multiple="multiple">
+                            <p class="help-block">850 x 618 px.</p>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="exampleInputFile">Ảnh trang chi tiết 4</label>
+                            <input type="file" name="images[]" multiple="multiple">
+                            <p class="help-block">850 x 618 px.</p>
+                        </div>
+                    </div>
+                </div>   
+              
+                <div class="box">
+                    <div class="box-header">
+                      <h3 class="box-title">Mô tả chi tiết sản phẩm
+                        <small>Simple and fast</small>
+                      </h3>
+                      <!-- tools box -->
+                      <div class="pull-right box-tools">
+                        <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                          <i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                          <i class="fa fa-times"></i></button>
+                      </div>
+                      <!-- /. tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body pad">
+                      
+                        <textarea class="textarea" name="detail" placeholder="Viết mô tả thông tin sản phẩm"
+                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"> <?php echo $item->describe ; ?></textarea>
+                      
+                    </div>
                 </div>
                   
-                  <div class="form-group">
-                  <label>Hiển thị</label>
-                  <select name="status" class="form-control">
-                    <option value="1" <?php echo ($item->priority == 1) ? 'selected="selected"' : '' ?>> Hiển thị</option>
-                    <option value="0" <?php echo ($item->priority == 0) ? 'selected="selected"' : '' ?>> Không hiển thị</option>
-                   
-                  </select>
+                <div class="box">
+                    <div class="box-header">
+                      <h3 class="box-title">Thành phần sản phẩm
+                        <small>Simple and fast</small>
+                      </h3>
+                      <!-- tools box -->
+                      <div class="pull-right box-tools">
+                        <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                          <i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                          <i class="fa fa-times"></i></button>
+                      </div>
+                      <!-- /. tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body pad">
+                      
+                        <textarea class="textarea" name="element" placeholder="Viết mô tả thông tin sản phẩm"
+                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+                             <?php echo $item->element ; ?>          
+                        </textarea>
+                      
+                    </div>
                 </div>
+                  
+                <div class="box">
+                    <div class="box-header">
+                      <h3 class="box-title">Dị ứng thành phần sản phẩm
+                        <small>Simple and fast</small>
+                      </h3>
+                      <!-- tools box -->
+                      <div class="pull-right box-tools">
+                        <button type="button" class="btn btn-default btn-sm" data-widget="collapse" data-toggle="tooltip"
+                                title="Collapse">
+                          <i class="fa fa-minus"></i></button>
+                        <button type="button" class="btn btn-default btn-sm" data-widget="remove" data-toggle="tooltip"
+                                title="Remove">
+                          <i class="fa fa-times"></i></button>
+                      </div>
+                      <!-- /. tools -->
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body pad">
+                      
+                        <textarea class="textarea" name="warning" placeholder="Viết mô tả thông tin sản phẩm"
+                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                                   <?php echo $item->warning ; ?>
+                    </div>
+                </div>
+                
+                  
+                <div class="form-group">
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <label>Ngày hết hạn:</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-calendar"></i>
+                              </div>
+                                <input type="text" class="form-control" value=" <?php echo $item->expired ; ?>" name="expired" id="datemask" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Hiển thị</label>
+                            <select name="status" class="form-control">
+                              <option value="1"> Hiển thị</option>
+                              <option value="0"> Không hiển thị</option> 
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                  
+                <div class="form-group">
+                    <div class="row" >
+                     
+                        <div class="col-md-6">
+                            <label for="exampleInputEmail1">Giảm giá ($)</label>
+                            <div class="input-group">
+                              <div class="input-group-addon">
+                                <i class="fa fa-sort-amount-asc"></i>
+                              </div>
+                                <input type="text" class="form-control" id="discount" value=" <?php echo $item->discount ; ?>" name="discount"><br>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <label>Màu sắc</label>
+                            <input type="text" id="color" name="color" value=" <?php echo $item->color ; ?>" class="form-control my-colorpicker1 colorpicker-element">
+                        </div>
+                    </div>
+                </div>  
               </div>
               <!-- /.box-body -->
 
               <div class="box-footer">
-                <button type="submit" class="btn btn-primary">Submit</button>
+                  <button type="submit" class="btn btn-primary">Thêm mới</button>
+                  <button type="submit" id="cancel" class="btn btn-primary">Hủy bỏ</button>
               </div>
             </form>
           </div>
@@ -78,3 +255,45 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  
+
+<!-- Bootstrap WYSIHTML5 -->
+
+<!-- InputMask -->
+
+<script src="<?php echo base_url(); ?>public/admin/plugins/input-mask/jquery.inputmask.js"></script>
+<script src="<?php echo base_url(); ?>public/admin/plugins/input-mask/jquery.inputmask.numeric.extensions.js"></script>
+<script src="<?php echo base_url(); ?>public/admin/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+<script src="<?php echo base_url(); ?>public/admin/plugins/input-mask/jquery.inputmask.extensions.js"></script>
+<script src="<?php echo base_url(); ?>public/admin/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js"></script>
+<!-- bootstrap color picker -->
+<script src="<?php echo base_url(); ?>public/admin/bower_components/bootstrap-colorpicker/dist/js/bootstrap-colorpicker.min.js"></script>
+<script>
+  $(function () {
+    // Replace the <textarea id="editor1"> with a CKEditor
+    // instance, using default configuration.
+    //bootstrap WYSIHTML5 - text editor
+    $('.textarea').wysihtml5()
+   
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    
+    $('#price').inputmask('decimal', {
+        radixPoint: ".",
+        groupSeparator: ",",
+        digits: 2,
+        autoGroup: true,
+        prefix: 'VNĐ', //No Space, this will truncate the first character
+        rightAlign: false
+       
+    });
+    
+    //Colorpicker
+    $('#color').colorpicker()
+    
+    $( "#cancel" ).click(function() {
+        window.location.href = '<?php echo base_url(); ?>admin/product/index';
+        return false;
+    });
+  })
+</script>
