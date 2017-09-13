@@ -242,12 +242,18 @@ class Product extends MY_Controller {
     public function delete()
     {
         $id = $this->uri->segment(4);
-        
-        if (empty($id))
-        {
+        if (empty($id)){
             show_404();
         }
-
+        
+        $product = $this->product_model->get_one($id);
+        
+        var_dump($product);die;
+        unlink(base_url("public/images/products/".$product->img_thumb));
+        unlink(base_url("public/images/products/".$product->img));
+        unlink(base_url("public/images/products/".$product->img_1));
+        unlink(base_url("public/images/products/".$product->img_2));
+        unlink(base_url("public/images/products/".$product->img_3));
         $this->product_model->del_one($id);        
         redirect('admin/product/index');  
     }
