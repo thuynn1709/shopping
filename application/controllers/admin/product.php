@@ -155,7 +155,8 @@ class Product extends MY_Controller {
         }
       
         $product = $this->product_model->get_one($id);
-        if (!$data['item']) {
+
+        if (count ( (array)$data['item']) != 0 ) {
             redirect('admin/product/index');
         }
        
