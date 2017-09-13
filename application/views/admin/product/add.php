@@ -49,6 +49,7 @@
                         <div class="col-md-6">
                             <label>Thương hiệu</label>
                             <select name="marken" class="form-control">
+                                <option value=""> Chọn thương hiệu</option>
                                <?php 
                                if (!empty($marken)){
                                   foreach ($marken as $mk) {                  

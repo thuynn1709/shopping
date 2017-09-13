@@ -89,11 +89,11 @@ class Product extends MY_Controller {
             $category = $_POST['category'];
             $marken = $_POST['marken'];
             $amount = $_POST['amount'];
-            $img_thumb = $imageInfo[0]['name'];
-            $img = $imageInfo[1]['name'];
-            $img_1 = $imageInfo[2]['name'];
-            $img_2 = $imageInfo[3]['name'];
-            $img_3 = $imageInfo[4]['name'];
+            $img_thumb = $imageInfo[0]['file_name'];
+            $img = $imageInfo[1]['file_name'];
+            $img_1 = $imageInfo[2]['file_name'];
+            $img_2 = $imageInfo[3]['file_name'];
+            $img_3 = $imageInfo[4]['file_name'];
             $describe = $_POST['describe'];
             $expired = $_POST['expired'];
             $element = $_POST['element'];
@@ -128,7 +128,8 @@ class Product extends MY_Controller {
                         'created' => $created,
                         'updated' => $updated
                     );
-            
+            echo '<pre>';
+                    var_dump($data);
             if ($this->product_model->insert($data)) {
                 redirect('admin/product/index');
             } else{ 
