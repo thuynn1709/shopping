@@ -182,11 +182,11 @@ class Product extends MY_Controller {
             $category = $_POST['category'];
             $marken = $_POST['marken'];
             $amount = $_POST['amount'];
-            $img_thumb = $imageInfo[0]['name'];
-            $img = $imageInfo[1]['name'];
-            $img_1 = $imageInfo[2]['name'];
-            $img_2 = $imageInfo[3]['name'];
-            $img_3 = $imageInfo[4]['name'];
+            $img_thumb = $imageInfo[0]['file_name'] != '' ? $imageInfo[0]['file_name'] : $product->img_thumb ;
+            $img = $imageInfo[1]['file_name'] != '' ? $imageInfo[1]['file_name'] : $product->img;
+            $img_1 = $imageInfo[2]['file_name'] != '' ? $imageInfo[2]['file_name'] : $product->img_1;
+            $img_2 = $imageInfo[3]['file_name'] != '' ? $imageInfo[3]['file_name'] : $product->img_2;
+            $img_3 = $imageInfo[4]['file_name'] != '' ? $imageInfo[4]['file_name'] : $product->img_3;
             $describe = $_POST['describe'];
             $expired = $_POST['expired'];
             $element = $_POST['element'];
@@ -196,7 +196,6 @@ class Product extends MY_Controller {
             $discount = $_POST['discount'];
             $color = $_POST['color'];
             $status = $_POST['status'];
-            $created = date('Y-m-d H:i:s');
             $updated = date('Y-m-d H:i:s');
             
             $data = array('name'=> $name,
@@ -218,11 +217,10 @@ class Product extends MY_Controller {
                         'discount' => $discount,
                         'color' => $color,
                         'status' => $status,
-                        'created' => $created,
                         'updated' => $updated
                     );
-            
-            if ($this->product_model->insert($data)) {
+           
+            if ($this->product_model->update($id, $data)) {
                 redirect('admin/product/index');
             } else{ 
                 redirect('admin/product/add');
@@ -236,8 +234,8 @@ class Product extends MY_Controller {
         $category = $this->productcategory_model->get_all();
         $data['marken'] = $marken;
         $data['category'] = $category;
-        $data['item'] = $product;
-        $this->load->view('admin/product/edit', $data);
+        $data['product'] = $product;
+        $this->load->view('admin/product/add', $data);
         $this->_loadAdminFooter();
     }
     
