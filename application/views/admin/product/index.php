@@ -7,7 +7,7 @@
         <form action="<?php echo site_url('admin/product/index');?>" method = "post">
             <div class="col-xs-12">
                     <div class="col-xs-3">
-                        <button style="width: 150px" id="add_new" type="button" class="btn btn-block btn-primary">Thêm mới</button>  
+                        <button style="width: 150px; margin-top: 25px;" id="add_new" type="button" class="btn btn-block btn-primary">Thêm mới</button>  
                     </div>
                     
                     <div class="col-xs-3">
