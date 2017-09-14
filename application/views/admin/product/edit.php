@@ -139,7 +139,9 @@
                     <div class="box-body pad">
                       
                         <textarea class="textarea" name="detail" placeholder="Viết mô tả thông tin sản phẩm"
-                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"> <?php echo $item->describe ; ?></textarea>
+                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"> 
+                                      <?php echo $item->describe ; ?>
+                        </textarea>
                       
                     </div>
                 </div>
@@ -170,7 +172,7 @@
                       
                     </div>
                 </div>
-                  
+               
                 <div class="box">
                     <div class="box-header">
                       <h3 class="box-title">Dị ứng thành phần sản phẩm
@@ -190,9 +192,11 @@
                     <!-- /.box-header -->
                     <div class="box-body pad">
                       
-                        <textarea class="textarea" name="warning" placeholder="Viết mô tả thông tin sản phẩm"
-                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
-                                   <?php echo $item->warning ; ?>
+                        <textarea id="warning" class="textarea" name="warning" placeholder="Viết mô tả thông tin sản phẩm"
+                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+                             <?php echo $item->warning ; ?>   
+                        </textarea>
+                                  
                     </div>
                 </div>
                 
@@ -274,6 +278,10 @@
     // instance, using default configuration.
     //bootstrap WYSIHTML5 - text editor
     $('.textarea').wysihtml5()
+    
+    
+    //$("#warning").data("wysihtml5").editor.setValue('new content')
+   
    
     //Datemask dd/mm/yyyy
     $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })

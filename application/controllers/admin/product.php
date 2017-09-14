@@ -155,8 +155,9 @@ class Product extends MY_Controller {
         }
       
         $product = $this->product_model->get_one($id);
-
-        if (count ( (array)$data['item']) != 0 ) {
+        
+       
+        if (count ( (array)$product) == 0 ) {
             redirect('admin/product/index');
         }
        
@@ -235,8 +236,8 @@ class Product extends MY_Controller {
         $category = $this->productcategory_model->get_all();
         $data['marken'] = $marken;
         $data['category'] = $category;
-        $data['product'] = $product;
-        $this->load->view('admin/product/add', $data);
+        $data['item'] = $product;
+        $this->load->view('admin/product/edit', $data);
         $this->_loadAdminFooter();
     }
     
