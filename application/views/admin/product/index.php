@@ -1,31 +1,54 @@
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-
     <section class="content">
       <!-- /.row -->
       <div class="row">
-        <div class="col-xs-12">
-            <div class="box">
-                <div class="col-xs-3">
-                    <button style="width: 150px" id="add_new" type="button" class="btn btn-block btn-primary">Thêm mới</button>  
-                </div>
+        <form action="<?php echo site_url('admin/product/index');?>" method = "post">
+            <div class="col-xs-12">
+                    <div class="col-xs-3">
+                        <button style="width: 150px" id="add_new" type="button" class="btn btn-block btn-primary">Thêm mới</button>  
+                    </div>
+                    
+                    <div class="col-xs-3">
+                        <label>Loại sản phẩm</label> 
+                        <select class="form-control">
+                            <option>Mustard</option>
+                            <option>Ketchup</option>
+                            <option>Relish</option>
+                            <option>Plain</option>
+                            <option>Steamed</option>
+                            <option>Toasted</option>
+                        </select>
+                    </div>
+                    <div class="col-xs-3">
+                        <label>Nhãn hiệu</label> 
+                        <select class="form-control">
+                          <option>Mustard</option>
+                          <option>Ketchup</option>
+                          <option>Relish</option>
+
+                          <option>Plain</option>
+                          <option>Steamed</option>
+                          <option>Toasted</option>
+                      </select>
+                    </div>
+                    <div class="col-xs-3">
+                        <label>Tên sản phẩm</label> 
+                        <div class="input-group">
+                            <input type="text" name="search" value="<?php echo $search; ?>" class="form-control pull-right" placeholder="Search">
+                            <div class="input-group-btn">
+                            <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                          </div>
+                        </div>
+                    </div>
             </div>
-        </div>
+        </form>
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
               <h3 class="box-title">Danh mục sản phẩm</h3>
               <div class="box-tools">
-                  
-                <form action="<?php echo site_url('admin/product/index');?>" method = "post">
-                    <div class="input-group input-group-sm" style="width: 150px;">
-                        <input type="text" name="search" value="<?php echo $search; ?>" class="form-control pull-right" placeholder="Search">
-                      <div class="input-group-btn">
-                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                      </div>
-                    </div>
-                </form>
               </div>
              
             </div>
