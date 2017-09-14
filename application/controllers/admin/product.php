@@ -26,11 +26,15 @@ class Product extends MY_Controller {
         
         $this->_loadAdminHeader();
         
+        $search = '';
+        if ($_POST) {
+            $search = $_POST['search'];
+        }
         $data = array();
         $limit = 10;
         $config = array();
         $config["base_url"] = base_url() . "admin/product/index";
-        $total_row = $this->product_model->count_all_results();
+        $total_row = $this->product_model->count_all_results( $search);
         $config["total_rows"] = $total_row;
         $config["per_page"] = $limit;
         $config['use_page_numbers'] = TRUE;
@@ -55,12 +59,12 @@ class Product extends MY_Controller {
         
         $this->pagination->initialize($config);
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-        $data["results"] = $this->product_model->get_all($config["per_page"], $page);
+        $data["results"] = $this->product_model->get_all( $search, $config["per_page"], $page);
         
         $data["links"] = $this->pagination->create_links();
 
         // View data according to array.
-        
+        $data['search'] = $search;
         $this->load->view('admin/product/index', $data);
         $this->_loadAdminFooter();
     }

@@ -19,7 +19,10 @@ class Product_model extends CI_Model {
         parent::__construct();
     }
     
-    public function get_all($limit = 10, $offset = 0) {
+    public function get_all($search = '', $limit = 10, $offset = 0) {
+        if ($search != '') {
+            $this->db->like('name', $search);
+        }
         return  $this->db->get( $this->table, $limit, $offset)->result();
     }
     
@@ -29,8 +32,11 @@ class Product_model extends CI_Model {
         return !empty($data) ? $data[0] : array();
     }
     
-    public function count_all_results($limit = 10, $offset = 0) {
+    public function count_all_results($search = '', $limit = 10, $offset = 0) {
         $this->db->from( $this->table);
+        if ($search != '') {
+            $this->db->like('name', $search);
+        }
         $this->db->limit($limit, $offset);
         return $this->db->count_all_results();
     }

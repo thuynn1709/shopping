@@ -17,13 +17,15 @@
             <div class="box-header">
               <h3 class="box-title">Danh mục sản phẩm</h3>
               <div class="box-tools">
-                <div class="input-group input-group-sm" style="width: 150px;">
-                  <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
-                  <div class="input-group-btn">
-                    <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
-                  </div>
-                </div>
-                 
+                  
+                <form action="<?php echo site_url('admin/product/index');?>" method = "post">
+                    <div class="input-group input-group-sm" style="width: 150px;">
+                        <input type="text" name="search" value="<?php echo $search; ?>" class="form-control pull-right" placeholder="Search">
+                      <div class="input-group-btn">
+                        <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
+                      </div>
+                    </div>
+                </form>
               </div>
              
             </div>
