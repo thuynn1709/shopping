@@ -98,7 +98,6 @@ class Product extends MY_Controller {
             $expired = $_POST['expired'];
             $element = $_POST['element'];
             $guide = $_POST['guide'];
-            $warning = $_POST['warning'];
             $price = $_POST['price'];
             $discount = $_POST['discount'];
             $color = $_POST['color'];
@@ -120,7 +119,6 @@ class Product extends MY_Controller {
                         'expired' => $expired,
                         'element' => $element,
                         'guide' => $guide,
-                        'warning' => $warning,
                         'price' => $price,
                         'discount' => $discount,
                         'color' => $color,
@@ -162,6 +160,7 @@ class Product extends MY_Controller {
         }
        
         if (isset($_POST['name'])){  
+            
             $this->load->library('upload');
             $imageInfo = array();
             $files = $_FILES;
@@ -190,10 +189,13 @@ class Product extends MY_Controller {
             $img_2 = $imageInfo[3]['file_name'] != '' ? $imageInfo[3]['file_name'] : $product->img_2;
             $img_3 = $imageInfo[4]['file_name'] != '' ? $imageInfo[4]['file_name'] : $product->img_3;
             $describe = $_POST['describe'];
+            
             $expired = $_POST['expired'];
+            $expired = $expired.' 00:00:00';
+            $expired = date('Y-m-d H:i:s', strtotime($expired));
+            
             $element = $_POST['element'];
             $guide = $_POST['guide'];
-            $warning = $_POST['warning'];
             $price = $_POST['price'];
             $discount = $_POST['discount'];
             $color = $_POST['color'];
@@ -214,7 +216,6 @@ class Product extends MY_Controller {
                         'expired' => $expired,
                         'element' => $element,
                         'guide' => $guide,
-                        'warning' => $warning,
                         'price' => $price,
                         'discount' => $discount,
                         'color' => $color,
@@ -250,7 +251,6 @@ class Product extends MY_Controller {
         
         $product = $this->product_model->get_one($id);
         
-        var_dump($product);die;
         unlink(base_url("public/images/products/".$product->img_thumb));
         unlink(base_url("public/images/products/".$product->img));
         unlink(base_url("public/images/products/".$product->img_1));

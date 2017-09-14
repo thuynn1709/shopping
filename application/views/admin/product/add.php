@@ -172,7 +172,7 @@
                   
                 <div class="box">
                     <div class="box-header">
-                      <h3 class="box-title">Dị ứng thành phần sản phẩm
+                      <h3 class="box-title">Hướng dẫn sử dụng
                         <small>Simple and fast</small>
                       </h3>
                       <!-- tools box -->
@@ -189,8 +189,10 @@
                     <!-- /.box-header -->
                     <div class="box-body pad">
                       
-                        <textarea class="textarea" name="warning" placeholder="Viết mô tả thông tin sản phẩm"
-                                  style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;"></textarea>
+                        <textarea class="textarea" name="guide" placeholder="Viết mô tả thông tin sản phẩm"
+                            style="width: 100%; height: 200px; font-size: 14px; line-height: 18px; border: 1px solid #dddddd; padding: 10px;">
+                                      
+                        </textarea>
                       
                     </div>
                 </div>
