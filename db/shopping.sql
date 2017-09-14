@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : nothing
+Source Server         : ngocthuy
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : shopping
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-13 12:00:06
+Date: 2017-09-13 23:35:14
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -83,9 +83,8 @@ DROP TABLE IF EXISTS `import`;
 CREATE TABLE `import` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) DEFAULT NULL,
-  `product_id` int(11) DEFAULT NULL,
   `author` varchar(30) DEFAULT NULL,
-  `summer` int(11) DEFAULT NULL,
+  `summe` int(11) DEFAULT NULL,
   `price` float DEFAULT NULL,
   `versand` float DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -183,15 +182,42 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
-  `product_id` int(11) DEFAULT NULL,
+  `name` varchar(50) DEFAULT NULL,
+  `addresse` varchar(300) DEFAULT NULL,
+  `phone` varchar(20) DEFAULT NULL,
+  `email` varchar(30) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
-  `status` tinyint(3) DEFAULT NULL,
+  `pricetotal` int(11) DEFAULT NULL,
+  `list_id` varchar(100) DEFAULT NULL COMMENT 'chuoi json',
+  `method` tinyint(3) DEFAULT NULL COMMENT '1-tien mat, 2 thanh toan chuyen khoan',
+  `pay_status` tinyint(3) DEFAULT NULL COMMENT '0-chua thanh toan, 1-da thanh toan',
+  `status` tinyint(3) DEFAULT NULL COMMENT '0- chua giao hang, 1-da giao hang',
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of orders
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for order_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `order_detail`;
+CREATE TABLE `order_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `price` int(11) DEFAULT NULL,
+  `status` tinyint(5) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of order_detail
 -- ----------------------------
 
 -- ----------------------------
@@ -215,6 +241,7 @@ CREATE TABLE `products` (
   `element` varchar(500) DEFAULT NULL COMMENT 'thanh phan san pham',
   `guide` varchar(400) DEFAULT NULL,
   `warning` varchar(300) DEFAULT NULL,
+  `import_price` varchar(15) DEFAULT NULL,
   `price` varchar(15) DEFAULT NULL,
   `discount` varchar(10) DEFAULT NULL,
   `color` varchar(20) DEFAULT NULL,
@@ -259,9 +286,11 @@ CREATE TABLE `sales` (
   `id` int(11) unsigned NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
+  `order_id` int(11) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `discount` varchar(20) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
+  `type` tinyint(3) DEFAULT NULL COMMENT '0-qua tang, 1- ban hang cho khach',
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
