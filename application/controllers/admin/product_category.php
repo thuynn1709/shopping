@@ -73,15 +73,15 @@ class Product_category extends MY_Controller {
         if (isset($_POST['name'])){
             
             $name = $_POST['name'];
-            $alias =  str_replace(' ', '-', trim($name));
+            $alias = sanitizeTitle($name);
             $priority = $_POST['priority'];
             $status = $_POST['status'];
             $menu_id = $_POST['menu_id'];
             
             $data = array('name'=> $name,
                           'priority'=>$priority,
-                          'alias'=>$alias,
-                          'status'=>$status,
+                          'alias'=> $alias,
+                          'status'=> $status,
                           'menu_id' => $menu_id,
                           'created' => date ("Y-m-d H:i:s")
                     );
@@ -107,24 +107,25 @@ class Product_category extends MY_Controller {
         }
         
       
-        $data['item'] = $this->menu_model->get_one($id);
-        if (!$data['item']) {
+        $data['item'] = $this->productcategory_model->get_one($id);
+        if ( !$data['item']) {
             redirect('admin/product_category/index');
         }
-       
         if (isset($_POST['name'])){
             $name = $_POST['name'];
-            $alias =  str_replace(' ', '-', $name);
+            $alias = sanitizeTitle($name);
             $priority = $_POST['priority'];
             $status = $_POST['status'];
+            $menu_id = $_POST['menu_id'];
             
             $data = array('name'=> $name,
-                          'priority'=>$priority,
                           'alias'=>$alias,
                           'status'=>$status,
+                          'priority'=>$priority,
+                          'menu_id'=> $menu_id,
                           'created' => date ("Y-m-d H:i:s")
                     );
-            if ($this->menu_model->update($id, $data)) {
+            if ($this->productcategory_model->update($id, $data)) {
                 redirect('admin/product_category/index');
             } 
         }
@@ -132,7 +133,7 @@ class Product_category extends MY_Controller {
         $menu = array();
         $menu = $this->menu_model->get_all();
         $data['menu'] = $menu;
-        
+       
         $this->load->view('admin/product_category/edit', $data);
         $this->_loadAdminFooter();
     }

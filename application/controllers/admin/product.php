@@ -89,7 +89,7 @@ class Product extends MY_Controller {
             }
             
             $name = $_POST['name'];
-            $alias =  str_replace(' ', '-', trim($name));
+            $alias = sanitizeTitle($name);
             $category = $_POST['category'];
             $marken = $_POST['marken'];
             $amount = $_POST['amount'];
@@ -183,7 +183,7 @@ class Product extends MY_Controller {
             }
             
             $name = $_POST['name'];
-            $alias =  str_replace(' ', '-', trim($name));
+            $alias = sanitizeTitle($name);
             $category = $_POST['category'];
             $marken = $_POST['marken'];
             $amount = $_POST['amount'];

@@ -24,7 +24,7 @@ class Menu extends MY_Controller {
         $this->_loadAdminHeader();
         
         $data = array();
-        $limit = 2;
+        $limit = 10;
         $config = array();
         $config["base_url"] = base_url() . "admin/menu/index";
         $total_row = $this->menu_model->count_all_results();
@@ -64,10 +64,10 @@ class Menu extends MY_Controller {
     
     public function add(){
         $this->_loadAdminHeader();
+        
         if (isset($_POST['name'])){
-            
             $name = $_POST['name'];
-            $alias =  str_replace(' ', '-', trim($name));
+            $alias = sanitizeTitle($name);
             $priority = $_POST['priority'];
             $status = $_POST['status'];
             
@@ -82,7 +82,6 @@ class Menu extends MY_Controller {
             } else{ 
                 redirect('admin/menu/add');
             }
-            
         }
         $this->load->view('admin/menu/add');
         $this->_loadAdminFooter();
@@ -96,7 +95,6 @@ class Menu extends MY_Controller {
             show_404();
         }
         
-      
         $data['item'] = $this->menu_model->get_one($id);
         if (!$data['item']) {
             redirect('admin/menu/index');
@@ -104,14 +102,14 @@ class Menu extends MY_Controller {
        
         if (isset($_POST['name'])){
             $name = $_POST['name'];
-            $alias =  str_replace(' ', '-', $name);
+            $alias = sanitizeTitle($name);
             $priority = $_POST['priority'];
             $status = $_POST['status'];
             
             $data = array('name'=> $name,
-                          'priority'=>$priority,
-                          'alias'=>$alias,
-                          'status'=>$status,
+                          'priority'=> $priority,
+                          'alias'=> $alias,
+                          'status'=> $status,
                           'created' => date ("Y-m-d H:i:s")
                     );
             if ($this->menu_model->update($id, $data)) {

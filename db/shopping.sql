@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-13 23:35:14
+Date: 2017-09-15 09:12:58
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -83,9 +83,9 @@ DROP TABLE IF EXISTS `import`;
 CREATE TABLE `import` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) DEFAULT NULL,
-  `author` varchar(30) DEFAULT NULL,
-  `summe` int(11) DEFAULT NULL,
-  `price` float DEFAULT NULL,
+  `describe` varchar(255) DEFAULT NULL,
+  `weight` int(11) DEFAULT NULL,
+  `total` float DEFAULT NULL,
   `versand` float DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -105,7 +105,7 @@ CREATE TABLE `marken` (
   `country` varchar(30) DEFAULT NULL,
   `addresse` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of marken
@@ -113,8 +113,13 @@ CREATE TABLE `marken` (
 INSERT INTO `marken` VALUES ('1', 'Manhattan', 'Đức', 'Đức');
 INSERT INTO `marken` VALUES ('2', 'Catrice', 'Đức', 'Đức');
 INSERT INTO `marken` VALUES ('3', 'Humana', 'Đức', 'Đức');
-INSERT INTO `marken` VALUES ('4', 'Das Gesunde Plus', 'Đức', 'Đức');
+INSERT INTO `marken` VALUES ('4', 'Sundance', 'Đức', 'Đức');
 INSERT INTO `marken` VALUES ('5', 'Maybelline', 'Đức', 'Đức');
+INSERT INTO `marken` VALUES ('6', 'Garnier', 'Đức', 'Đức');
+INSERT INTO `marken` VALUES ('7', 'Schaebens', 'Đức', 'Đức');
+INSERT INTO `marken` VALUES ('8', 'Ebelin', 'Đức', 'Đức');
+INSERT INTO `marken` VALUES ('9', 'Balea', 'Đức', 'Đức');
+INSERT INTO `marken` VALUES ('10', 'Perlodent', 'Đức', 'Đức');
 
 -- ----------------------------
 -- Table structure for menu
@@ -128,13 +133,16 @@ CREATE TABLE `menu` (
   `priority` tinyint(3) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', 'fdafaf fdafadf ', 'fdafaf-fdafadf-', '1', '3', '2017-09-11 21:49:30');
-INSERT INTO `menu` VALUES ('2', 'ttttt', 'ttttt', '1', '1', '2017-09-11 22:13:11');
+INSERT INTO `menu` VALUES ('1', 'Trang chủ      ', 'trang-chu', '1', '1', '2017-09-14 23:33:23');
+INSERT INTO `menu` VALUES ('2', 'Đồ cho bé ', 'do-cho-be', '1', '2', '2017-09-14 23:33:15');
+INSERT INTO `menu` VALUES ('3', 'Mỹ phẩm ', 'my-pham', '1', '3', '2017-09-14 23:33:35');
+INSERT INTO `menu` VALUES ('6', 'Mua hàng & Thanh toán', 'mua-hang-&-thanh-toan', '1', '4', '2017-09-14 23:34:51');
+INSERT INTO `menu` VALUES ('7', 'Liên hệ', 'lien-he', '1', '5', '2017-09-14 23:38:28');
 
 -- ----------------------------
 -- Table structure for news
@@ -226,7 +234,7 @@ CREATE TABLE `order_detail` (
 DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
-  `name` varchar(100) DEFAULT NULL,
+  `name` varchar(200) DEFAULT NULL,
   `alilas` varchar(100) DEFAULT NULL,
   `category_id` tinyint(5) DEFAULT NULL,
   `marken_id` tinyint(5) DEFAULT NULL,
@@ -240,7 +248,6 @@ CREATE TABLE `products` (
   `expired` datetime DEFAULT NULL,
   `element` varchar(500) DEFAULT NULL COMMENT 'thanh phan san pham',
   `guide` varchar(400) DEFAULT NULL,
-  `warning` varchar(300) DEFAULT NULL,
   `import_price` varchar(15) DEFAULT NULL,
   `price` varchar(15) DEFAULT NULL,
   `discount` varchar(10) DEFAULT NULL,
@@ -273,10 +280,10 @@ CREATE TABLE `products_category` (
 -- ----------------------------
 -- Records of products_category
 -- ----------------------------
-INSERT INTO `products_category` VALUES ('1', 'fdafa', null, '1', '1', null, '2017-09-01 23:03:02');
-INSERT INTO `products_category` VALUES ('2', 'fafadf', null, '1', '3', null, '2017-09-01 23:03:02');
-INSERT INTO `products_category` VALUES ('3', 'fdaf', null, '0', '1', null, '2017-09-01 23:03:02');
-INSERT INTO `products_category` VALUES ('4', 'dfdafdaf', null, '0', '1', null, '2017-09-01 23:03:02');
+INSERT INTO `products_category` VALUES ('1', 'fdafa', null, '1', '1', '1', '2017-09-01 23:03:02');
+INSERT INTO `products_category` VALUES ('2', 'fafadf', null, '1', '3', '1', '2017-09-01 23:03:02');
+INSERT INTO `products_category` VALUES ('3', 'fdaf', null, '0', '1', '2', '2017-09-01 23:03:02');
+INSERT INTO `products_category` VALUES ('4', 'dfdafdaf', null, '0', '1', '2', '2017-09-01 23:03:02');
 
 -- ----------------------------
 -- Table structure for sales

@@ -25,8 +25,7 @@ class Productcategory_model extends CI_Model {
     
     public function get_one( $id) {
         $this->db->where('id', $id);
-        $data =  $this->db->get( $this->table)->result();
-        return !empty($data) ? $data[0] : array();
+        return   $this->db->get( $this->table)->row();
     }
     
     public function count_all_results($limit = 10, $offset = 0) {

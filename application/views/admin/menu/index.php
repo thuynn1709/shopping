@@ -8,7 +8,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="col-xs-3">
-                    <button style="width: 150px" type="button" class="btn btn-block btn-primary">Thêm mới</button>  
+                    <button style="width: 150px" type="button" id="add_new" class="btn btn-block btn-primary">Thêm mới</button>  
                 </div>
             </div>
         </div>
@@ -59,8 +59,8 @@
                       <?php } ?> 
                       <td>
                         <div class="btn-group">
-                            <button type="button" ref="<?php echo base_url('admin/menu/edit/'). $rs->id ; ?>" id="edit" class="btn btn-info">Sửa</button>
-                            <button type="button" ref="<?php echo base_url('admin/menu/delete/'). $rs->id ; ?>" id="delete" class="btn btn-warning">Xóa</button>
+                            <button type="button" ref="<?php echo base_url('admin/menu/edit/'). $rs->id ; ?>" class="btn btn-info">Sửa</button>
+                            <button type="button" ref="<?php echo base_url('admin/menu/delete/'). $rs->id ; ?>" class="btn btn-warning">Xóa</button>
                         </div>  
                         
                       </td>
@@ -90,17 +90,17 @@
     $( document ).ready(function() {
         console.log( "ready!" );
         $('#add_new').click(function() {
-            window.location.href = '<?php echo base_url(); ?>product_category/add';
+            window.location.href = '<?php echo base_url(); ?>admin/menu/add';
             return false;
         });
         
-        $('#edit').click(function() {      
+        $('.btn-info').click(function() {      
             var url = $(this).attr('ref');          
             window.location.href = url;
             return false;
         });
         
-        $('#delete').click(function() {
+        $('.btn-warning').click(function() {
             var r = confirm("Chắc chắn xóa !");
             if (r == true) {
                 

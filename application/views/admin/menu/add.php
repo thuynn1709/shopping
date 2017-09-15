@@ -19,27 +19,25 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-<<<<<<< HEAD
-      
-            <?php echo form_open('admin/menu/add/', "class='form-horizontal'"); ?>
 
-=======
+      
             <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/menu/add') ; ?>">
->>>>>>> 3df901577c8838e608242a501222930c225df057
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Tên menu</label>
                   <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter menu">
                 </div>
                 <div class="form-group">
-                  <label>Ưu tiên</label>
-                  <select name="priority" class="form-control">
-                    <option value="1"> 1</option>
-                    <option value="2"> 2</option>
-                    <option value="3"> 3</option>
-                    <option value="4"> 4</option>
-                    <option value="5"> 5</option>
-                  </select>
+                    <label>Ưu tiên</label>
+                    <select name="priority" class="form-control">
+                        <?php 
+                        for ( $i = 1; $i <= 10; $i++) {                  
+                        ?>
+                               <option value="<?php echo $i; ?>"> <?php echo $i; ?></option>
+                        <?php 
+                        }                        
+                        ?>
+                    </select>
                 </div>
                   
                   <div class="form-group">
@@ -55,6 +53,7 @@
 
               <div class="box-footer">
                 <button type="submit" class="btn btn-primary">Submit</button>
+                <button type="submit" id="cancel" class="btn btn-warning">Cancel</button>
               </div>
             </form>
           </div>
@@ -68,3 +67,15 @@
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
+  
+  <script type="text/javascript">
+    $( document ).ready(function() {
+        $('#cancel').click(function() {
+            window.location.href = '<?php echo base_url(); ?>admin/product_category/index';
+            return false;
+        });
+    });
+    
+
+</script>
+
