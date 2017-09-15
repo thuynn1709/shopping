@@ -20,14 +20,12 @@ class Import extends MY_Controller {
     }
     
     public function index(){
-        
         $this->_loadAdminHeader();
-        
         $data = array();
-        $limit = 2;
+        $limit = 10;
         $config = array();
         $config["base_url"] = base_url() . "admin/import/index";
-        $total_row = $this->menu_model->count_all_results();
+        $total_row = $this->import_model->count_all_results();
         $config["total_rows"] = $total_row;
         $config["per_page"] = $limit;
         $config['use_page_numbers'] = TRUE;
@@ -65,16 +63,19 @@ class Import extends MY_Controller {
     public function add(){
         $this->_loadAdminHeader();
         if (isset($_POST['name'])){
-            
             $name = $_POST['name'];
-            $alias =  str_replace(' ', '-', trim($name));
-            $priority = $_POST['priority'];
-            $status = $_POST['status'];
+            $weight = $_POST['weight'];
+            $product_qty = $_POST['product_qty'];
+            $product_total_price = $_POST['product_total_price'];
+            $versand_in_de = $_POST['versand_in_de'];
+            $versand_to_vn = $_POST['versand_to_vn'];
             
             $data = array('name'=> $name,
-                          'priority'=>$priority,
-                            'alias'=>$alias,
-                          'status'=>$status,
+                          'weight'=> floatval(str_replace(',', '.', $weight)),
+                          'product_qty'=> floatval(str_replace(',', '.', $product_qty)),
+                          'product_total_price'=> floatval(str_replace(',', '.', $product_total_price)),
+                          'versand_in_de'=> floatval(str_replace(',', '.', $versand_in_de)),
+                          'versand_to_vn'=> floatval(str_replace(',', '.', $versand_to_vn)),
                           'created' => date ("Y-m-d H:i:s")
                     );
             if ($this->import_model->insert($data)) {
@@ -82,7 +83,6 @@ class Import extends MY_Controller {
             } else{ 
                 redirect('admin/import/add');
             }
-            
         }
         $this->load->view('admin/import/add');
         $this->_loadAdminFooter();
@@ -95,8 +95,6 @@ class Import extends MY_Controller {
         {
             show_404();
         }
-        
-      
         $data['item'] = $this->import_model->get_one($id);
         if (!$data['item']) {
             redirect('admin/import/index');
@@ -104,19 +102,25 @@ class Import extends MY_Controller {
        
         if (isset($_POST['name'])){
             $name = $_POST['name'];
-            $alias =  str_replace(' ', '-', $name);
-            $priority = $_POST['priority'];
-            $status = $_POST['status'];
+            $weight = $_POST['weight'];
+            $product_qty = $_POST['product_qty'];
+            $product_total_price = $_POST['product_total_price'];
+            $versand_in_de =$_POST['versand_in_de'];
+            $versand_to_vn = $_POST['versand_to_vn'];
             
             $data = array('name'=> $name,
-                          'priority'=>$priority,
-                          'alias'=>$alias,
-                          'status'=>$status,
+                          'weight'=> floatval(str_replace(',', '.', $weight)),
+                          'product_qty'=> floatval(str_replace(',', '.', $product_qty)),
+                          'product_total_price'=> floatval(str_replace(',', '.', $product_total_price)),
+                          'versand_in_de'=> floatval(str_replace(',', '.', $versand_in_de)),
+                          'versand_to_vn'=> floatval(str_replace(',', '.', $versand_to_vn)),
                           'created' => date ("Y-m-d H:i:s")
                     );
             if ($this->import_model->update($id, $data)) {
                 redirect('admin/import/index');
-            } 
+            } else{ 
+                redirect('admin/import/add');
+            }
         }
         $this->load->view('admin/import/edit', $data);
         $this->_loadAdminFooter();

@@ -8,7 +8,7 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="col-xs-3">
-                    <button style="width: 150px" type="button" class="btn btn-block btn-primary">Thêm mới</button>  
+                    <button style="width: 150px" type="button" id="add_new" class="btn btn-block btn-primary">Thêm mới</button>  
                 </div>
             </div>
         </div>
@@ -33,17 +33,18 @@
                 <tr>
                   <th>ID</th>
                   <th>Tên người nhập</th>
-                  <th>Trọng lượng</th>
+                  <th>Trọng lượng (Kg)</th>
                   <th>Số lượng sản phẩm</th>
-                  <th>Tổng tiền đơn hàng</th>
-                  <th>Tiền ship tại Đức</th>
-                  <th>Tiền ship về VN</th>
+                  <th>Tổng tiền đơn hàng (€)</th>
+                  <th>Tiền ship tại Đức (€)</th>
+                  <th>Tiền ship về VN (€)</th>
+                  <th>Thời gian</th>
+                  <th>#</th>
                 </tr>
                 
                 <?php 
                     if (!empty($results)) {
                         $stt = 1;
-                      
                         foreach ($results as $rs) {
                     ?> 
                     <tr>
@@ -54,6 +55,7 @@
                       <td><?php echo $rs->product_total_price; ?></td>
                       <td><?php echo $rs->versand_in_de; ?></td>
                       <td><?php echo $rs->versand_to_vn; ?></td>
+                      <td><?php echo $rs->created; ?></td>
                       <td>
                         <div class="btn-group">
                             <button type="button" ref="<?php echo base_url('admin/import/edit/'). $rs->id ; ?>" id="edit" class="btn btn-info">Sửa</button>
@@ -91,13 +93,13 @@
             return false;
         });
         
-        $('#edit').click(function() {      
+        $('.btn-info').click(function() {      
             var url = $(this).attr('ref');          
             window.location.href = url;
             return false;
         });
         
-        $('#delete').click(function() {
+        $('.btn-warning').click(function() {
             var r = confirm("Chắc chắn xóa !");
             if (r == true) {
                 
