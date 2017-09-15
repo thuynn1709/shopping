@@ -25,7 +25,7 @@
       <!-- /.search form -->
       <!-- sidebar menu: : style can be found in sidebar.less -->
       <ul class="sidebar-menu" data-widget="tree">
-        <li class="header">MAIN NAVIGATION</li>
+        <li class="header">Mục quản lý</li>
         <li class="treeview">
           <a href="#">
             <i class="fa fa-dashboard"></i> <span>Dashboard</span>
@@ -40,7 +40,7 @@
         </li>
         
         <li>
-          <a href="<?php echo base_url('admin/meun/index') ; ?>">
+          <a href="<?php echo base_url('admin/menu/index') ; ?>">
             <i class="fa fa-files-o"></i> <span>Quản lý menu</span>
             <span class="pull-right-container">
               <small class="label pull-right bg-green"></small>

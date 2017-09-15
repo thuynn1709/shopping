@@ -19,7 +19,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/menu/edit/'). $item->id ; ?>">
+            <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/product_category/edit/'). $item->id ; ?>">
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Tên menu</label>
