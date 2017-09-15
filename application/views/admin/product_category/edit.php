@@ -28,7 +28,7 @@
                   
                 <div class="form-group">
                   <label>Ưu tiên</label>
-                  <select name="menu" class="form-control">
+                  <select name="menu_id" class="form-control">
                     <?php 
                      if (!empty($menu)){
                         foreach ($menu as $mn) {                  

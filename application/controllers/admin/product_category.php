@@ -25,7 +25,7 @@ class Product_category extends MY_Controller {
         $this->_loadAdminHeader();
         
         $data = array();
-        $limit = 2;
+        $limit = 10;
         $config = array();
         $config["base_url"] = base_url() . "admin/product_category/index";
         $total_row = $this->productcategory_model->count_all_results();
@@ -85,7 +85,7 @@ class Product_category extends MY_Controller {
                           'menu_id' => $menu_id,
                           'created' => date ("Y-m-d H:i:s")
                     );
-            if ($this->product_category->insert($data)) {
+            if ($this->productcategory_model->insert($data)) {
                 redirect('admin/product_category/index');
             } else{ 
                 redirect('admin/product_category/add');
@@ -105,9 +105,8 @@ class Product_category extends MY_Controller {
         {
             show_404();
         }
-        
-      
         $data['item'] = $this->productcategory_model->get_one($id);
+        
         if ( !$data['item']) {
             redirect('admin/product_category/index');
         }
@@ -147,7 +146,7 @@ class Product_category extends MY_Controller {
             show_404();
         }
 
-        $this->menu_model->del_one($id);        
+        $this->productcategory_model->del_one($id);        
         redirect('admin/product_category/index');  
     }
 }

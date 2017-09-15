@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : nothing
+Source Server         : ngocthuy
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : shopping
@@ -10,11 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-<<<<<<< HEAD
-Date: 2017-09-15 15:15:28
-=======
-Date: 2017-09-15 09:12:58
->>>>>>> f55b2680ba4b47ce0689c21a48c4ab04f4359554
+Date: 2017-09-16 01:03:35
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -87,25 +83,19 @@ DROP TABLE IF EXISTS `import`;
 CREATE TABLE `import` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) DEFAULT NULL,
-<<<<<<< HEAD
   `weight` int(11) DEFAULT NULL,
   `product_qty` int(11) DEFAULT NULL,
   `product_total_price` float DEFAULT NULL,
   `versand_in_de` float DEFAULT NULL,
   `versand_to_vn` varchar(200) DEFAULT NULL,
-=======
-  `describe` varchar(255) DEFAULT NULL,
-  `weight` int(11) DEFAULT NULL,
-  `total` float DEFAULT NULL,
-  `versand` float DEFAULT NULL,
->>>>>>> f55b2680ba4b47ce0689c21a48c4ab04f4359554
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of import
 -- ----------------------------
+INSERT INTO `import` VALUES ('1', 'Ngoc Thuy', '1', '20', '423.3', '0', '200', '2017-09-15 22:04:37');
 
 -- ----------------------------
 -- Table structure for import_detail
@@ -113,8 +103,8 @@ CREATE TABLE `import` (
 DROP TABLE IF EXISTS `import_detail`;
 CREATE TABLE `import_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
   `product_id` int(11) DEFAULT NULL,
+  `import_id` int(11) DEFAULT NULL,
   `price` float(11,0) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -164,16 +154,16 @@ CREATE TABLE `menu` (
   `priority` tinyint(3) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
 -- ----------------------------
-INSERT INTO `menu` VALUES ('1', 'Trang chủ      ', 'trang-chu', '1', '1', '2017-09-14 23:33:23');
-INSERT INTO `menu` VALUES ('2', 'Đồ cho bé ', 'do-cho-be', '1', '2', '2017-09-14 23:33:15');
 INSERT INTO `menu` VALUES ('3', 'Mỹ phẩm ', 'my-pham', '1', '3', '2017-09-14 23:33:35');
 INSERT INTO `menu` VALUES ('6', 'Mua hàng & Thanh toán', 'mua-hang-&-thanh-toan', '1', '4', '2017-09-14 23:34:51');
 INSERT INTO `menu` VALUES ('7', 'Liên hệ', 'lien-he', '1', '5', '2017-09-14 23:38:28');
+INSERT INTO `menu` VALUES ('8', 'Trang chủ', 'trang-chu', '1', '1', '2017-09-15 21:24:36');
+INSERT INTO `menu` VALUES ('9', 'Đồ cho bé', 'do-cho-be', '1', '2', '2017-09-15 21:24:59');
 
 -- ----------------------------
 -- Table structure for news
@@ -287,11 +277,13 @@ CREATE TABLE `products` (
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of products
 -- ----------------------------
+INSERT INTO `products` VALUES ('1', '1', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `products` VALUES ('2', '2', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
 
 -- ----------------------------
 -- Table structure for products_category
@@ -306,15 +298,18 @@ CREATE TABLE `products_category` (
   `menu_id` tinyint(3) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of products_category
 -- ----------------------------
-INSERT INTO `products_category` VALUES ('1', 'fdafa', null, '1', '1', '1', '2017-09-01 23:03:02');
-INSERT INTO `products_category` VALUES ('2', 'fafadf', null, '1', '3', '1', '2017-09-01 23:03:02');
-INSERT INTO `products_category` VALUES ('3', 'fdaf', null, '0', '1', '2', '2017-09-01 23:03:02');
-INSERT INTO `products_category` VALUES ('4', 'dfdafdaf', null, '0', '1', '2', '2017-09-01 23:03:02');
+INSERT INTO `products_category` VALUES ('5', 'Mặt nạ', 'mat-na', '1', '1', '3', '2017-09-15 21:28:51');
+INSERT INTO `products_category` VALUES ('6', 'Son môi', 'son-moi', '1', '2', '3', '2017-09-15 21:29:53');
+INSERT INTO `products_category` VALUES ('7', 'Make Up', 'make-up', '1', '3', '3', '2017-09-15 21:30:06');
+INSERT INTO `products_category` VALUES ('8', 'Chăm sóc & Làm sạch da', 'cham-soc-&-lam-sach-da', '1', '4', '3', '2017-09-15 21:31:15');
+INSERT INTO `products_category` VALUES ('9', 'Sữa', 'sua', '1', '1', '9', '2017-09-15 21:31:55');
+INSERT INTO `products_category` VALUES ('14', 'Kem & Bàn chải', 'kem-&-ban-chai', '1', '1', '9', '2017-09-15 21:36:48');
+INSERT INTO `products_category` VALUES ('15', 'Vệ sinh răng miệng', 've-sinh-rang-mieng', '1', '1', '3', '2017-09-15 21:36:56');
 
 -- ----------------------------
 -- Table structure for sales

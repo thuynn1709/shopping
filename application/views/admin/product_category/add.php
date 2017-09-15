@@ -19,7 +19,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/menu/add') ; ?>">
+            <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/product_category/add') ; ?>">
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Tên danh mục sản phẩm</label>
@@ -28,7 +28,7 @@
                   
                 <div class="form-group">
                   <label>Danh mục menu</label>
-                  <select name="menu" class="form-control">
+                  <select name="menu_id" class="form-control">
                      <?php 
                      if (!empty($menu)){
                         foreach ($menu as $mn) {                  

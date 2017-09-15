@@ -8,14 +8,14 @@
         <div class="col-xs-12">
             <div class="box">
                 <div class="col-xs-3">
-                    <button style="width: 150px" type="button" id="add_new" class="btn btn-block btn-primary">Thêm mới</button>  
+                    <button style="width: 150px" type="button" id="add_new" value="<?php echo $import_id ; ?>" class="btn btn-block btn-primary">Thêm mới</button>  
                 </div>
             </div>
         </div>
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Danh sách menu</h3>
+              <h3 class="box-title">Chi tiết nhập hàng ngày : <?php echo $import->created ; ?> / <?php echo $import->name ; ?> </h3>
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -30,12 +30,9 @@
               <table class="table table-hover">
                 <tr>
                   <th>ID</th>
-                  <th>Tên người nhập</th>
-                  <th>Trọng lượng (Kg)</th>
-                  <th>Số lượng sản phẩm</th>
-                  <th>Tổng tiền đơn hàng (€)</th>
-                  <th>Tiền ship tại Đức (€)</th>
-                  <th>Tiền ship về VN (€)</th>
+                  <th>Tên sản phẩm</th>
+                  <th>Giá (€)</th>
+                  <th>Số lượng</th>
                   <th>Thời gian</th>
                   <th>#</th>
                 </tr>
@@ -88,7 +85,8 @@
     $( document ).ready(function() {
         console.log( "ready!" );
         $('#add_new').click(function() {
-            window.location.href = '<?php echo base_url(); ?>admin/import/add';
+            var id = $(this).val();
+            window.location.href = '<?php echo base_url(); ?>admin/import_detail/add/'+ id ;
             return false;
         });
         

@@ -19,11 +19,6 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-<<<<<<< HEAD
-=======
-
-      
->>>>>>> f55b2680ba4b47ce0689c21a48c4ab04f4359554
             <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/menu/add') ; ?>">
               <div class="box-body">
                 <div class="form-group">

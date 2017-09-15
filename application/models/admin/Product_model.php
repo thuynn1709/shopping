@@ -19,26 +19,45 @@ class Product_model extends CI_Model {
         parent::__construct();
     }
     
-    public function get_all($search = '', $limit = 10, $offset = 0) {
+    public function get_all($search = '', $category_id = '', $limit = 10, $offset = 0) {
+        $this->db->select('*');
+        $this->db->from($this->table);
+        $this->db->join('products_category', 'products_category.id = products.category_id');
         if ($search != '') {
             $this->db->like('name', $search);
         }
-        return  $this->db->get( $this->table, $limit, $offset)->result();
+        if ($category_id !='') {
+            $this->db->where('category_id', $category_id);
+        }
+        $this->order_by('products.created');
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result();
     }
     
+    public function get_name_all_products() {
+        $this->db->select('name');
+        $this->db->from($this->table);
+        return $this->db->get()->result_array();
+    }
+
     public function get_one( $id) {
         $this->db->where('id', $id);
         $data =  $this->db->get( $this->table)->result();
         return !empty($data) ? $data[0] : array();
     }
     
-    public function count_all_results($search = '', $limit = 10, $offset = 0) {
-        $this->db->from( $this->table);
+    public function count_all_results($search = '', $category_id = '', $limit = 10, $offset = 0) {
+        $this->db->from($this->table);
+        $this->db->join('products_category', 'products_category.id = products.category_id');
         if ($search != '') {
             $this->db->like('name', $search);
         }
+        if ($category_id !='') {
+            $this->db->where('category_id', $category_id);
+        }
         $this->db->limit($limit, $offset);
         return $this->db->count_all_results();
+ 
     }
     
     public function del_one ($id){
@@ -60,7 +79,8 @@ class Product_model extends CI_Model {
             return true;
         }
         $this->db->insert( $this->table, $data);
-        return true;
+        $insert_id = $this->db->insert_id();
+        return $insert_id;
     }
     
     
