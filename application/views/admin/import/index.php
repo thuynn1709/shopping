@@ -23,9 +23,7 @@
                     <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                   </div>
                 </div>
-                 
               </div>
-             
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
