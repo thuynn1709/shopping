@@ -130,8 +130,6 @@ class Product extends MY_Controller {
                         'created' => $created,
                         'updated' => $updated
                     );
-            echo '<pre>';
-                    var_dump($data);
             if ($this->product_model->insert($data)) {
                 redirect('admin/product/index');
             } else{ 

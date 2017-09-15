@@ -19,13 +19,7 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-<<<<<<< HEAD
-      
-            <?php echo form_open('admin/menu/add/', "class='form-horizontal'"); ?>
-
-=======
             <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/menu/add') ; ?>">
->>>>>>> 3df901577c8838e608242a501222930c225df057
               <div class="box-body">
                 <div class="form-group">
                   <label for="exampleInputEmail1">Tên menu</label>

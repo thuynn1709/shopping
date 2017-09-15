@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : ngocthuy
+Source Server         : nothing
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : shopping
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-13 23:35:14
+Date: 2017-09-15 15:15:28
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -83,16 +83,36 @@ DROP TABLE IF EXISTS `import`;
 CREATE TABLE `import` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(40) DEFAULT NULL,
-  `author` varchar(30) DEFAULT NULL,
-  `summe` int(11) DEFAULT NULL,
-  `price` float DEFAULT NULL,
-  `versand` float DEFAULT NULL,
+  `weight` int(11) DEFAULT NULL,
+  `product_qty` int(11) DEFAULT NULL,
+  `product_total_price` float DEFAULT NULL,
+  `versand_in_de` float DEFAULT NULL,
+  `versand_to_vn` varchar(200) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of import
+-- ----------------------------
+
+-- ----------------------------
+-- Table structure for import_detail
+-- ----------------------------
+DROP TABLE IF EXISTS `import_detail`;
+CREATE TABLE `import_detail` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `price` float(11,0) DEFAULT NULL,
+  `amount` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  `updated` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of import_detail
 -- ----------------------------
 
 -- ----------------------------

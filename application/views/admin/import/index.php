@@ -32,11 +32,12 @@
               <table class="table table-hover">
                 <tr>
                   <th>ID</th>
-                  <th>Tên menu</th>
-                  <th>Ngày tạo</th>
-                  <th>Ưu tiên</th>
-                  <th>Trạng thái</th>
-                  <th>Action</th>
+                  <th>Tên người nhập</th>
+                  <th>Trọng lượng</th>
+                  <th>Số lượng sản phẩm</th>
+                  <th>Tổng tiền đơn hàng</th>
+                  <th>Tiền ship tại Đức</th>
+                  <th>Tiền ship về VN</th>
                 </tr>
                 
                 <?php 
@@ -48,19 +49,15 @@
                     <tr>
                       <td><?php echo $stt; ?></td>
                       <td><?php echo $rs->name; ?></td>
-                      <td><?php echo $rs->created; ?></td>
-                      <td><?php echo $rs->priority; ?></td>
-                      <?php 
-                        if ($rs->status == 1) {
-                        ?> 
-                      <td><span class="label label-success">Hiển thị</span></td>
-                        <?php } else {  ?> 
-                      <td><span class="label label-danger">Không hiển thị</span></td>
-                      <?php } ?> 
+                      <td><?php echo $rs->weight; ?></td>
+                      <td><?php echo $rs->product_qty; ?></td>
+                      <td><?php echo $rs->product_total_price; ?></td>
+                      <td><?php echo $rs->versand_in_de; ?></td>
+                      <td><?php echo $rs->versand_to_vn; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" ref="<?php echo base_url('admin/menu/edit/'). $rs->id ; ?>" id="edit" class="btn btn-info">Sửa</button>
-                            <button type="button" ref="<?php echo base_url('admin/menu/delete/'). $rs->id ; ?>" id="delete" class="btn btn-warning">Xóa</button>
+                            <button type="button" ref="<?php echo base_url('admin/import/edit/'). $rs->id ; ?>" id="edit" class="btn btn-info">Sửa</button>
+                            <button type="button" ref="<?php echo base_url('admin/import/delete/'). $rs->id ; ?>" id="delete" class="btn btn-warning">Xóa</button>
                         </div>  
                         
                       </td>
@@ -90,7 +87,7 @@
     $( document ).ready(function() {
         console.log( "ready!" );
         $('#add_new').click(function() {
-            window.location.href = '<?php echo base_url(); ?>admin/menu/add';
+            window.location.href = '<?php echo base_url(); ?>admin/import/add';
             return false;
         });
         
