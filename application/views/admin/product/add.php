@@ -73,7 +73,7 @@
                         <div class="col-md-6">
                             <label for="exampleInputFile">Ảnh trang sản phẩm</label>
                             <input type="file" name="images[]" multiple="multiple">
-                            <p class="help-block">300 x 200 px.</p>
+                            <p class="help-block">268 x 249 px.</p>
                         </div>
 
                         <div class="col-md-6">
@@ -93,14 +93,14 @@
                 <div class="form-group">
                     <div class="row" >
                         <div class="col-md-6">
-                            <label for="exampleInputFile">Ảnh trang chi tiết 1</label>
+                            <label for="exampleInputFile">Ảnh trang chi tiết to</label>
                             <input type="file" name="images[]" multiple="multiple">
-                            <p class="help-block">850 x 618 px.</p>
+                            <p class="help-block">330 x 380 px.</p>
                         </div>
                         <div class="col-md-6">
-                            <label for="exampleInputFile">Ảnh trang chi tiết 2</label>
+                            <label for="exampleInputFile">Ảnh trang chi tiết 1</label>
                             <input type="file" name="images[]" multiple="multiple">
-                            <p class="help-block">850 x 618 px.</p>
+                            <p class="help-block">330 x 380 px.</p>
                         </div>
                     </div>
                 </div> 
@@ -108,14 +108,14 @@
                 <div class="form-group">
                     <div class="row" >
                         <div class="col-md-6">
-                            <label for="exampleInputFile">Ảnh trang chi tiết 3</label>
+                            <label for="exampleInputFile">Ảnh trang chi tiết 2</label>
                             <input type="file" name="images[]" multiple="multiple">
-                            <p class="help-block">850 x 618 px.</p>
+                            <p class="help-block">330 x 380 px.</p>
                         </div>
                         <div class="col-md-6">
-                            <label for="exampleInputFile">Ảnh trang chi tiết 4</label>
+                            <label for="exampleInputFile">Ảnh trang chi tiết 3</label>
                             <input type="file" name="images[]" multiple="multiple">
-                            <p class="help-block">850 x 618 px.</p>
+                            <p class="help-block">330 x 380 px.</p>
                         </div>
                     </div>
                 </div>   

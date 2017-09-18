@@ -15,6 +15,10 @@ class Menu extends MY_Controller {
     //put your code here
     public function __construct() {
         parent::__construct();
+        if (! $this->is_logged_in_admin())
+        {
+            redirect(base_url('admin/login/login')); 
+        }
         $this->load->model('admin/menu_model');
         $this->load->library('pagination');
     }

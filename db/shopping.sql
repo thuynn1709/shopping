@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-18 09:07:10
+Date: 2017-09-19 01:17:11
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -154,7 +154,7 @@ CREATE TABLE `menu` (
   `priority` tinyint(3) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
@@ -342,13 +342,18 @@ CREATE TABLE `users` (
   `password` varchar(100) NOT NULL,
   `fullname` varchar(100) DEFAULT NULL,
   `address` varchar(300) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `group` varchar(5) NOT NULL,
+  `address_ship` varchar(400) DEFAULT NULL,
+  `city` tinyint(4) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `type` varchar(20) DEFAULT NULL COMMENT '1 = tu website, 2 = tu fb',
+  `group` varchar(5) NOT NULL COMMENT '0-admin , 1=mode, 2 = user',
+  `status` tinyint(1) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of users
 -- ----------------------------
+INSERT INTO `users` VALUES ('1', 'thuynn1709@gmail.com', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'thuynn1709@gmail.com', 'fdafafasdfasdf', null, null, '01732510257', null, '', '1', null, null);

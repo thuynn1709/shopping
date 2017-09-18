@@ -11,25 +11,25 @@
  *
  * @author Nguyen Ruy
  */
-class Product_model extends CI_Model {
+class User_model extends CI_Model {
    
-    public $table = 'products';
+    public $table = 'users';
     //put your code here
     public function __construct() {
         parent::__construct();
     }
     
-    public function get_all($search = '', $category_id = '', $limit = 10, $offset = 0) {
-        $this->db->select('p.*, pc.id as pcid, pc.name as pcname');
-        $this->db->from($this->table. ' as p');
-        $this->db->join('products_category as pc', 'p.category_id = pc.id');
+    public function get_all($search = '', $group_id = '', $limit = 10, $offset = 0) {
+        $this->db->select('*');
+        $this->db->from($this->table);
+       
         if ($search != '') {
-            $this->db->like('p.pname', $search);
+            $this->db->like('name', $search);
         }
-        if ($category_id !='') {
-            $this->db->where('p.pcid', $category_id);
+        if ($group_id !='') {
+            $this->db->where('group', $group_id);
         }
-        $this->db->order_by('p.created');
+        $this->db->order_by('created');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
     }
@@ -42,21 +42,18 @@ class Product_model extends CI_Model {
 
     public function get_one( $id) {
         $this->db->where('id', $id);
-        $data =  $this->db->get( $this->table)->result();
-        return !empty($data) ? $data[0] : array();
+        return $this->db->get( $this->table)->row();
     }
     
-    public function count_all_results($search = '', $category_id = '', $limit = 10, $offset = 0) {
-        $this->db->select('p.*, pc.id as pcid, pc.name as pcname');
-        $this->db->from($this->table. ' as p');
-        $this->db->join('products_category as pc', 'p.category_id = pc.id');
+    public function count_all_results($search = '', $group_id = '', $limit = 10, $offset = 0) {
+        $this->db->from($this->table);
+       
         if ($search != '') {
-            $this->db->like('p.pname', $search);
+            $this->db->like('name', $search);
         }
-        if ($category_id !='') {
-            $this->db->where('p.pcid', $category_id);
+        if ($group_id !='') {
+            $this->db->where('group', $group_id);
         }
-        $this->db->order_by('p.created');
         $this->db->limit($limit, $offset);
         return $this->db->count_all_results();
  
@@ -85,7 +82,12 @@ class Product_model extends CI_Model {
         return $insert_id;
     }
     
-    
+    public function check_user($user_info)
+    {
+        $array = array('email' => $user_info['email'], 'password' => $user_info['password']);
+        $this->db->where($array);
+        return $this->db->get( $this->table)->row();
+    }        
    
 
 

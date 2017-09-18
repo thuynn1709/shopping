@@ -15,6 +15,10 @@ class Product extends MY_Controller {
     //put your code here
     public function __construct() {
         parent::__construct();
+        if (! $this->is_logged_in_admin())
+        {
+            redirect(base_url('admin/login/login')); 
+        }
         $this->load->model('admin/productcategory_model');
         $this->load->model('admin/product_model');
         $this->load->model('admin/menu_model');
@@ -59,7 +63,7 @@ class Product extends MY_Controller {
         
         $this->pagination->initialize($config);
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-        $data["results"] = $this->product_model->get_all( $search, $config["per_page"], $page);
+        $data["results"] = $this->product_model->get_all( $search, '', $config["per_page"], $page);
         
         $data["links"] = $this->pagination->create_links();
 
