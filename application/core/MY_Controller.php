@@ -7,6 +7,20 @@ class MY_Controller extends CI_Controller {
         $this->load->library(array('session'));
     }
     
+    public function _loadFrontendHeader(){
+        $this->load->view('frontend/header');
+        $this->load->view('frontend/slider');
+        $this->load->view('frontend/left-slidebar');
+    }
+    
+    public function _loadFrontendFooter(){
+        $this->load->view('frontend/footer');
+    }
+    
+    public function _loadFrontendContent(){
+        $this->load->view('frontend/content');
+    }
+    
     public function _loadAdminHeader(){
         $this->load->view('admin/admin_header');
         $this->load->view('admin/admin_left_side_column');

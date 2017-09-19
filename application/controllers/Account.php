@@ -11,13 +11,15 @@
  *
  * @author Nguyen Ruy
  */
-class Index extends MY_Controller {
+class Home extends MY_Controller {
     //put your code here
     public function __construct() {
         parent::__construct();
     }
     
     public function index(){
-        $this->loadHeader();
+        $this->_loadFrontendHeader();
+        $this->_loadFrontendContent();
+        $this->_loadFrontendFooter();
     }
 }

@@ -40,6 +40,15 @@
         </li>
         
         <li>
+          <a href="<?php echo base_url('admin/user/index') ; ?>">
+            <i class="fa fa-user-o" aria-hidden="true"></i> <span>Quản lý user</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-green"></small>
+            </span>
+          </a>
+        </li>
+        
+        <li>
           <a href="<?php echo base_url('admin/menu/index') ; ?>">
             <i class="fa fa-files-o"></i> <span>Quản lý menu</span>
             <span class="pull-right-container">
