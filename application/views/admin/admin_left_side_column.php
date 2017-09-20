@@ -39,6 +39,22 @@
           </ul>
         </li>
         
+        <li class="treeview">
+          <a href="#">
+            <i class="fa fa fa-table"></i>
+            <span>Quản lý sản phẩm</span>
+            <span class="pull-right-container">
+              <i class="fa fa-angle-left pull-right"></i>
+            </span>
+          </a>
+          <ul class="treeview-menu">
+            <li><a href="<?php echo base_url('admin/product/index') ; ?>"><i class="fa fa-circle-o"></i> DS sản phẩm</a></li>
+            <li><a href="<?php echo base_url('admin/product/add') ; ?>"><i class="fa fa-circle-o"></i> Thêm mới SP</a></li>
+            <li><a href="<?php echo base_url('admin/product_category/index') ; ?>"><i class="fa fa-circle-o"></i> DS danh mục sản phẩm</a></li>
+            <li><a href="<?php echo base_url('admin/product_category/add') ; ?>"><i class="fa fa-circle-o"></i> Thêm mới danh mục SP</a></li>
+          </ul>
+        </li>
+        
         <li>
           <a href="<?php echo base_url('admin/user/index') ; ?>">
             <i class="fa fa-user-o" aria-hidden="true"></i> <span>Quản lý user</span>
@@ -56,21 +72,20 @@
             </span>
           </a>
         </li>
+        
         <li class="treeview">
           <a href="#">
-            <i class="fa fa fa-table"></i>
-            <span>Quản lý sản phẩm</span>
+            <i class="fa fa-cog" aria-hidden="true"></i> <span>Cấu hình</span>
             <span class="pull-right-container">
               <i class="fa fa-angle-left pull-right"></i>
             </span>
           </a>
           <ul class="treeview-menu">
-            <li><a href="<?php echo base_url('admin/product/index') ; ?>"><i class="fa fa-circle-o"></i> DS sản phẩm</a></li>
-            <li><a href="<?php echo base_url('admin/product/add') ; ?>"><i class="fa fa-circle-o"></i> Thêm mới SP</a></li>
-            <li><a href="<?php echo base_url('admin/product_category/index') ; ?>"><i class="fa fa-circle-o"></i> DS danh mục sản phẩm</a></li>
-            <li><a href="<?php echo base_url('admin/product_category/add') ; ?>"><i class="fa fa-circle-o"></i> Thêm mới danh mục SP</a></li>
+            <li><a href="<?php echo base_url('admin/slidebar') ; ?>"><i class="fa fa-circle-o"></i> Slide trang chủ</a></li>
+           
           </ul>
         </li>
+        
         <!--
         <li class="treeview">
           <a href="#">

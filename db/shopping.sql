@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-20 13:53:21
+Date: 2017-09-20 17:29:37
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -327,6 +327,26 @@ CREATE TABLE `sales` (
 -- ----------------------------
 -- Records of sales
 -- ----------------------------
+
+-- ----------------------------
+-- Table structure for slidebar
+-- ----------------------------
+DROP TABLE IF EXISTS `slidebar`;
+CREATE TABLE `slidebar` (
+  `id` int(11) NOT NULL,
+  `title` varchar(300) DEFAULT NULL,
+  `describe` varchar(500) DEFAULT NULL,
+  `link` varchar(100) DEFAULT NULL,
+  `img` varchar(100) DEFAULT NULL,
+  `status` tinyint(2) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of slidebar
+-- ----------------------------
+INSERT INTO `slidebar` VALUES ('0', 'fdsafdsaf', '<p>fdsafdsafdsaf</p>', 'fdsafdsaf', '9008189347238-1196815_org1.png', null, '2017-09-20 17:26:38');
 
 -- ----------------------------
 -- Table structure for users
