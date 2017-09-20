@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : ngocthuy
+Source Server         : nothing
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : shopping
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-19 01:17:11
+Date: 2017-09-20 13:53:21
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -154,7 +154,7 @@ CREATE TABLE `menu` (
   `priority` tinyint(3) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of menu
@@ -211,10 +211,6 @@ DROP TABLE IF EXISTS `orders`;
 CREATE TABLE `orders` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `user_id` int(11) DEFAULT NULL,
-  `name` varchar(50) DEFAULT NULL,
-  `addresse` varchar(300) DEFAULT NULL,
-  `phone` varchar(20) DEFAULT NULL,
-  `email` varchar(30) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `pricetotal` int(11) DEFAULT NULL,
   `list_id` varchar(100) DEFAULT NULL COMMENT 'chuoi json',

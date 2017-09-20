@@ -1,17 +1,3 @@
-jQuery(function($) {'use strict',
-
-	var form = $('.contact-form');
-	form.submit(function () {'use strict',
-		$this = $(this);
-		$.post("sendemail.php", $(".contact-form").serialize(),function(result){
-			if(result.type == 'success'){
-				$this.prev().text(result.message).fadeIn().delay(3000).fadeOut();
-			}
-		});
-		return false;
-	});
-
-});
 
 // Google Map Customization
 (function(){
@@ -32,7 +18,7 @@ jQuery(function($) {'use strict',
 		clickable: false
 	});
 
-	var image = 'images/map-icon.png';
+	var image = '/public/frontend/images/map-icon.png';
 	map.addMarker({
 		lat: 43.1580159,
 		lng: -77.6030777,

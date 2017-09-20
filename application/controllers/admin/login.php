@@ -63,8 +63,6 @@ class Login extends CI_Controller{
 
     public function logout(){
         $this->session->sess_destroy();	// Unset session of user
-        $cookiename	=	"siteAuth";
-        setcookie($cookiename, 'user='."", time() - 3600);	// Unset cookie of user
         redirect(base_url('admin/login/login'));
     }
 

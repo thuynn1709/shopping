@@ -9,10 +9,20 @@ class MY_Controller extends CI_Controller {
     
     public function _loadFrontendHeader(){
         $this->load->view('frontend/header');
-        $this->load->view('frontend/slider');
-        $this->load->view('frontend/left-slidebar');
     }
     
+    public function _loadFrontendHeaderAccount(){
+        $this->load->view('frontend/header_account');
+    }
+    
+    public function _loadFrontendSlider(){
+        $this->load->view('frontend/slider');
+    }
+    
+    public function _loadFrontendLeftSlidebar(){
+        $this->load->view('frontend/left-slidebar');
+    }
+
     public function _loadFrontendFooter(){
         $this->load->view('frontend/footer');
     }
