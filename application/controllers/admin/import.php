@@ -146,36 +146,35 @@ class Import extends MY_Controller {
     public function test()
     {
         
-        $file = './ex.xlsx';
-
-        //load the excel library
+        //$objReader =PHPExcel_IOFactory::createReader('Excel5');     //For excel 2003 
         $this->load->library('excel');
+        //$objReader= PHPExcel_IOFactory::createReader();	// For excel 2007 
+        $file = FCPATH.'public/upload_files/excel/ex.xls';
+        $objReader = PHPExcel_IOFactory::load($file);
+        //Set to read only
+        //$objReader->setReadDataOnly(true); 		  
+        //Load excel file
+        //$objPHPExcel= $objReader->load(FCPATH.'public/upload_files/excel/'.$file_name);		 
+        $totalrows= $objReader->setActiveSheetIndex(0)->getHighestRow();   //Count Numbe of rows avalable in excel      	 
+        $objWorksheet= $objReader->setActiveSheetIndex(0);                
+        //loop from first data untill last data
+        $data_user = array();
+        for( $i=2; $i<=$totalrows; $i++)
+        {
+            $FirstName= $objWorksheet->getCellByColumnAndRow(0,$i)->getValue();			
+            $LastName= $objWorksheet->getCellByColumnAndRow(1,$i)->getValue(); //Excel Column 1
+            $Email= $objWorksheet->getCellByColumnAndRow(2,$i)->getValue(); //Excel Column 2
+            $Mobile=$objWorksheet->getCellByColumnAndRow(3,$i)->getValue(); //Excel Column 3
+            $Address=$objWorksheet->getCellByColumnAndRow(4,$i)->getValue(); //Excel Column 4
+            $data_user[]= array('FirstName'=>$FirstName, 'LastName'=>$LastName ,'Email'=>$Email ,'Mobile'=>$Mobile , 'Address'=>$Address);
 
-        //read file from path
-        $objPHPExcel = PHPExcel_IOFactory::load($file);
-
-        //get only the Cell Collection
-        $cell_collection = $objPHPExcel->getActiveSheet()->getCellCollection();
-
-        //extract to a PHP readable array format
-        foreach ($cell_collection as $cell) {
-            $column = $objPHPExcel->getActiveSheet()->getCell($cell)->getColumn();
-            $row = $objPHPExcel->getActiveSheet()->getCell($cell)->getRow();
-            $data_value = $objPHPExcel->getActiveSheet()->getCell($cell)->getValue();
-
-            //header will/should be in row 1 only. of course this can be modified to suit your need.
-            if ($row == 1) {
-                $header[$row][$column] = $data_value;
-            } else {
-                $arr_data[$row][$column] = $data_value;
-            }
         }
-
-        //send the data in an array format
-        $data['header'] = $header;
-        $data['values'] = $arr_data;
         echo '<pre>';
-        var_dump($data['header']);die;
+        var_dump($data_user);die;
+        $return = array(
+            'hasError' => true,
+            'data' => $data_user
+        );
     }
     
     

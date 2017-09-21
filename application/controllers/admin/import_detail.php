@@ -196,12 +196,8 @@ class Import_detail extends MY_Controller {
     }
     
     public function import_excel() {
-        
-        
         if (isset($_POST['import_id'])){
             $import_id = $_POST['import_id'];
-            
-            
             //Path of files were you want to upload on localhost (C:/xampp/htdocs/ProjectName/uploads/excel/)	 
             $configUpload['upload_path'] = FCPATH.'public/upload_files/excel/';
             $configUpload['allowed_types'] = 'xls|xlsx|csv';
@@ -211,16 +207,18 @@ class Import_detail extends MY_Controller {
             $upload_data = $this->upload->data(); //Returns array of containing all of the data related to the file you uploaded.
             $file_name = $upload_data['file_name']; //uploded file name
             $extension=$upload_data['file_ext'];    // uploded file extension
-            die($file_name);
-            //$objReader =PHPExcel_IOFactory::createReader('Excel5');     //For excel 2003 
+          
+            
             $this->load->library('excel');
-            $objReader= PHPExcel_IOFactory::createReader('Excel2007');	// For excel 2007 	  
+            //$objReader= PHPExcel_IOFactory::createReader();	// For excel 2007 
+            $file = FCPATH.'public/upload_files/excel/'. $file_name;
+            $objReader = PHPExcel_IOFactory::load($file);
             //Set to read only
-            $objReader->setReadDataOnly(true); 		  
+            //$objReader->setReadDataOnly(true); 		  
             //Load excel file
-            $objPHPExcel= $objReader->load(FCPATH.'public/upload_files/excel/'.$file_name);		 
-            $totalrows= $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();   //Count Numbe of rows avalable in excel      	 
-            $objWorksheet= $objPHPExcel->setActiveSheetIndex(0);                
+            //$objPHPExcel= $objReader->load(FCPATH.'public/upload_files/excel/'.$file_name);		 
+            $totalrows= $objReader->setActiveSheetIndex(0)->getHighestRow();   //Count Numbe of rows avalable in excel      	 
+            $objWorksheet= $objReader->setActiveSheetIndex(0);                
             //loop from first data untill last data
             $data_user = array();
             for( $i=2; $i<=$totalrows; $i++)
@@ -231,15 +229,8 @@ class Import_detail extends MY_Controller {
                 $Mobile=$objWorksheet->getCellByColumnAndRow(3,$i)->getValue(); //Excel Column 3
                 $Address=$objWorksheet->getCellByColumnAndRow(4,$i)->getValue(); //Excel Column 4
                 $data_user[]= array('FirstName'=>$FirstName, 'LastName'=>$LastName ,'Email'=>$Email ,'Mobile'=>$Mobile , 'Address'=>$Address);
-                
+
             }
-            $return = array(
-                'hasError' => true,
-                'data' => $data_user
-            );
-            //die(json_encode($return));
-            //unlink(base_url("public/upload_files/excel/". $file_name));
-            redirect(base_url() . "put link were you want to redirect");
         }
     }
     
