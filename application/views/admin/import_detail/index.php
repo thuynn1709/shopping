@@ -88,25 +88,30 @@
   </div>
 
 <div class="modal fade" id="modal-info">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span></button>
-                <h4 class="modal-title">Default Modal</h4>
-              </div>
-              <div class="modal-body">
-                <p>One fine body&hellip;</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-              </div>
+                    <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Nhập dữ liệu chi tiết cho đơn hàng <?php echo $import->created ; ?></h4>
             </div>
-            <!-- /.modal-content -->
-          </div>
-          <!-- /.modal-dialog -->
+            <form class="form_import_excel" id="form_import_excel" name="form_import_excel" method="post" enctype="multipart/form-data">
+                <div class="modal-body">
+                    <input type="hidden" value="<?php echo $import_id ; ?>" name="import_id" />
+                    <label for="exampleInputFile">File Excel </label>
+                    <input type="file" name="excel" id="excel">
+                </div>
+            
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Hủy</button>
+                <button type="button" id="save_file" class="btn btn-primary">Lưu</button>
+            </div>
+            </form>  
         </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
         <!-- /.modal -->
 <!-- /.modal -->
 
@@ -141,6 +146,26 @@
         
         $("#fileSelected").click(function(){
             $(".modal").show();
+        });
+        
+        $("#save_file").click(function(){
+            $("#form_import_excel").submit(function(){
+                var formData = new FormData(this);
+                $.ajax({
+                    url: "<?php echo base_url('admin/import_detail/import_excel'); ?>",
+                    type: 'POST',
+                    data: formData,
+                    dataType: 'json',
+                    //async: false,
+                    success: function (data) {
+                        alert(data);
+                    },
+                    //cache: false,
+                    //contentType: false,
+                    //processData: false
+                });
+                return false;
+            });
         });
     });
     
