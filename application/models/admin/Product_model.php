@@ -19,16 +19,21 @@ class Product_model extends CI_Model {
         parent::__construct();
     }
     
-    public function get_all($search = '', $category_id = '', $limit = 10, $offset = 0) {
-        $this->db->select('p.*, pc.id as pcid, pc.name as pcname');
+    public function get_all($search = '', $category_id = '', $marken_id = '', $limit = 10, $offset = 0) {
+        $this->db->select('p.*, pc.id as pcid, pc.name as pcname, pc.created as pccreated');
         $this->db->from($this->table. ' as p');
         $this->db->join('products_category as pc', 'p.category_id = pc.id');
         if ($search != '') {
-            $this->db->like('p.pname', $search);
+            $this->db->like('p.name', $search);
         }
         if ($category_id !='') {
-            $this->db->where('p.pcid', $category_id);
+            $this->db->where('p.category_id', $category_id);
         }
+        
+        if ($marken_id !='') {
+            $this->db->where('p.marken_id', $marken_id);
+        }
+        
         $this->db->order_by('p.created');
         $this->db->limit($limit, $offset);
         return $this->db->get()->result();
@@ -46,7 +51,16 @@ class Product_model extends CI_Model {
         return !empty($data) ? $data[0] : array();
     }
     
-    public function count_all_results($search = '', $category_id = '', $limit = 10, $offset = 0) {
+    public function check_one_by_alias($alias) {
+        $this->db->where('alias', $alias);
+        $data =  $this->db->get( $this->table)->row();
+        if (!empty($data)) 
+            return true;
+        
+        return FALSE;    
+    }
+
+        public function count_all_results($search = '', $category_id = '', $marken_id = '', $limit = 10, $offset = 0) {
         $this->db->select('p.*, pc.id as pcid, pc.name as pcname');
         $this->db->from($this->table. ' as p');
         $this->db->join('products_category as pc', 'p.category_id = pc.id');
@@ -55,6 +69,10 @@ class Product_model extends CI_Model {
         }
         if ($category_id !='') {
             $this->db->where('p.pcid', $category_id);
+        }
+        
+        if ($marken_id !='') {
+            $this->db->where('p.marken_id', $marken_id);
         }
         $this->db->order_by('p.created');
         $this->db->limit($limit, $offset);
@@ -73,6 +91,10 @@ class Product_model extends CI_Model {
     public function update($id , $data = array()){
         $this->db->where('id', $id);
         return $this->db->update( $this->table, $data);
+    }
+    
+    public function update_batch( $data, $field){
+        $this->db->update_batch( $this->table, $data, $field);
     }
 
     public function insert ($data, $insert_batch = false){

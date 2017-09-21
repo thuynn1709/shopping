@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : nothing
+Source Server         : ngocthuy
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : shopping
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-20 17:29:37
+Date: 2017-09-21 03:50:57
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -95,7 +95,7 @@ CREATE TABLE `import` (
 -- ----------------------------
 -- Records of import
 -- ----------------------------
-INSERT INTO `import` VALUES ('1', 'Ngoc Thuy', '1', '20', '423.3', '0', '200', '2017-09-15 22:04:37');
+INSERT INTO `import` VALUES ('1', 'Ngoc Thuy ', '31', '195', '684', '0', '217', '2017-09-21 01:05:04');
 
 -- ----------------------------
 -- Table structure for import_detail
@@ -103,8 +103,9 @@ INSERT INTO `import` VALUES ('1', 'Ngoc Thuy', '1', '20', '423.3', '0', '200', '
 DROP TABLE IF EXISTS `import_detail`;
 CREATE TABLE `import_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) DEFAULT NULL,
   `import_id` int(11) DEFAULT NULL,
+  `product_name` varchar(60) DEFAULT NULL,
+  `product_alias` varchar(60) DEFAULT NULL,
   `price` float(11,0) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `created` datetime DEFAULT NULL,
@@ -252,7 +253,7 @@ DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(200) DEFAULT NULL,
-  `alilas` varchar(100) DEFAULT NULL,
+  `alias` varchar(100) DEFAULT NULL,
   `category_id` tinyint(5) DEFAULT NULL,
   `marken_id` tinyint(5) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
@@ -273,13 +274,16 @@ CREATE TABLE `products` (
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of products
 -- ----------------------------
-INSERT INTO `products` VALUES ('1', '1', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `products` VALUES ('2', '2', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `products` VALUES ('3', '1', '1', '5', '3', '2', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `products` VALUES ('4', 'fdasfasfdf', 'fdasfasfdf', null, null, '1111', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2017-09-21 02:15:29', null);
+INSERT INTO `products` VALUES ('5', '121213', '121213', null, null, '1111', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2017-09-21 02:15:29', null);
+INSERT INTO `products` VALUES ('6', '1213123', '1213123', null, null, '1111', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2017-09-21 02:15:29', null);
+INSERT INTO `products` VALUES ('7', '12321321', '12321321', null, null, '12123', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2017-09-21 02:15:29', null);
 
 -- ----------------------------
 -- Table structure for products_category

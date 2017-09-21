@@ -22,6 +22,14 @@
             <form role="form" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/product/add') ; ?>">
               <div class="box-body">
                 <div class="form-group">
+                    
+                    <?php if($this->session->flashdata('exist_name')) {?>
+                    <div class="alert alert-danger alert-dismissible">
+                        <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                        <h4><i class="icon fa fa-ban"></i> Alert!</h4>
+                        <?php echo $this->session->flashdata('exist_name');?>
+                    </div>
+                    <?php }?>
                     <div class="row" >
                         <div class="col-md-6">
                             <label for="exampleInputEmail1">Tên sản phẩm</label>
@@ -93,14 +101,14 @@
                 <div class="form-group">
                     <div class="row" >
                         <div class="col-md-6">
-                            <label for="exampleInputFile">Ảnh trang chi tiết to</label>
+                            <label for="exampleInputFile">Ảnh menu con trang chủ</label>
                             <input type="file" name="images[]" multiple="multiple">
-                            <p class="help-block">330 x 380 px.</p>
+                            <p class="help-block">208 x 183 px.</p>
                         </div>
                         <div class="col-md-6">
-                            <label for="exampleInputFile">Ảnh trang chi tiết 1</label>
+                            <label for="exampleInputFile">Ảnh recommended</label>
                             <input type="file" name="images[]" multiple="multiple">
-                            <p class="help-block">330 x 380 px.</p>
+                            <p class="help-block">268 x 134 px.</p>
                         </div>
                     </div>
                 </div> 
@@ -108,9 +116,9 @@
                 <div class="form-group">
                     <div class="row" >
                         <div class="col-md-6">
-                            <label for="exampleInputFile">Ảnh trang chi tiết 2</label>
+                            <label for="exampleInputFile">Ảnh trang chi tiết sản phẩm</label>
                             <input type="file" name="images[]" multiple="multiple">
-                            <p class="help-block">330 x 380 px.</p>
+                            <p class="help-block">266 x 381 px.</p>
                         </div>
                         <div class="col-md-6">
                             <label for="exampleInputFile">Ảnh trang chi tiết 3</label>

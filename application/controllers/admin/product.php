@@ -31,14 +31,18 @@ class Product extends MY_Controller {
         $this->_loadAdminHeader();
         
         $search = '';
+        $category = '';
+        $marken = '';
         if ($_POST) {
             $search = $_POST['search'];
+            $category = $_POST['category'];
+            $marken = $_POST['marken'];
         }
         $data = array();
         $limit = 10;
         $config = array();
         $config["base_url"] = base_url() . "admin/product/index";
-        $total_row = $this->product_model->count_all_results( $search);
+        $total_row = $this->product_model->count_all_results( $search, $category, $marken);
         $config["total_rows"] = $total_row;
         $config["per_page"] = $limit;
         $config['use_page_numbers'] = TRUE;
@@ -63,82 +67,93 @@ class Product extends MY_Controller {
         
         $this->pagination->initialize($config);
         $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-        $data["results"] = $this->product_model->get_all( $search, '', $config["per_page"], $page);
+        $data["results"] = $this->product_model->get_all( $search, $category, $marken, $config["per_page"], $page);
         
         $data["links"] = $this->pagination->create_links();
 
         // View data according to array.
         $data['search'] = $search;
+        $data["marken"] = $this->marken_model->get_all( 100, 0);
+        $data["category"] = $this->productcategory_model->get_all( 100, 0);
+        
         $this->load->view('admin/product/index', $data);
         $this->_loadAdminFooter();
     }
     
     public function add(){
         if (isset($_POST['name'])){  
-            $this->load->library('upload');
-            $imageInfo = array();
-            $files = $_FILES;
-            $cpt = count($_FILES['images']['name']);
-            for($i=0; $i<$cpt; $i++)
-            {           
-                $_FILES['images']['name']= $files['images']['name'][$i];
-                $_FILES['images']['type']= $files['images']['type'][$i];
-                $_FILES['images']['tmp_name']= $files['images']['tmp_name'][$i];
-                $_FILES['images']['error']= $files['images']['error'][$i];
-                $_FILES['images']['size']= $files['images']['size'][$i];    
-                    
-                $this->upload->initialize($this->set_upload_options());
-                $this->upload->do_upload('images');
-                $imageInfo[] = $this->upload->data();
-            }
             
             $name = $_POST['name'];
             $alias = sanitizeTitle($name);
-            $category = $_POST['category'];
-            $marken = $_POST['marken'];
-            $amount = $_POST['amount'];
-            $img_thumb = $imageInfo[0]['file_name'];
-            $img = $imageInfo[1]['file_name'];
-            $img_1 = $imageInfo[2]['file_name'];
-            $img_2 = $imageInfo[3]['file_name'];
-            $img_3 = $imageInfo[4]['file_name'];
-            $describe = $_POST['describe'];
-            $expired = $_POST['expired'];
-            $element = $_POST['element'];
-            $guide = $_POST['guide'];
-            $price = $_POST['price'];
-            $discount = $_POST['discount'];
-            $color = $_POST['color'];
-            $status = $_POST['status'];
-            $created = date('Y-m-d H:i:s');
-            $updated = date('Y-m-d H:i:s');
-            
-            $data = array('name'=> $name,
-                        'alias'=> $alias,
-                        'category_id'=> $category,
-                        'marken_id'=> $marken,
-                        'amount'=> $amount,
-                        'img_thumb' => $img_thumb,
-                        'img' => $img,
-                        'img_1' => $img_1,
-                        'img_2' => $img_2,
-                        'img_3' => $img_3,
-                        'describe' => $describe,
-                        'expired' => $expired,
-                        'element' => $element,
-                        'guide' => $guide,
-                        'price' => $price,
-                        'discount' => $discount,
-                        'color' => $color,
-                        'status' => $status,
-                        'created' => $created,
-                        'updated' => $updated
-                    );
-            if ($this->product_model->insert($data)) {
-                redirect('admin/product/index');
-            } else{ 
-                redirect('admin/product/add');
+            $check = $this->product_model->check_one_by_alias($alias);
+            if( $check) {
+                $this->session->set_flashdata('exist_name', 'Đã tồn tại sản phẩm với tên này !');
             }
+            if(!$check) {
+                $this->load->library('upload');
+                $imageInfo = array();
+                $files = $_FILES;
+                $cpt = count($_FILES['images']['name']);
+                for($i=0; $i<$cpt; $i++)
+                {           
+                    $_FILES['images']['name']= $files['images']['name'][$i];
+                    $_FILES['images']['type']= $files['images']['type'][$i];
+                    $_FILES['images']['tmp_name']= $files['images']['tmp_name'][$i];
+                    $_FILES['images']['error']= $files['images']['error'][$i];
+                    $_FILES['images']['size']= $files['images']['size'][$i];    
+
+                    $this->upload->initialize($this->set_upload_options());
+                    $this->upload->do_upload('images');
+                    $imageInfo[] = $this->upload->data();
+                }
+
+                $category = $_POST['category'];
+                $marken = $_POST['marken'];
+                $amount = $_POST['amount'];
+                $img_thumb = $imageInfo[0]['file_name'];
+                $img = $imageInfo[1]['file_name'];
+                $img_1 = $imageInfo[2]['file_name'];
+                $img_2 = $imageInfo[3]['file_name'];
+                $img_3 = $imageInfo[4]['file_name'];
+                $describe = $_POST['describe'];
+                $expired = $_POST['expired'];
+                $element = $_POST['element'];
+                $guide = $_POST['guide'];
+                $price = $_POST['price'];
+                $discount = $_POST['discount'];
+                $color = $_POST['color'];
+                $status = $_POST['status'];
+                $created = date('Y-m-d H:i:s');
+                $updated = date('Y-m-d H:i:s');
+
+                $data = array('name'=> $name,
+                            'alias'=> $alias,
+                            'category_id'=> $category,
+                            'marken_id'=> $marken,
+                            'amount'=> $amount,
+                            'img_thumb' => $img_thumb,
+                            'img' => $img,
+                            'img_1' => $img_1,
+                            'img_2' => $img_2,
+                            'img_3' => $img_3,
+                            'describe' => $describe,
+                            'expired' => $expired,
+                            'element' => $element,
+                            'guide' => $guide,
+                            'price' => $price,
+                            'discount' => $discount,
+                            'color' => $color,
+                            'status' => $status,
+                            'created' => $created,
+                            'updated' => $updated
+                        );
+                if ($this->product_model->insert($data)) {
+                    redirect('admin/product/index');
+                } else{ 
+                    redirect('admin/product/add');
+                }
+            }
+            
         }
         
         $this->_loadAdminHeader();
@@ -159,13 +174,15 @@ class Product extends MY_Controller {
         }
       
         $product = $this->product_model->get_one($id);
-        
        
         if (count ( (array)$product) == 0 ) {
             redirect('admin/product/index');
         }
        
         if (isset($_POST['name'])){  
+            $name = $_POST['name'];
+            $alias = sanitizeTitle($name);
+            
             
             $this->load->library('upload');
             $imageInfo = array();
@@ -184,8 +201,7 @@ class Product extends MY_Controller {
                 $imageInfo[] = $this->upload->data();
             }
             
-            $name = $_POST['name'];
-            $alias = sanitizeTitle($name);
+            
             $category = $_POST['category'];
             $marken = $_POST['marken'];
             $amount = $_POST['amount'];

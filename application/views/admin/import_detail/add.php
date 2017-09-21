@@ -3,7 +3,7 @@
     <!-- Content Header (Page header) -->
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Nhập chi tiết đơn hàng </a></li>
+        <li><a href="<?php echo base_url('admin/import_detail/index/'). $import->id; ?>">Đơn hàng ngày <?php echo $import->created ; ?> </a></li>
         <li class="active">Nhập chi tiết đơn hàng</li>
      </ol>
 
@@ -15,23 +15,25 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Thêm chi tiết đơn hàng</h3>
+              <h3 class="box-title">Thêm chi tiết đơn hàng ngày <?php echo $import->created ; ?></h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/import_detail/add/'); ?>">
+            <form role="form" name="add_new" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/import_detail/add/'). $import_id; ?>">
                 <div class="box-body">
                     <input type="hidden" name="count" id="count" value="1" />
                     <div class="control-group" id="form-add-multi">
                         <div class="row">
                             <div class="col-md-6"><label>Tên sản phẩm</label></div>
-                            <div class="col-md-3 pull-left"><label>Số lượng</label></div>
-                            <div class="col-md-3"></div>
+                            <div class="col-md-2 pull-left"><label>Giá</label></div>
+                            <div class="col-md-2">Số lượng</div>
+                            <div class="col-md-2"></div>
                         </div>
                         <small>Ấn + để thêm nhiều sản phẩm cùng lúc :)</small>
                         <div class="row" id="fields">
-                            <div class="col-md-6"><input autocomplete="on" class="form-control" id="field1" name="field1" type="text" placeholder="Type something" data-items="8"/></div>
-                            <div class="col-md-4 pull-left"><input autocomplete="off" class="form-control" id="qty1" name="qty1" type="text" placeholder="Type something" data-items="8"/></div>
+                            <div class="col-md-6"><input autocomplete="on" class="form-control" id="field1" name="field1" type="text" placeholder="Tên sản phẩm" data-items="8"/></div>
+                            <div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="price1" name="price1" type="text" placeholder="Giá" data-items="8"/></div>
+                            <div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="qty1" name="qty1" type="text" placeholder="Số lượng" data-items="8"/></div>
                             <div class="col-md-2"><button id="b1" class="btn btn-primary add-more" type="button">+</button></div>
                         </div>
                         </div>
@@ -77,8 +79,9 @@
             var addBlockId = total = total + 1;
 
             var addBlock = '<div class="row" style="padding-top:5px;padding-bottom:5px" id="fields'+ addBlockId +'">' +
-                            '<div class="col-md-6"><input autocomplete="off" class="form-control" id="field'+ addBlockId +'" name="field'+ addBlockId +'" type="text" placeholder="Type something" data-items="8"/></div>' +
-                            '<div class="col-md-4 pull-left"><input autocomplete="off" class="form-control" id="qty'+ addBlockId +'" name="qty'+ addBlockId +'" type="text" placeholder="Type something" data-items="8"/></div>' +
+                            '<div class="col-md-6"><input autocomplete="off" class="form-control" id="field'+ addBlockId +'" name="field'+ addBlockId +'" type="text" placeholder="Tên sản phẩm" data-items="8"/></div>' +
+                            '<div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="price'+ addBlockId +'" name="price'+ addBlockId +'" type="text" placeholder="Giá" data-items="8"/></div>' +                    
+                            '<div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="qty'+ addBlockId +'" name="qty'+ addBlockId +'" type="text" placeholder="Số lượng" data-items="8"/></div>' +
                             '<div class="col-md-2"><button id="remove' + (addBlockId - 1) + '" class="btn btn-danger remove-me" >-</button></div>' +
                             
                         '</div>';

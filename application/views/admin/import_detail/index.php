@@ -6,11 +6,17 @@
       <!-- /.row -->
       <div class="row">
         <div class="col-xs-12">
-            <div class="box">
-                <div class="col-xs-3">
-                    <button style="width: 150px" type="button" id="add_new" value="<?php echo $import_id ; ?>" class="btn btn-block btn-primary">Thêm mới</button>  
-                </div>
+            <div class="col-xs-3">
+                <button style="width: 150px" type="button" id="add_new" value="<?php echo $import_id ; ?>" class="btn btn-block btn-primary">Thêm mới</button>  
             </div>
+            <div class="col-xs-3"></div>
+            <div class="col-xs-3"></div>
+            <div class="col-xs-3">
+                <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-info">
+                    Import file Excel
+                  </button>
+            </div>
+           
         </div>
         <div class="col-xs-12">
           <div class="box">
@@ -54,8 +60,8 @@
                       <td>
                         <div class="btn-group">
                             <a href="<?php echo base_url('admin/import_detail/index/'). $rs->id ; ?>" class="btn btn-default">Edit <span class="glyphicon glyphicon-pencil"></span></a>
-                            <button type="button" ref="<?php echo base_url('admin/import/edit/'). $rs->id ; ?>" id="edit" class="btn btn-info">Sửa</button>
-                            <button type="button" ref="<?php echo base_url('admin/import/delete/'). $rs->id ; ?>" id="delete" class="btn btn-warning">Xóa</button>
+                            <button type="button" ref="<?php echo base_url('admin/import/edit/'). $rs->id ; ?>" id="edit" class="btn btn-info edit_button">Sửa</button>
+                            <button type="button" ref="<?php echo base_url('admin/import/delete/'). $rs->id ; ?>" id="delete" class="btn btn-warning delete_button">Xóa</button>
                         </div>  
                         
                       </td>
@@ -81,22 +87,45 @@
     
   </div>
 
+<div class="modal fade" id="modal-info">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Default Modal</h4>
+              </div>
+              <div class="modal-body">
+                <p>One fine body&hellip;</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default pull-left" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+              </div>
+            </div>
+            <!-- /.modal-content -->
+          </div>
+          <!-- /.modal-dialog -->
+        </div>
+        <!-- /.modal -->
+<!-- /.modal -->
+
 <script type="text/javascript">
     $( document ).ready(function() {
-        console.log( "ready!" );
+        
         $('#add_new').click(function() {
             var id = $(this).val();
             window.location.href = '<?php echo base_url(); ?>admin/import_detail/add/'+ id ;
             return false;
         });
         
-        $('.btn-info').click(function() {      
+        $('.edit_button').click(function() {      
             var url = $(this).attr('ref');          
             window.location.href = url;
             return false;
         });
         
-        $('.btn-warning').click(function() {
+        $('.delete_button').click(function() {
             var r = confirm("Chắc chắn xóa !");
             if (r == true) {
                 
@@ -108,6 +137,10 @@
             }
            
             return false;
+        });
+        
+        $("#fileSelected").click(function(){
+            $(".modal").show();
         });
     });
     

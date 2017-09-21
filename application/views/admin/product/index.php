@@ -12,26 +12,33 @@
                     
                     <div class="col-xs-3">
                         <label>Loại sản phẩm</label> 
-                        <select class="form-control">
-                            <option>Mustard</option>
-                            <option>Ketchup</option>
-                            <option>Relish</option>
-                            <option>Plain</option>
-                            <option>Steamed</option>
-                            <option>Toasted</option>
-                        </select>
+                        <select name="category" class="form-control">
+                            <option value=""> Chọn loại sản phẩm</option>
+                            <?php 
+                            if (!empty($category)){
+                               foreach ($category as $ct) {                  
+                           ?>
+                                   <option value="<?php echo $ct->id; ?>"> <?php echo $ct->name; ?></option>
+                            <?php                      
+                               }                        
+                           }                
+                           ?>
+                         </select>
                     </div>
                     <div class="col-xs-3">
                         <label>Nhãn hiệu</label> 
-                        <select class="form-control">
-                          <option>Mustard</option>
-                          <option>Ketchup</option>
-                          <option>Relish</option>
-
-                          <option>Plain</option>
-                          <option>Steamed</option>
-                          <option>Toasted</option>
-                      </select>
+                        <select name="marken" class="form-control">
+                            <option value=""> Chọn thương hiệu</option>
+                            <?php 
+                            if (!empty($marken)){
+                               foreach ($marken as $ct) {                  
+                           ?>
+                                   <option value="<?php echo $ct->id; ?>"> <?php echo $ct->name; ?></option>
+                            <?php                      
+                               }                        
+                           }                
+                           ?>
+                         </select>
                     </div>
                     <div class="col-xs-3">
                         <label>Tên sản phẩm</label> 
@@ -128,10 +135,10 @@
             var r = confirm("Chắc chắn xóa !");
             if (r == true) {
                 var id = $(this).attr('data-value');
-                window.location.href = '<?php echo base_url(); ?>admin/product/add/' + id;
+                window.location.href = '<?php echo base_url(); ?>admin/product/delete/' + id;
                 return false;
             } else {
-                txt = "You pressed Cancel!";
+                txt = "Bạn đã hủy xóa!";
             }
            
             return false;

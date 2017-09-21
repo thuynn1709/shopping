@@ -71,6 +71,7 @@ class Import_detail extends MY_Controller {
     
     public function add(){
         $this->_loadAdminHeader();
+        $import_id = $this->uri->segment(4);
         $all_name_products = $this->product_model->get_name_all_products();
         
         $all_products_id = array();
@@ -79,24 +80,47 @@ class Import_detail extends MY_Controller {
         }
         $data['all_name_products'] = json_encode($all_products_id);
         
-        if (isset($_POST['name'])){
-            $name = $_POST['name'];
-            $alias =  str_replace(' ', '-', trim($name));
-            $priority = $_POST['priority'];
-            $status = $_POST['status'];
+        if (isset($_POSTơ['count'])){
             
-            $data = array('name'=> $name,
-                          'priority'=>$priority,
-                            'alias'=>$alias,
-                          'status'=>$status,
-                          'created' => date ("Y-m-d H:i:s")
-                    );
-            if ($this->importdetail_model->insert($data)) {
-                redirect('admin/import_detail/index');
-            } else{ 
-                redirect('admin/import_detail/add');
+            $count = (int)$_POST['count'];
+            $insert  = array();
+            $update  = array();
+            
+            for( $i = 1; $i <= $count; $i++) {
+                $field_id = 'field'.$i;
+                $qty_id = 'qty'.$i;
+                $product_name = $_POST[$field_id];
+                $amount = (int)$_POST[$qty_id];
+                $alias = sanitizeTitle($product_name);
+                
+                $structured_results = array();
+                foreach($update as $key => $value)
+                {
+                    if( !isset($structured_results[$value['name']])) {
+                        $structured_results[$value['name']] = array( 'alias' => $value['alias'] , 'amount' => $value['amount']);
+                    } else {
+                        $structured_results[$value['name']] = array('alias' => $value['alias'] , 'amount' => $value['amount'] + $structured_results[$value['name']]['amount'] );
+                    }
+                }
+
+                echo '<pre>';
+                var_dump($structured_results);
+                
             }
+            
+            if (!empty($insert)) {
+                $this->product_model->insert($insert, true);
+            }
+            if (!empty($update)) {
+                $this->product_model->update_batch($update, 'alias');
+            }
+            redirect('admin/import_detail/index/'. $import_id);
+            
         }
+        
+        
+        $data['import'] = $this->import_model->get_one( $import_id);
+        $data['import_id'] = $import_id;
         $this->load->view('admin/import_detail/add', $data);
         $this->_loadAdminFooter();
     }
@@ -145,6 +169,30 @@ class Import_detail extends MY_Controller {
 
         $this->importdetail_model->del_one($id);        
         redirect('admin/import_detail/index');  
+    }
+    
+    public function test(){
+        $update = array();
+        $update[0] = array('name' => '123', 'alias' => '123', 'amount' => 2, 'updated' => date ("Y-m-d H:i:s"));
+        $update[1] = array('name' => '123', 'alias' => '123', 'amount' => 2, 'updated' => date ("Y-m-d H:i:s"));
+        $update[2] = array('name' => '123', 'alias' => '123', 'amount' => 2, 'updated' => date ("Y-m-d H:i:s"));
+        $update[3] = array('name' => '1', 'alias' => '1', 'amount' => 2, 'updated' => date ("Y-m-d H:i:s"));
+        $update[4] = array('name' => '1', 'alias' => '1', 'amount' => 2, 'updated' => date ("Y-m-d H:i:s"));
+        $update[5] = array('name' => '1', 'alias' => '1', 'amount' => 2, 'updated' => date ("Y-m-d H:i:s"));
+        $structured_results = array();
+        foreach($update as $key => $value)
+        {
+            //var_dump($key);
+            //var_dump($value);die;
+            if( !isset($structured_results[$value['name']])) {
+                $structured_results[$value['name']] = array( 'alias' => $value['alias'] , 'amount' => $value['amount']);
+            } else {
+                $structured_results[$value['name']] = array('alias' => $value['alias'] , 'amount' => $value['amount'] + $structured_results[$value['name']]['amount'] );
+            }
+        }
+
+        echo '<pre>';
+        var_dump($structured_results);
     }
     
     
