@@ -95,17 +95,17 @@
                     <span aria-hidden="true">&times;</span></button>
                 <h4 class="modal-title">Nhập dữ liệu chi tiết cho đơn hàng <?php echo $import->created ; ?></h4>
             </div>
-            <form class="form_import_excel" id="form_import_excel" name="form_import_excel" method="post" enctype="multipart/form-data">
+            <form enctype="multipart/form-data" id="modal_form_id"  method="POST" >
                 <div class="modal-body">
                     <input type="hidden" value="<?php echo $import_id ; ?>" name="import_id" />
                     <label for="exampleInputFile">File Excel </label>
                     <input type="file" name="excel" id="excel">
                 </div>
             
-            <div class="modal-footer">
-                <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Hủy</button>
-                <button type="button" id="save_file" class="btn btn-primary">Lưu</button>
-            </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-warning pull-left" data-dismiss="modal">Hủy</button>
+                    <button type="submit" id="save_file" class="btn btn-primary">Lưu</button>
+                </div>
             </form>  
         </div>
         <!-- /.modal-content -->
@@ -147,25 +147,22 @@
         $("#fileSelected").click(function(){
             $(".modal").show();
         });
-        
-        $("#save_file").click(function(){
-            $("#form_import_excel").submit(function(){
-                var formData = new FormData(this);
-                $.ajax({
-                    url: "<?php echo base_url('admin/import_detail/import_excel'); ?>",
-                    type: 'POST',
-                    data: formData,
-                    dataType: 'json',
-                    //async: false,
-                    success: function (data) {
-                        alert(data);
-                    },
-                    //cache: false,
-                    //contentType: false,
-                    //processData: false
-                });
-                return false;
+       
+        $('#modal_form_id').submit(function(e) {
+            var postData = new FormData($("#modal_form_id")[0]);
+            var  url = "<?php echo base_url('admin/import_detail/import_excel'); ?>";
+            alert(url);
+            $.ajax({
+                type:'POST',
+                url: url,
+                processData: false,
+                contentType: false,
+                data : postData,
+                success:function(data){
+                  console.log( data);
+                }
             });
+            e.preventDefault();
         });
     });
     

@@ -196,12 +196,12 @@ class Import_detail extends MY_Controller {
     }
     
     public function import_excel() {
-        echo 'fdafda';die;
-        var_dump(json_encode($_POST));die;
+        
+        
         if (isset($_POST['import_id'])){
             $import_id = $_POST['import_id'];
             
-            var_dump(json_encode($_POST));die;
+            
             //Path of files were you want to upload on localhost (C:/xampp/htdocs/ProjectName/uploads/excel/)	 
             $configUpload['upload_path'] = FCPATH.'public/upload_files/excel/';
             $configUpload['allowed_types'] = 'xls|xlsx|csv';
@@ -237,8 +237,8 @@ class Import_detail extends MY_Controller {
                 'hasError' => true,
                 'data' => $data_user
             );
-            die(json_encode($return));
-            unlink(base_url("public/upload_files/". $file_name));
+            //die(json_encode($return));
+            //unlink(base_url("public/upload_files/excel/". $file_name));
             redirect(base_url() . "put link were you want to redirect");
         }
     }
