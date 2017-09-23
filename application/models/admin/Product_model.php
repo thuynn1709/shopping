@@ -105,11 +105,11 @@ class Product_model extends CI_Model {
         return $insert_id;
     }
     
-    public function get_features_items ( $ids = array(), $limit = 10, $offset = 0){
-        $this->db->select('name, status, id');
-        $this->db->where_in('id', $ids);
+    public function get_product_by_alias ( $alias = array()){
+        $this->db->select('id');
+        $this->db->where_in('alias', $alias);
         //$this->db->where('status', 1);
-        $this->db->limit($limit, $offset);
+      
         $this->db->from($this->table);
         return $this->db->get()->result();
     }

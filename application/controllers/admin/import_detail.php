@@ -296,7 +296,7 @@ class Import_detail extends MY_Controller {
                     );
                 }
             }
-           
+            unlink($file);
             $check = $this->importdetail_model->insert($data_user, true);
             if ($check) {
                 $this->session->set_flashdata('success', 'Thêm mới thành công!');

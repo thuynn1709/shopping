@@ -11,7 +11,7 @@
  *
  * @author Nguyen Ruy
  */
-class Import_model extends CI_Model {
+class Featuresitems_model extends CI_Model {
    
     public $table = 'config_featureas_items';
     //put your code here

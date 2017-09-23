@@ -29,7 +29,7 @@
           <div class="box">
             <div class="box-header">
             
-              <h3 class="box-title">Danh sách sản phẩm FUETURES ITEMS ( Trang chủ) </h3>
+              <h3 class="box-title">Danh sách sản phẩm</h3>
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -113,7 +113,7 @@
         
         $('#add_new').click(function() {
             var id = $(this).val();
-            window.location.href = '<?php echo base_url(); ?>admin/config/featuresitemsadd/'+ id ;
+            window.location.href = '<?php echo base_url(); ?>admin/config/featuresitmesadd' ;
             return false;
         });
         

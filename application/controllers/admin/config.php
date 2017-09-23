@@ -19,6 +19,7 @@ class Config extends MY_Controller {
         {
             redirect(base_url('admin/login')); 
         }
+        $this->load->model('admin/featuresitems_model');
         $this->load->model('admin/product_model');
         $this->load->library('pagination');
         $this->load->library('upload');
@@ -28,12 +29,10 @@ class Config extends MY_Controller {
         $this->_loadAdminHeader();
         $data = array();
         
-        $list_ids  = $this->config->item('featuresitems');
-        
         $limit = 20;
         $config = array();
         $config["base_url"] = base_url() . "admin/config/featuresitems";
-        $total_row = $this->product_model->count_alls_features_items($list_ids);
+        $total_row = $this->featuresitems_model->count_all_results();
         $config["total_rows"] = $total_row;
         $config["per_page"] = $limit;
         $config['use_page_numbers'] = TRUE;
@@ -59,8 +58,7 @@ class Config extends MY_Controller {
         $this->pagination->initialize($config);
         $offset = 0;
         $offset = $this->uri->segment(4) > 0 ? (($this->uri->segment(4) + 0) * $config['per_page'] - $config['per_page']) : $this->uri->segment(4) ;
-        $data["results"] = $this->product_model->get_features_items($list_ids, $config["per_page"], $offset);
-       
+        $data["results"] = $this->featuresitems_model->get_all( $config["per_page"], $offset);
         $data["links"] = $this->pagination->create_links();
 
         // View data according to array.
@@ -69,36 +67,40 @@ class Config extends MY_Controller {
         $this->_loadAdminFooter();
     }
     
-    public function add(){
+    public function featuresitmesadd(){
         $this->_loadAdminHeader();
-        $error['error'] = '';
-        if (isset($_POST['title'])){
-            $img = '';
-            $this->upload->initialize($this->set_upload_options());
-            if ( ! $this->upload->do_upload('img')){
-                $error['error'] = $this->upload->display_errors();
-            } else{
-                $img = $this->upload->data('file_name');
-                $title = $_POST['title'];
-                $describe = $_POST['describe'];
-                $link = $_POST['link'];
-                $status = $_POST['status'];
-
-                $data = array('title'=> $title,
-                              'describe'=> $describe,
-                              'link'=> $link,
-                              'img'=> $img,
-                              'status' => $status,
-                              'created' => date ("Y-m-d H:i:s")
-                        );
-                if ($this->slidebar_model->insert($data)) {
-                    redirect('admin/slidebar/index');
-                } else{ 
-                    redirect('admin/slidebar/add');
-                }
-            }
+        
+        $all_name_products = $this->product_model->get_name_all_products();
+        
+        $all_products_id = array();
+        foreach ( $all_name_products as $al) {
+            $all_products_id[] = $al['name'];
         }
-        $this->load->view('admin/slidebar/add', $error);
+        $data['all_name_products'] = json_encode($all_products_id);
+        
+        if (isset($_POST['count'])){
+            $count = (int)$_POST['count'];
+            $alias_array  = array();
+            for( $i = 1; $i <= $count; $i++) {
+                $field_id = 'field'.$i;
+                $product_name = $_POST[$field_id];
+                $alias = sanitizeTitle($product_name);
+                $alias_array[] = $alias;
+            }
+            
+            $products = array();
+            $products = $this->product_model->get_product_by_alias($alias_array);
+            $insert_array = array(
+                'product_id' => $products->id,
+                'created' => date('Y-m-d H:i:s')
+            );
+            
+            $this->featuresitems_model->insert( $insert_array, true);
+        }
+        
+        
+        
+        $this->load->view('admin/config/features_items_add', $data);
         $this->_loadAdminFooter();
     }
     
