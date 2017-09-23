@@ -19,6 +19,8 @@ class Home extends MY_Controller {
     
     public function index(){
         $this->_loadFrontendHeader();
+        $this->_loadFrontendSlider();
+        $this->_loadFrontendLeftSlidebar();
         $this->_loadFrontendContent();
         $this->_loadFrontendFooter();
     }

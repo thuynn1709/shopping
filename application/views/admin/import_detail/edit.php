@@ -19,33 +19,20 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/import/edit/'). $item->id ; ?>">
+            <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/import_detail/edit/'). $item->id ; ?>">
                 <div class="box-body">
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Tên người nhập</label>
-                      <input type="text" name="name" class="form-control" id="exampleInputEmail1" value="<?php echo $item->name; ?> " placeholder="Tên người nhập">
+                      <label for="exampleInputEmail1">Tên sản phẩm</label>
+                      <input type="text" name="name" class="form-control" id="exampleInputEmail1" value="<?php echo $item->product_name; ?> " placeholder="Tên người nhập">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Trọng lượng</label>
-                      <input type="text" name="weight" class="form-control" id="exampleInputEmail1" value="<?php echo $item->weight; ?> " placeholder="Trọng lượng">
+                      <label for="exampleInputEmail1">Giá</label>
+                      <input type="text" name="price" class="form-control" id="exampleInputEmail1" value="<?php echo $item->price; ?> " placeholder="Trọng lượng">
                     </div>
                     <div class="form-group">
-                      <label for="exampleInputEmail1">Tổng số sản phẩm</label>
-                      <input type="text" name="product_qty" class="form-control" id="exampleInputEmail1" value="<?php echo $item->product_qty; ?> " placeholder="Tổng số sản phẩm">
+                        <label for="exampleInputEmail1">Số lượng</label>
+                      <input type="text" name="amount" class="form-control" id="exampleInputEmail1" value="<?php echo $item->amount; ?> " placeholder="Tổng số sản phẩm">
                     </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Tổng giá trị </label>
-                      <input type="text" name="product_total_price" class="form-control" id="exampleInputEmail1" value="<?php echo $item->product_total_price; ?> " placeholder="Tổng giá trị">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Ship tại đức</label>
-                      <input type="text" name="versand_in_de" class="form-control" id="exampleInputEmail1" value="<?php echo $item->versand_in_de; ?> " placeholder="Ship tại đức">
-                    </div>
-                    <div class="form-group">
-                      <label for="exampleInputEmail1">Ship về VNam</label>
-                      <input type="text" name="versand_to_vn" class="form-control" id="exampleInputEmail1" value="<?php echo $item->versand_to_vn; ?> " placeholder="Ship về VNam">
-                    </div>
-                
                 </div>
                 <!-- /.box-body -->
 

@@ -72,12 +72,12 @@
                 
                 <?php 
                     if (!empty($results)) {
-                        $stt = 1;
+                        $offset = $offset + 1;
                       
                         foreach ($results as $rs) {
                     ?> 
                     <tr>
-                      <td><?php echo $stt; ?></td>
+                      <td><?php echo $offset; ?></td>
                       <td><?php echo $rs->name; ?></td>
                       <td><?php echo $rs->created; ?></td>
                       <?php 
@@ -96,7 +96,7 @@
                       </td>
                     </tr>
                         <?php 
-                        $stt += 1;
+                        $offset += 1;
                         }
                     }?> 
               </table>

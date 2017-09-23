@@ -21,7 +21,16 @@ class Importdetail_model extends CI_Model {
     
     public function get_all($import_id, $limit = 10, $offset = 0) {
         $this->db->where('import_id', $import_id);
-        return  $this->db->get( $this->table, $limit, $offset)->result();
+        $this->db->order_by("created", "DESC");
+        $this->db->limit( $limit, $offset);
+        $results =  $this->db->get( $this->table)->result();
+        
+        return $results;
+    }
+    
+    public function get_all_by_importId($import_id) {
+        $this->db->where('import_id', $import_id);
+        return  $this->db->get($this->table)->result();
     }
     
     public function get_one( $id) {
@@ -30,10 +39,9 @@ class Importdetail_model extends CI_Model {
         return !empty($data) ? $data[0] : array();
     }
     
-    public function count_all_results($import_id, $limit = 10, $offset = 0) {
+    public function count_all_results($import_id) {
         $this->db->from( $this->table);
         $this->db->where('import_id', $import_id);
-        $this->db->limit($limit, $offset);
         return $this->db->count_all_results();
     }
     

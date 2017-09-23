@@ -31,10 +31,10 @@ class Import_detail extends MY_Controller {
         $data = array();
         $data['import'] = $this->import_model->get_one( $import_id);
         $data['import_id'] = $import_id;
-        $limit = 10;
+        $limit = 20;
         $config = array();
-        $config["base_url"] = base_url() . "admin/import_detail/index";
         $total_row = $this->importdetail_model->count_all_results( $import_id);
+        $config["base_url"] = base_url() . "admin/import_detail/index/". $import_id;
         $config["total_rows"] = $total_row;
         $config["per_page"] = $limit;
         $config['use_page_numbers'] = TRUE;
@@ -58,13 +58,16 @@ class Import_detail extends MY_Controller {
         
         
         $this->pagination->initialize($config);
-        $page = ($this->uri->segment(5)) ? $this->uri->segment(5) : 0;
-        $data["results"] = $this->importdetail_model->get_all($import_id, $config["per_page"], $page);
-      
+        $offset = 0;
+        $offset = $this->uri->segment(5) > 0 ? (($this->uri->segment(5) + 0) * $config['per_page'] - $config['per_page']) : $this->uri->segment(5) ;
+        
+        $data["results"] = $this->importdetail_model->get_all($import_id, $config["per_page"], $offset);
+       //get_all_by_importId
         $data["links"] = $this->pagination->create_links();
 
         // View data according to array.
         
+        $data['offset'] = $offset;
         $this->load->view('admin/import_detail/index', $data);
         $this->_loadAdminFooter();
     }
@@ -80,42 +83,59 @@ class Import_detail extends MY_Controller {
         }
         $data['all_name_products'] = json_encode($all_products_id);
         
-        if (isset($_POSTơ['count'])){
-            
+        if (isset($_POST['count'])){
             $count = (int)$_POST['count'];
-            $insert  = array();
-            $update  = array();
-            
+            $insert_array  = array();
             for( $i = 1; $i <= $count; $i++) {
                 $field_id = 'field'.$i;
                 $qty_id = 'qty'.$i;
+                $price_id = 'price'.$i;
                 $product_name = $_POST[$field_id];
+                $price = ($_POST[$price_id]);
                 $amount = (int)$_POST[$qty_id];
                 $alias = sanitizeTitle($product_name);
+                $insert_array[] = array(
+                    'product_name' => $product_name ,
+                    'product_alias' => sanitizeTitle($product_name) , 
+                    'price' => $price,
+                    'amount' => $amount,
+                    'status' => 0,
+                    'created' =>  date('Y-m-d H:i:s')
+                );
+            }
                 
-                $structured_results = array();
-                foreach($update as $key => $value)
-                {
-                    if( !isset($structured_results[$value['name']])) {
-                        $structured_results[$value['name']] = array( 'alias' => $value['alias'] , 'amount' => $value['amount']);
-                    } else {
-                        $structured_results[$value['name']] = array('alias' => $value['alias'] , 'amount' => $value['amount'] + $structured_results[$value['name']]['amount'] );
-                    }
+            $structured_results = array();
+            foreach($insert_array as $key => $value)
+            {
+                if( !isset($structured_results[$value['product_alias']])) {
+                    $structured_results[$value['product_alias']] = array( 
+                        'import_id' => $import_id,
+                        'product_name' => $value['product_name'] ,
+                        'product_alias' => $value['product_alias'], 
+                        'price' => $price,
+                        'amount' => $value['amount'],
+                        'status' => 0,
+                        'created' =>  date('Y-m-d H:i:s'),
+                        'updated' =>  date('Y-m-d H:i:s')
+                    );
+                } else {
+                    $structured_results[$value['product_alias']] = array(
+                        'import_id' => $import_id,
+                        'product_name' => $value['product_name'] ,
+                        'product_alias' => $value['product_alias'], 
+                        'price' => $price,
+                        'amount' => $value['amount'] + $structured_results[$value['product_alias']]['amount'],
+                        'status' => 0,
+                        'created' =>  date('Y-m-d H:i:s'),
+                        'updated' =>  date('Y-m-d H:i:s')
+                    );
                 }
+            }
 
-                echo '<pre>';
-                var_dump($structured_results);
-                
-            }
-            
-            if (!empty($insert)) {
-                $this->product_model->insert($insert, true);
-            }
-            if (!empty($update)) {
-                $this->product_model->update_batch($update, 'alias');
+            if (!empty($structured_results)) {
+                $this->importdetail_model->insert($structured_results, true);
             }
             redirect('admin/import_detail/index/'. $import_id);
-            
         }
         
         
@@ -135,23 +155,25 @@ class Import_detail extends MY_Controller {
       
         $data['item'] = $this->importdetail_model->get_one($id);
         if (!$data['item']) {
-            redirect('admin/import_detail/index');
+            redirect('admin/import');
         }
-       
+        $import_id = $data['item']->import_id;
         if (isset($_POST['name'])){
             $name = $_POST['name'];
-            $alias =  str_replace(' ', '-', $name);
-            $priority = $_POST['priority'];
-            $status = $_POST['status'];
-            
-            $data = array('name'=> $name,
-                          'priority'=>$priority,
-                          'alias'=>$alias,
-                          'status'=>$status,
-                          'created' => date ("Y-m-d H:i:s")
+            $price = $_POST['price'];
+           
+            $amount = $_POST['amount'];
+            $data = array('product_name'=> $name,
+                          'product_alias' => sanitizeTitle($name),
+                          'price'=> floatval(str_replace(',', '.', $price)),
+                          'amount'=>$amount,
+                          'status'=> $data['item']->status,
+                          'updated' => date ("Y-m-d H:i:s")
                     );
+            
+                    //var_dump($data);die;
             if ($this->importdetail_model->update($id, $data)) {
-                redirect('admin/import_detail/index');
+                redirect(base_url('admin/import_detail/index/'. $import_id));
             } 
         }
         $this->load->view('admin/import_detail/edit', $data);
@@ -171,30 +193,63 @@ class Import_detail extends MY_Controller {
         redirect('admin/import_detail/index');  
     }
     
-    public function test(){
-        $update = array();
-        $update[0] = array('name' => '123', 'alias' => '123', 'amount' => 2, 'updated' => date ("Y-m-d H:i:s"));
-        $update[1] = array('name' => '123', 'alias' => '123', 'amount' => 2, 'updated' => date ("Y-m-d H:i:s"));
-        $update[2] = array('name' => '123', 'alias' => '123', 'amount' => 2, 'updated' => date ("Y-m-d H:i:s"));
-        $update[3] = array('name' => '1', 'alias' => '1', 'amount' => 2, 'updated' => date ("Y-m-d H:i:s"));
-        $update[4] = array('name' => '1', 'alias' => '1', 'amount' => 2, 'updated' => date ("Y-m-d H:i:s"));
-        $update[5] = array('name' => '1', 'alias' => '1', 'amount' => 2, 'updated' => date ("Y-m-d H:i:s"));
+    public function import_to_product(){
+        $import_id = $this->uri->segment(4);
+        $all_products_by_importId = array();
+        $all_products_by_importId = $this->importdetail_model->get_all_by_importId($import_id);
+        
         $structured_results = array();
-        foreach($update as $key => $value)
+        foreach($all_products_by_importId as $key => $value)
         {
-            //var_dump($key);
-            //var_dump($value);die;
-            if( !isset($structured_results[$value['name']])) {
-                $structured_results[$value['name']] = array( 'alias' => $value['alias'] , 'amount' => $value['amount']);
+            if( !isset($structured_results[$value->product_alias])) {
+                $structured_results[$value->product_alias] = array( 
+                   
+                    'product_name' => $value->product_name ,
+                    'product_alias' => $value->product_alias, 
+                    'amount' => $value->amount,
+                );
             } else {
-                $structured_results[$value['name']] = array('alias' => $value['alias'] , 'amount' => $value['amount'] + $structured_results[$value['name']]['amount'] );
+                $structured_results[$value->product_alias] = array(
+                    
+                    'product_name' => $value->product_name ,
+                    'product_alias' => $value->product_alias, 
+                    'amount' => $value->amount + $structured_results[$value->product_alias]['amount'],
+                );
             }
         }
-
-        echo '<pre>';
-        var_dump($structured_results);
+        
+        $insert_batch = array();
+        $update_batch = array();
+        
+        foreach( $structured_results as $r) {
+            if ($this->product_model->check_one_by_alias($r['product_alias'])) {
+                $update_batch[] = array(
+                    'alias' => $r['product_alias'],
+                    'amount' => $r['amount'],
+                    'updated' =>  date('Y-m-d')
+                );
+            }else {
+                $insert_batch[] = array(
+                    'name' => $r['product_name'],
+                    'alias' => $r['product_alias'],
+                    'amount' => $r['amount'],
+                    'status' => 0,
+                    'created' =>  date('Y-m-d'),
+                    'updated' =>  date('Y-m-d')
+                );
+            }
+        }
+        
+        if(!empty($insert_batch)) {
+            $this->product_model->insert($insert_batch, true);
+        }
+        if(!empty($update_batch)) {
+            $this->product_model->update_batch( $update_batch, 'alias'); 
+        }
+        $this->session->set_flashdata('success', 'Import dữ liệu thành công!');
+        redirect('admin/product/index');  
     }
-    
+
     public function import_excel() {
         if (isset($_POST['import_id'])){
             $import_id = $_POST['import_id'];
@@ -207,7 +262,6 @@ class Import_detail extends MY_Controller {
             $upload_data = $this->upload->data(); //Returns array of containing all of the data related to the file you uploaded.
             $file_name = $upload_data['file_name']; //uploded file name
             $extension=$upload_data['file_ext'];    // uploded file extension
-          
             
             $this->load->library('excel');
             //$objReader= PHPExcel_IOFactory::createReader();	// For excel 2007 
@@ -223,14 +277,33 @@ class Import_detail extends MY_Controller {
             $data_user = array();
             for( $i=2; $i<=$totalrows; $i++)
             {
-                $FirstName= $objWorksheet->getCellByColumnAndRow(0,$i)->getValue();			
-                $LastName= $objWorksheet->getCellByColumnAndRow(1,$i)->getValue(); //Excel Column 1
-                $Email= $objWorksheet->getCellByColumnAndRow(2,$i)->getValue(); //Excel Column 2
-                $Mobile=$objWorksheet->getCellByColumnAndRow(3,$i)->getValue(); //Excel Column 3
-                $Address=$objWorksheet->getCellByColumnAndRow(4,$i)->getValue(); //Excel Column 4
-                $data_user[]= array('FirstName'=>$FirstName, 'LastName'=>$LastName ,'Email'=>$Email ,'Mobile'=>$Mobile , 'Address'=>$Address);
+                if ( $objWorksheet->getCellByColumnAndRow(0,$i)->getValue() != '') {
+                    $product_name = $objWorksheet->getCellByColumnAndRow(0,$i)->getValue();	
+                
+                    $product_alilas = sanitizeTitle($product_name);
+                    $price = $objWorksheet->getCellByColumnAndRow(1,$i)->getValue(); //Excel Column 1
+                    $qty = $objWorksheet->getCellByColumnAndRow(2,$i)->getValue(); //Excel Column 2
 
+                    $data_user[]= array(
+                        'import_id' => $import_id,
+                        'product_name'=> $product_name, 
+                        'product_alias '=> $product_alilas ,
+                        'price'=> floatval(str_replace(',', '.', $price)), 
+                        'amount'=> $qty,
+                        'status' => 0,
+                        'created' =>  date('Y-m-d H:i:s'),
+                        'updated' =>  date('Y-m-d H:i:s')
+                    );
+                }
             }
+           
+            $check = $this->importdetail_model->insert($data_user, true);
+            if ($check) {
+                $this->session->set_flashdata('success', 'Thêm mới thành công!');
+                echo 'ok';die;
+            }
+            $this->session->set_flashdata('error', 'Không thành công  !');
+            echo 'notok';die;
         }
     }
     

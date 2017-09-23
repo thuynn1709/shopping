@@ -11,27 +11,22 @@
  *
  * @author Nguyen Ruy
  */
-class Productcategory_model extends CI_Model {
+class Sale_model extends CI_Model {
    
-    public $table = 'products_category';
+    public $table = 'sales';
     //put your code here
     public function __construct() {
         parent::__construct();
     }
     
-    public function get_all( $limit = 10, $offset = 0) {
-        
-        $this->db->order_by("created", "desc");
-        $this->db->limit($limit, $offset);
-        $this->db->last_query();
-        $result =  $this->db->get($this->table)->result();
-        
-        return $result;
+    public function get_all($limit = 10, $offset = 0) {
+        $this->db->order_by("updated", "desc");
+        return  $this->db->get( $this->table, $limit, $offset)->result();
     }
     
     public function get_one( $id) {
         $this->db->where('id', $id);
-        return   $this->db->get( $this->table)->row();
+        return  $this->db->get( $this->table)->row();
     }
     
     public function count_all_results() {

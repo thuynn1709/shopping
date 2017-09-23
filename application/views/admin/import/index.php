@@ -1,7 +1,7 @@
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-
+    
     <section class="content">
       <!-- /.row -->
       <div class="row">
@@ -56,7 +56,7 @@
                       <td><?php echo $rs->created; ?></td>
                       <td>
                         <div class="btn-group">
-                            <a href="<?php echo base_url('admin/import_detail/index/'). $rs->id ; ?>" class="btn btn-default">Edit <span class="glyphicon glyphicon-pencil"></span></a>
+                            <a href="<?php echo base_url('admin/import_detail/index/'). $rs->id ; ?>" class="btn btn-default">Chi tiết nhập <span class="glyphicon glyphicon-pencil"></span></a>
                             <button type="button" ref="<?php echo base_url('admin/import/edit/'). $rs->id ; ?>" id="edit" class="btn btn-info">Sửa</button>
                             <button type="button" ref="<?php echo base_url('admin/import/delete/'). $rs->id ; ?>" id="delete" class="btn btn-warning">Xóa</button>
                         </div>  

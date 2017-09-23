@@ -1,7 +1,11 @@
 <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-
+    <ol class="breadcrumb">
+        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?php echo base_url('admin/import/'); ?>">Quản lý nhập hàng</a></li>
+        <li class="active">Chi tiết nhập hàng ngày : <?php echo $import->created ; ?> / <?php echo $import->name ; ?></li>
+    </ol>
     <section class="content">
       <!-- /.row -->
       <div class="row">
@@ -10,17 +14,26 @@
                 <button style="width: 150px" type="button" id="add_new" value="<?php echo $import_id ; ?>" class="btn btn-block btn-primary">Thêm mới</button>  
             </div>
             <div class="col-xs-3"></div>
-            <div class="col-xs-3"></div>
             <div class="col-xs-3">
+                
+            </div>
+            <div class="col-xs-3">
+                <button type="button" value="<?php echo $import_id ; ?>" id="import_to_product" class="btn btn-success pull-left">
+                    Import to Products
+                </button>&nbsp; &nbsp; &nbsp; 
                 <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-info">
                     Import file Excel
-                  </button>
+                </button>
             </div>
            
         </div>
+          
+        
+        
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
+            
               <h3 class="box-title">Chi tiết nhập hàng ngày : <?php echo $import->created ; ?> / <?php echo $import->name ; ?> </h3>
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
@@ -31,6 +44,21 @@
                 </div>
               </div>
             </div>
+              
+            <?php if($this->session->flashdata('error')) {?>
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <?php echo $this->session->flashdata('error');?>
+                </div>
+            <?php }?>  
+
+            <?php if($this->session->flashdata('success')) {?>
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <?php echo $this->session->flashdata('success');?>
+                </div>
+            <?php }?>  
+              
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
               <table class="table table-hover">
@@ -45,29 +73,25 @@
                 
                 <?php 
                     if (!empty($results)) {
-                        $stt = 1;
+                        $offset = $offset + 1;
                         foreach ($results as $rs) {
                     ?> 
                     <tr>
-                      <td><?php echo $stt; ?></td>
-                      <td><?php echo $rs->name; ?></td>
-                      <td><?php echo $rs->weight; ?></td>
-                      <td><?php echo $rs->product_qty; ?></td>
-                      <td><?php echo $rs->product_total_price; ?></td>
-                      <td><?php echo $rs->versand_in_de; ?></td>
-                      <td><?php echo $rs->versand_to_vn; ?></td>
+                      <td><?php echo $offset; ?></td>
+                      <td><?php echo $rs->product_name; ?></td>
+                      <td><?php echo $rs->price; ?></td>
+                      <td><?php echo $rs->amount; ?></td>
                       <td><?php echo $rs->created; ?></td>
                       <td>
                         <div class="btn-group">
-                            <a href="<?php echo base_url('admin/import_detail/index/'). $rs->id ; ?>" class="btn btn-default">Edit <span class="glyphicon glyphicon-pencil"></span></a>
-                            <button type="button" ref="<?php echo base_url('admin/import/edit/'). $rs->id ; ?>" id="edit" class="btn btn-info edit_button">Sửa</button>
-                            <button type="button" ref="<?php echo base_url('admin/import/delete/'). $rs->id ; ?>" id="delete" class="btn btn-warning delete_button">Xóa</button>
+                            <button type="button" ref="<?php echo base_url('admin/import_detail/edit/'). $rs->id ; ?>" id="edit" class="btn btn-info edit_button">Sửa</button>
+                            <button type="button" ref="<?php echo base_url('admin/import_detail/delete/'). $rs->id ; ?>" id="delete" class="btn btn-warning delete_button">Xóa</button>
                         </div>  
                         
                       </td>
                     </tr>
                         <?php 
-                        $stt += 1;
+                        $offset += 1;
                         }
                     }?> 
               </table>
@@ -87,7 +111,7 @@
     
   </div>
 
-<div class="modal fade" id="modal-info">
+<div class="modal fade in" id="modal-info">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -112,8 +136,7 @@
     </div>
     <!-- /.modal-dialog -->
 </div>
-        <!-- /.modal -->
-<!-- /.modal -->
+
 
 <script type="text/javascript">
     $( document ).ready(function() {
@@ -121,6 +144,12 @@
         $('#add_new').click(function() {
             var id = $(this).val();
             window.location.href = '<?php echo base_url(); ?>admin/import_detail/add/'+ id ;
+            return false;
+        });
+        
+        $('#import_to_product').click(function() {
+            var id = $(this).val();
+            window.location.href = '<?php echo base_url(); ?>admin/import_detail/import_to_product/'+ id ;
             return false;
         });
         
@@ -151,7 +180,6 @@
         $('#modal_form_id').submit(function(e) {
             var postData = new FormData($("#modal_form_id")[0]);
             var  url = "<?php echo base_url('admin/import_detail/import_excel'); ?>";
-            alert(url);
             $.ajax({
                 type:'POST',
                 url: url,
@@ -159,7 +187,8 @@
                 contentType: false,
                 data : postData,
                 success:function(data){
-                  console.log( data);
+                    $('.modal').modal('hide');
+                    location.reload();
                 }
             });
             e.preventDefault();

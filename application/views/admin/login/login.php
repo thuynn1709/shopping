@@ -15,7 +15,7 @@
                 <input type="password" name="password" id="inputPassword" class="form-control" <?php echo set_value('password'); ?> placeholder="Password" required>
                 <div id="remember" class="checkbox">
                     <label>
-                        <input type="checkbox" value="remember_me"> Remember me
+                        <input type="checkbox" name="remember_me" value="1"> Remember me
                     </label>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>

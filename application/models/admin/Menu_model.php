@@ -20,6 +20,7 @@ class Menu_model extends CI_Model {
     }
     
     public function get_all($limit = 10, $offset = 0) {
+        $this->db->order_by("priority", "desc");
         return  $this->db->get( $this->table, $limit, $offset)->result();
     }
     
@@ -29,9 +30,8 @@ class Menu_model extends CI_Model {
         return !empty($data) ? $data[0] : array();
     }
     
-    public function count_all_results($limit = 10, $offset = 0) {
+    public function count_all_results() {
         $this->db->from( $this->table);
-        $this->db->limit($limit, $offset);
         return $this->db->count_all_results();
     }
     

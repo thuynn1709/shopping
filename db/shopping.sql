@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : nothing
+Source Server         : ngocthuy
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : shopping
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-21 15:37:59
+Date: 2017-09-23 02:42:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -85,17 +85,18 @@ CREATE TABLE `import` (
   `name` varchar(40) DEFAULT NULL,
   `weight` int(11) DEFAULT NULL,
   `product_qty` int(11) DEFAULT NULL,
-  `product_total_price` float DEFAULT NULL,
-  `versand_in_de` float DEFAULT NULL,
-  `versand_to_vn` varchar(200) DEFAULT NULL,
+  `product_total_price` double DEFAULT NULL,
+  `versand_in_de` double DEFAULT NULL,
+  `versand_to_vn` double(200,0) DEFAULT NULL,
+  `status` tinyint(2) DEFAULT NULL COMMENT '0 chua import, 1 da import den bang produt',
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of import
 -- ----------------------------
-INSERT INTO `import` VALUES ('1', 'Ngoc Thuy', '1', '20', '423.3', '0', '200', '2017-09-15 22:04:37');
+INSERT INTO `import` VALUES ('1', 'Ngoc Thuy ', '31', '195', '684', '0', '217', null, '2017-09-21 01:05:04');
 
 -- ----------------------------
 -- Table structure for import_detail
@@ -103,18 +104,51 @@ INSERT INTO `import` VALUES ('1', 'Ngoc Thuy', '1', '20', '423.3', '0', '200', '
 DROP TABLE IF EXISTS `import_detail`;
 CREATE TABLE `import_detail` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product_id` int(11) DEFAULT NULL,
   `import_id` int(11) DEFAULT NULL,
-  `price` float(11,0) DEFAULT NULL,
+  `product_name` varchar(60) DEFAULT NULL,
+  `product_alias` varchar(60) DEFAULT NULL,
+  `price` double DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  `updated` datetime DEFAULT NULL,
+  `status` tinyint(2) DEFAULT NULL COMMENT '0- chua import to product, 1- da import',
+  `created` date DEFAULT NULL,
+  `updated` date DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=32 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of import_detail
 -- ----------------------------
+INSERT INTO `import_detail` VALUES ('1', '1', 'SkinActive Maske Granatapfel', 'skinactive-maske-granatapfel', '2.2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('2', '1', 'SkinActive Maske Grüntee', 'skinactive-maske-grüntee', '2.2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('3', '1', 'SkinActive Maske Lavendel', 'skinactive-maske-lavendel', '2.2', '2', '0', '2017-09-22', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('4', '1', 'SkinActive Maske Sakura', 'skinactive-maske-sakura', '2.2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('5', '1', 'Anti-Age Maske', 'anti-age-maske', '2.2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('6', '1', 'Creme-Gel Maske Melone', 'creme-gel-maske-melone', '2.2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('7', '1', 'Peel-Off Maske', 'peel-off-maske', '2.2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('8', '1', 'Luxus Maske', 'luxus-maske', '2.2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('9', '1', 'Peel-Off Maske', 'peel-off-maske', '2.2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('10', '1', 'Colour Lippenstift 020', 'colour-lippenstift-020', '2.2', '1', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('11', '1', 'Ultimate Matt Lipstick 020', 'ultimate-matt-lipstick-020', '2.2', '4', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('12', '1', 'Ultimate Matt Lipstick 030', 'ultimate-matt-lipstick-030', '2.2', '4', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('13', '1', 'Velvet Matt Lip Cream 020', 'velvet-matt-lip-cream-020', '2.2', '3', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('14', '1', 'Velvet Matt Lip Cream 080', 'velvet-matt-lip-cream-080', '2.2', '3', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('15', '1', 'Ultimate Colour 500', 'ultimate-colour-500', '2.2', '1', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('16', '1', 'Ultimate Colour 310', 'ultimate-colour-310', '2.2', '1', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('17', '1', 'Ultimate Colour 370', 'ultimate-colour-370', '2.2', '1', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('18', '1', 'Ultimate Colour 020', 'ultimate-colour-020', '2.2', '1', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('19', '1', 'Superstay 24h 135', 'superstay-24h-135', '2.2', '1', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('20', '1', 'Superstay 24h 460', 'superstay-24h-460', '2.2', '1', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('21', '1', 'Superstay 24h 542', 'superstay-24h-542', '2.2', '1', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('22', '1', 'Lips2Last 45A', 'lips2last-45a', '2.2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('23', '1', 'Lips2Last 48L', 'lips2last-48l', '2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('24', '1', 'Lips2Last 43H', 'lips2last-43h', '2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('25', '1', 'Lips2Last 59L', 'lips2last-59l', '2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('26', '1', 'Lips2Last 59N', 'lips2last-59n', '2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('27', '1', 'Lips2Last 44Q', 'lips2last-44q', '1', '1', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('28', '1', 'Lips2Last 56Q', 'lips2last-56q', '1', '1', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('29', '1', 'Lips2Last ', 'lips2last', '1', '1', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('30', '1', 'All in One Lipstick 470', 'all-in-one-lipstick-470', '2', '2', '0', '2017-09-23', '2017-09-23');
+INSERT INTO `import_detail` VALUES ('31', '1', 'All in One Lipstick 470', 'all-in-one-lipstick-470', '3', '333', '0', '2017-09-23', '2017-09-23');
 
 -- ----------------------------
 -- Table structure for marken
@@ -252,7 +286,7 @@ DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `name` varchar(200) DEFAULT NULL,
-  `alilas` varchar(100) DEFAULT NULL,
+  `alias` varchar(100) DEFAULT NULL,
   `category_id` tinyint(5) DEFAULT NULL,
   `marken_id` tinyint(5) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
@@ -273,13 +307,45 @@ CREATE TABLE `products` (
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of products
 -- ----------------------------
-INSERT INTO `products` VALUES ('1', '1', '1', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
-INSERT INTO `products` VALUES ('2', '2', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `products` VALUES ('3', '1', '1', '5', '3', '2', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `products` VALUES ('4', 'fdasfasfdf', 'fdasfasfdf', null, null, '1111', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2017-09-21 00:00:00', null);
+INSERT INTO `products` VALUES ('5', '121213', '121213', null, null, '1111', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2017-09-21 00:00:00', null);
+INSERT INTO `products` VALUES ('6', '1213123', '1213123', null, null, '1111', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2017-09-21 00:00:00', null);
+INSERT INTO `products` VALUES ('7', '12321321', '12321321', null, null, '12123', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2017-09-21 00:00:00', null);
+INSERT INTO `products` VALUES ('8', 'SkinActive Maske Granatapfel ', 'skinactive-maske-granatapfel', '15', '1', '2', null, null, null, null, null, '', '1970-01-01 01:00:00', '', '', null, '', '', '#000000', '1', '2017-09-23 00:00:00', '2017-09-23 02:42:18');
+INSERT INTO `products` VALUES ('9', 'SkinActive Maske Grüntee', 'skinactive-maske-grüntee', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('10', 'SkinActive Maske Lavendel', 'skinactive-maske-lavendel', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('11', 'SkinActive Maske Sakura', 'skinactive-maske-sakura', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('12', 'Anti-Age Maske', 'anti-age-maske', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('13', 'Creme-Gel Maske Melone', 'creme-gel-maske-melone', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('14', 'Peel-Off Maske', 'peel-off-maske', null, null, '4', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('15', 'Luxus Maske', 'luxus-maske', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('16', 'Colour Lippenstift 020', 'colour-lippenstift-020', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('17', 'Ultimate Matt Lipstick 020', 'ultimate-matt-lipstick-020', null, null, '4', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('18', 'Ultimate Matt Lipstick 030', 'ultimate-matt-lipstick-030', null, null, '4', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('19', 'Velvet Matt Lip Cream 020', 'velvet-matt-lip-cream-020', null, null, '3', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('20', 'Velvet Matt Lip Cream 080', 'velvet-matt-lip-cream-080', null, null, '3', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('21', 'Ultimate Colour 500', 'ultimate-colour-500', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('22', 'Ultimate Colour 310', 'ultimate-colour-310', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('23', 'Ultimate Colour 370', 'ultimate-colour-370', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('24', 'Ultimate Colour 020', 'ultimate-colour-020', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('25', 'Superstay 24h 135', 'superstay-24h-135', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('26', 'Superstay 24h 460', 'superstay-24h-460', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('27', 'Superstay 24h 542', 'superstay-24h-542', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('28', 'Lips2Last 45A ', 'lips2last-45a', '15', '1', '2', null, null, null, null, null, '', '1970-01-01 00:00:00', '', '', null, '', '', '#000000', '1', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('29', 'Lips2Last 48L', 'lips2last-48l', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('30', 'Lips2Last 43H', 'lips2last-43h', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('31', 'Lips2Last 59L', 'lips2last-59l', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('32', 'Lips2Last 59N', 'lips2last-59n', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('33', 'Lips2Last 44Q', 'lips2last-44q', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('34', 'Lips2Last 56Q', 'lips2last-56q', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('35', 'Lips2Last ', 'lips2last', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
+INSERT INTO `products` VALUES ('36', 'All in One Lipstick 470', 'all-in-one-lipstick-470', null, null, '335', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
 
 -- ----------------------------
 -- Table structure for products_category
@@ -316,6 +382,9 @@ CREATE TABLE `sales` (
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `order_id` int(11) DEFAULT NULL,
+  `fullname` varchar(50) DEFAULT NULL,
+  `phone` varchar(30) DEFAULT NULL,
+  `address` varchar(100) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `discount` varchar(20) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
@@ -339,14 +408,14 @@ CREATE TABLE `slidebar` (
   `link` varchar(100) DEFAULT NULL,
   `img` varchar(100) DEFAULT NULL,
   `status` tinyint(2) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
+  `created` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of slidebar
 -- ----------------------------
-INSERT INTO `slidebar` VALUES ('0', 'fdsafdsaf', '<p>fdsafdsafdsaf</p>', 'fdsafdsaf', '9008189347238-1196815_org1.png', null, '2017-09-20 17:26:38');
+INSERT INTO `slidebar` VALUES ('0', 'fdsafdsaf', '<p>fdsafdsafdsaf</p>', 'fdsafdsaf', '9008189347238-1196815_org1.png', null, '2017-09-20');
 
 -- ----------------------------
 -- Table structure for users
@@ -364,8 +433,8 @@ CREATE TABLE `users` (
   `type` varchar(20) DEFAULT NULL COMMENT '1 = tu website, 2 = tu fb',
   `group` varchar(5) NOT NULL COMMENT '0-admin , 1=mode, 2 = user',
   `status` tinyint(1) DEFAULT NULL,
-  `created` datetime DEFAULT NULL,
-  `updated` datetime DEFAULT NULL,
+  `created` date DEFAULT NULL,
+  `updated` date DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 

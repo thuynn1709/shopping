@@ -22,6 +22,5 @@ if ( ! function_exists('sanitizeTitle'))
         return strtolower($str);
     }
     
-    
 
 }

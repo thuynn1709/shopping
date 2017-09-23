@@ -28,8 +28,8 @@ class Product extends MY_Controller {
     
     public function index(){
         
+      
         $this->_loadAdminHeader();
-        
         $search = '';
         $category = '';
         $marken = '';
@@ -39,7 +39,7 @@ class Product extends MY_Controller {
             $marken = $_POST['marken'];
         }
         $data = array();
-        $limit = 10;
+        $limit = 20;
         $config = array();
         $config["base_url"] = base_url() . "admin/product/index";
         $total_row = $this->product_model->count_all_results( $search, $category, $marken);
@@ -66,13 +66,15 @@ class Product extends MY_Controller {
         
         
         $this->pagination->initialize($config);
-        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-        $data["results"] = $this->product_model->get_all( $search, $category, $marken, $config["per_page"], $page);
+        $offset = 0;
+        $offset = $this->uri->segment(4) > 0 ? (($this->uri->segment(4) + 0) * $config['per_page'] - $config['per_page']) : $this->uri->segment(4) ;
         
+        $data["results"] = $this->product_model->get_all( $search, $category, $marken, $config["per_page"], $offset);
         $data["links"] = $this->pagination->create_links();
 
         // View data according to array.
         $data['search'] = $search;
+        $data['offset'] = $offset;
         $data["marken"] = $this->marken_model->get_all( 100, 0);
         $data["category"] = $this->productcategory_model->get_all( 100, 0);
         

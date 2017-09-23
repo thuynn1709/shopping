@@ -17,9 +17,7 @@ class Login extends CI_Controller{
 
     public function __construct(){
         parent::__construct();
-        
-        $this->load->helper(array('form', 'url', 'cookie'));
-        $this->load->library(array('form_validation','session'));
+        $this->load->library(array('form_validation'));
         $this->load->model('admin/user_model');
     }
 
@@ -51,7 +49,7 @@ class Login extends CI_Controller{
                             'group'=> $a_UserChecking->group
                         );
                         $this->session->set_userdata($user_info);
-                        redirect(base_url('admin/dashboard'));
+                        redirect(base_url('admin/product/index'));
                 }
                 $this->b_Check = false;
             }

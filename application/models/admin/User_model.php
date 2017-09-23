@@ -45,7 +45,7 @@ class User_model extends CI_Model {
         return $this->db->get( $this->table)->row();
     }
     
-    public function count_all_results($search = '', $group_id = '', $limit = 10, $offset = 0) {
+    public function count_all_results($search = '', $group_id = '') {
         $this->db->from($this->table);
        
         if ($search != '') {
@@ -54,7 +54,6 @@ class User_model extends CI_Model {
         if ($group_id !='') {
             $this->db->where('group', $group_id);
         }
-        $this->db->limit($limit, $offset);
         return $this->db->count_all_results();
  
     }

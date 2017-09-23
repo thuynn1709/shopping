@@ -20,6 +20,7 @@ class Import_model extends CI_Model {
     }
     
     public function get_all($limit = 10, $offset = 0) {
+        $this->db->order_by("created", "desc");
         return  $this->db->get( $this->table, $limit, $offset)->result();
     }
     
@@ -28,9 +29,8 @@ class Import_model extends CI_Model {
         return  $this->db->get( $this->table)->row();
     }
     
-    public function count_all_results($limit = 10, $offset = 0) {
+    public function count_all_results() {
         $this->db->from( $this->table);
-        $this->db->limit($limit, $offset);
         return $this->db->count_all_results();
     }
     
