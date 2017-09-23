@@ -24,13 +24,16 @@ class Config extends MY_Controller {
         $this->load->library('upload');
     }
     
-    public function index(){
+    public function featuresitems(){
         $this->_loadAdminHeader();
         $data = array();
-        $limit = 10;
+        
+        $list_ids  = $this->config->item('featuresitems');
+        
+        $limit = 20;
         $config = array();
-        $config["base_url"] = base_url() . "admin/slidebar/index";
-        $total_row = $this->slidebar_model->count_all_results();
+        $config["base_url"] = base_url() . "admin/config/featuresitems";
+        $total_row = $this->product_model->count_alls_features_items($list_ids);
         $config["total_rows"] = $total_row;
         $config["per_page"] = $limit;
         $config['use_page_numbers'] = TRUE;
@@ -54,14 +57,15 @@ class Config extends MY_Controller {
         
         
         $this->pagination->initialize($config);
-        $page = ($this->uri->segment(4)) ? $this->uri->segment(4) : 0;
-        $data["results"] = $this->slidebar_model->get_all($config["per_page"], $page);
-      
+        $offset = 0;
+        $offset = $this->uri->segment(4) > 0 ? (($this->uri->segment(4) + 0) * $config['per_page'] - $config['per_page']) : $this->uri->segment(4) ;
+        $data["results"] = $this->product_model->get_features_items($list_ids, $config["per_page"], $offset);
+       
         $data["links"] = $this->pagination->create_links();
 
         // View data according to array.
-        
-        $this->load->view('admin/slidebar/index', $data);
+        $data['offset'] = $offset;
+        $this->load->view('admin/config/features_items_index', $data);
         $this->_loadAdminFooter();
     }
     
@@ -98,61 +102,19 @@ class Config extends MY_Controller {
         $this->_loadAdminFooter();
     }
     
-    public function edit(){
-        $this->_loadAdminHeader();
-        $id = $this->uri->segment(4);
-        if (empty($id))
-        {
-            show_404();
-        }
-        $data['item'] = $this->slidebar_model->get_one($id);
-        if (!$data['item']) {
-            redirect('admin/slidebar/index');
-        }
-       
-        $data['error'] = '';
-        if (isset($_POST['title'])){
-            $img = '';
-            $this->upload->initialize($this->set_upload_options());
-            if ( ! $this->upload->do_upload('img')){
-                $data['error'] = $this->upload->display_errors();
-            } else{
-                $img = $this->upload->data('file_name');
-                $title = $_POST['title'];
-                $describe = $_POST['describe'];
-                $link = $_POST['link'];
-                $status = $_POST['status'];
-
-                $data = array('title'=> $title,
-                              'describe'=> $describe,
-                              'link'=> $link,
-                              'img'=> $img,
-                              'status' => $status,
-                              'created' => date ("Y-m-d H:i:s")
-                        );
-                if ($this->slidebar_model->insert($data)) {
-                    redirect('admin/slidebar/index');
-                } else{ 
-                    redirect('admin/slidebar/add');
-                }
-            }
-        }
-       
-        $this->load->view('admin/slidebar/edit', $data);
-        $this->_loadAdminFooter();
-    }
     
-    public function delete()
+    public function featuresitmesdelete()
     {
-        $id = $this->uri->segment(4);
-        
-        if (empty($id))
-        {
-            show_404();
+        $del_id = $this->uri->segment(4);
+        $list_ids  = $this->config->item('featuresitems');
+        if(($key = array_search($del_id, $list_ids)) !== false) {
+            unset($list_ids[$key]);
         }
-
-        $this->slidebar_model->del_one($id);        
-        redirect('admin/slidebar/index');  
+        
+        var_dump($list_ids);die;
+        $this->config->set_item('featuresitems', '1');
+       
+        redirect('admin/config/featuresitems');  
     }
     
     public function test()

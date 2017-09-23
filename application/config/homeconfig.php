@@ -1,12 +1,3 @@
-<?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-$homeconfig['featuresitems'] = array();
-
-$homeconfig['recommendeditems'] = array();
-
+<?php if (!defined('BASEPATH')) exit('No direct script access allowed');
+//adding config items.
+$config['featuresitems'] = array( 6, 7, 8, 9);

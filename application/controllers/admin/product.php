@@ -227,26 +227,26 @@ class Product extends MY_Controller {
             $updated = date('Y-m-d H:i:s');
             
             $data = array('name'=> $name,
-                        'alias'=> $alias,
-                        'category_id'=> $category,
-                        'marken_id'=> $marken,
-                        'amount'=> $amount,
-                        'img_thumb' => $img_thumb,
-                        'img' => $img,
-                        'img_1' => $img_1,
-                        'img_2' => $img_2,
-                        'img_3' => $img_3,
-                        'describe' => $describe,
-                        'expired' => $expired,
-                        'element' => $element,
-                        'guide' => $guide,
-                        'price' => $price,
-                        'discount' => $discount,
-                        'color' => $color,
-                        'status' => $status,
-                        'updated' => $updated
-                    );
-           
+                'alias'=> $alias,
+                'category_id'=> $category,
+                'marken_id'=> $marken,
+                'amount'=> $amount,
+                'img_thumb' => $img_thumb,
+                'img' => $img,
+                'img_1' => $img_1,
+                'img_2' => $img_2,
+                'img_3' => $img_3,
+                'describe' => $describe,
+                'expired' => $expired,
+                'element' => $element,
+                'guide' => $guide,
+                'price' => $price,
+                'discount' => $discount,
+                'color' => $color,
+                'status' => $status,
+                'updated' => $updated
+            );
+
             if ($this->product_model->update($id, $data)) {
                 redirect('admin/product/index');
             } else{ 
@@ -272,9 +272,7 @@ class Product extends MY_Controller {
         if (empty($id)){
             show_404();
         }
-        
         $product = $this->product_model->get_one($id);
-        
         unlink(base_url("public/images/products/".$product->img_thumb));
         unlink(base_url("public/images/products/".$product->img));
         unlink(base_url("public/images/products/".$product->img_1));

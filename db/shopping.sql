@@ -10,10 +10,25 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-23 02:42:47
+Date: 2017-09-23 03:33:47
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for config_featureas_items
+-- ----------------------------
+DROP TABLE IF EXISTS `config_featureas_items`;
+CREATE TABLE `config_featureas_items` (
+  `id` int(11) NOT NULL,
+  `product_id` int(11) DEFAULT NULL,
+  `created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of config_featureas_items
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for contact

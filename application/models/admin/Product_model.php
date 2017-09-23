@@ -105,7 +105,22 @@ class Product_model extends CI_Model {
         return $insert_id;
     }
     
+    public function get_features_items ( $ids = array(), $limit = 10, $offset = 0){
+        $this->db->select('name, status, id');
+        $this->db->where_in('id', $ids);
+        //$this->db->where('status', 1);
+        $this->db->limit($limit, $offset);
+        $this->db->from($this->table);
+        return $this->db->get()->result();
+    }
     
+    public function count_alls_features_items ( $ids = array()){
+        $this->db->select('name, status, id');
+        $this->db->where_in('id', $ids);
+        //$this->db->where('status', 1);
+        $this->db->from($this->table);
+        return $this->db->count_all_results();
+    }
    
 
 

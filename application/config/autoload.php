@@ -103,7 +103,7 @@ $autoload['helper'] = array('url','file', 'convert_string_helper', 'convert_to_f
 | config files.  Otherwise, leave it blank.
 |
 */
-$autoload['config'] = array();
+$autoload['config'] = array('homeconfig');
 
 /*
 | -------------------------------------------------------------------
