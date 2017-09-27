@@ -28,17 +28,10 @@
                             <input type="text" name="name" class="form-control" id="exampleInputEmail1" value="<?php echo $item->name; ?> "  placeholder="Nhập tên sản phẩm">
                         </div>
                         <div class="col-md-6">
-                            <label>Danh mục sản phẩm</label>
-                            <select name="category" class="form-control">
-                               <?php 
-                               if (!empty($category)){
-                                  foreach ($category as $ct) {                  
-                              ?>
-                                      <option value="<?php echo $ct->id; ?>" <?php echo ($item->category_id == $ct->id) ? 'selected="selected"' : '' ?>> <?php echo $ct->name; ?></option>
-                               <?php                      
-                                  }                        
-                              }                
-                              ?>
+                            <label>Cách thanh toán</label>
+                            <select name="pay_status" class="form-control">
+                                <option value="1" <?php echo ($item->pay_status == 1) ? 'selected="selected"' : '' ?>> Tiền mặt</option>
+                                <option value="0" <?php echo ($item->pay_status == 0) ? 'selected="selected"' : '' ?>> Chuyển khoản</option> 
                             </select>
                         </div>
                     </div>
@@ -47,17 +40,25 @@
                 <div class="form-group">
                     <div class="row" >
                         <div class="col-md-6">
-                            <label>Thương hiệu</label>
-                            <select name="marken" class="form-control">
-                               <?php 
-                               if (!empty($marken)){
-                                  foreach ($marken as $mk) {                  
-                              ?>
-                                      <option value="<?php echo $mk->id; ?>" <?php echo ($item->marken_id == $mk->id) ? 'selected="selected"' : '' ?>> <?php echo $mk->name; ?></option>
-                               <?php                      
-                                  }                        
-                              }                
-                              ?>
+                            <label>Trạng thái thanh toán</label>
+                            <select name="pay_status" class="form-control">
+                                <option value="1" <?php echo ($item->pay_status == 1) ? 'selected="selected"' : '' ?>> Đã thanh toán</option>
+                                <option value="0" <?php echo ($item->pay_status == 0) ? 'selected="selected"' : '' ?>> Chưa thanh toán</option> 
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <label for="exampleInputEmail1">Số lượng</label>
+                            <input type="text" name="amount" class="form-control" id="exampleInputAmount" value=" <?php echo $item->amount ; ?>" placeholder="000">
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row" >
+                        <div class="col-md-6">
+                            <label>Tình trạng</label>
+                            <select name="status" class="form-control">
+                                <option value="1" <?php echo ($item->status == 1) ? 'selected="selected"' : '' ?>> Đã giao hàng</option>
+                                <option value="0" <?php echo ($item->status == 0) ? 'selected="selected"' : '' ?>> Chưa giao hàng</option> 
                             </select>
                         </div>
                         <div class="col-md-6">
