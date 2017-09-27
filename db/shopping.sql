@@ -1,7 +1,7 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : ngocthuy
+Source Server         : nothing
 Source Server Version : 50505
 Source Host           : localhost:3306
 Source Database       : shopping
@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-23 03:33:47
+Date: 2017-09-27 16:50:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -106,7 +106,7 @@ CREATE TABLE `import` (
   `status` tinyint(2) DEFAULT NULL COMMENT '0 chua import, 1 da import den bang produt',
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of import
@@ -263,16 +263,17 @@ CREATE TABLE `orders` (
   `amount` int(11) DEFAULT NULL,
   `pricetotal` int(11) DEFAULT NULL,
   `list_id` varchar(100) DEFAULT NULL COMMENT 'chuoi json',
-  `method` tinyint(3) DEFAULT NULL COMMENT '1-tien mat, 2 thanh toan chuyen khoan',
+  `pay_method` tinyint(3) DEFAULT NULL COMMENT '1-tien mat, 0- thanh toan chuyen khoan',
   `pay_status` tinyint(3) DEFAULT NULL COMMENT '0-chua thanh toan, 1-da thanh toan',
   `status` tinyint(3) DEFAULT NULL COMMENT '0- chua giao hang, 1-da giao hang',
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
+INSERT INTO `orders` VALUES ('1', '1', '12', '700000', null, '1', '1', '1', '2017-09-27 16:21:40');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -396,7 +397,7 @@ CREATE TABLE `sales` (
   `id` int(11) unsigned NOT NULL,
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
-  `order_id` int(11) DEFAULT NULL,
+  `order_detail_id` int(11) DEFAULT NULL,
   `fullname` varchar(50) DEFAULT NULL,
   `phone` varchar(30) DEFAULT NULL,
   `address` varchar(100) DEFAULT NULL,
