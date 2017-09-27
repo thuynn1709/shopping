@@ -144,7 +144,7 @@
         
         $('.btn-info').click(function() {
             var id = $(this).attr('data-value');
-            window.location.href = '<?php echo base_url(); ?>admin/order/edit/' + id;
+            window.location.href = '<?php echo base_url(); ?>admin/order/detail/' + id;
             return false;
         });
         

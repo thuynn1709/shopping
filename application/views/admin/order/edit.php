@@ -4,8 +4,8 @@
     
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Quản lý sản phẩm</a></li>
-        <li class="active">Cập nhật sản phẩm</li>
+        <li><a href="#">Quản lý đơn hàng</a></li>
+        <li class="active">Chi tiết đơn hàng</li>
       </ol>
     <!-- Main content -->
     <section class="content">
@@ -15,11 +15,11 @@
           <!-- general form elements -->
           <div class="box box-primary">
             <div class="box-header with-border">
-              <h3 class="box-title">Cập nhật sản phẩm</h3>
+              <h3 class="box-title">Thông tin chi tiết đơn hàng</h3>
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/product/edit/'). $item->id ; ?>">
+            <form role="form" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/order/detail/'). $item->id ; ?>">
               <div class="box-body">
                 <div class="form-group">
                     <div class="row" >

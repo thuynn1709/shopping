@@ -168,18 +168,15 @@ class Order extends MY_Controller {
         $this->_loadAdminFooter();
     }
     
-    public function edit(){
+    public function detail(){
         $id = $this->uri->segment(4);
         if (empty($id)){
             show_404();
         }
-      
-        $product = $this->product_model->get_one($id);
-       
-        if (count ( (array)$product) == 0 ) {
-            redirect('admin/product/index');
+        $order = $this->order_model->get_one($id);
+        if (count ( (array)$order) == 0 ) {
+            redirect('admin/order/index');
         }
-       
         if (isset($_POST['name'])){  
             $name = $_POST['name'];
             $alias = sanitizeTitle($name);
@@ -254,14 +251,9 @@ class Order extends MY_Controller {
         }
         
         $this->_loadAdminHeader();
-        $marken = array();
-        $category = array();
-        $marken = $this->marken_model->get_all();
-        $category = $this->productcategory_model->get_all();
-        $data['marken'] = $marken;
-        $data['category'] = $category;
-        $data['item'] = $product;
-        $this->load->view('admin/product/edit', $data);
+        
+        $data['item'] = $order;
+        $this->load->view('admin/order/edit', $data);
         $this->_loadAdminFooter();
     }
     
