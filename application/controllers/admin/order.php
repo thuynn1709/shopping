@@ -23,6 +23,8 @@ class Order extends MY_Controller {
         $this->load->model('admin/product_model');
         $this->load->model('admin/menu_model');
         $this->load->model('admin/order_model');
+        $this->load->model('admin/orderdetail_model');
+        $this->load->model('admin/user_model');
         $this->load->library('pagination');
     }
     
@@ -174,40 +176,25 @@ class Order extends MY_Controller {
             show_404();
         }
         $order = $this->order_model->get_one($id);
+       
         if (count ( (array)$order) == 0 ) {
             redirect('admin/order/index');
         }
+        $order_detail = $this->orderdetail_model->get_all_by_order_id($order->id);
+        if (count ( (array)$order_detail) == 0 ) {
+            redirect('admin/order/index');
+        }
+        
+        $user = $this->user_model->get_one($order->user_id);
+       
         if (isset($_POST['name'])){  
             $name = $_POST['name'];
             $alias = sanitizeTitle($name);
             
-            
-            $this->load->library('upload');
-            $imageInfo = array();
-            $files = $_FILES;
-            $cpt = count($_FILES['images']['name']);
-            for($i=0; $i<$cpt; $i++)
-            {           
-                $_FILES['images']['name']= $files['images']['name'][$i];
-                $_FILES['images']['type']= $files['images']['type'][$i];
-                $_FILES['images']['tmp_name']= $files['images']['tmp_name'][$i];
-                $_FILES['images']['error']= $files['images']['error'][$i];
-                $_FILES['images']['size']= $files['images']['size'][$i];    
-                    
-                $this->upload->initialize($this->set_upload_options());
-                $this->upload->do_upload('images');
-                $imageInfo[] = $this->upload->data();
-            }
-            
-            
             $category = $_POST['category'];
             $marken = $_POST['marken'];
             $amount = $_POST['amount'];
-            $img_thumb = $imageInfo[0]['file_name'] != '' ? $imageInfo[0]['file_name'] : $product->img_thumb ;
-            $img = $imageInfo[1]['file_name'] != '' ? $imageInfo[1]['file_name'] : $product->img;
-            $img_1 = $imageInfo[2]['file_name'] != '' ? $imageInfo[2]['file_name'] : $product->img_1;
-            $img_2 = $imageInfo[3]['file_name'] != '' ? $imageInfo[3]['file_name'] : $product->img_2;
-            $img_3 = $imageInfo[4]['file_name'] != '' ? $imageInfo[4]['file_name'] : $product->img_3;
+           
             $describe = $_POST['describe'];
             
             $expired = $_POST['expired'];
@@ -252,25 +239,22 @@ class Order extends MY_Controller {
         
         $this->_loadAdminHeader();
         
+        $data['user'] = $user;
         $data['item'] = $order;
+        $data['results'] = $order_detail;
         $this->load->view('admin/order/edit', $data);
         $this->_loadAdminFooter();
     }
     
-    public function delete()
+    public function delete_orderdetail_by_id()
     {
-        $id = $this->uri->segment(4);
-        if (empty($id)){
-            show_404();
+        $order_detail_id = $_POST['order_detail_id'];
+        
+        if($this->orderdetail_model->del_one($order_detail_id)) {
+            echo 'ok';die;
+        } else {
+            echo 'notok';die;
         }
-        $product = $this->product_model->get_one($id);
-        unlink(base_url("public/images/products/".$product->img_thumb));
-        unlink(base_url("public/images/products/".$product->img));
-        unlink(base_url("public/images/products/".$product->img_1));
-        unlink(base_url("public/images/products/".$product->img_2));
-        unlink(base_url("public/images/products/".$product->img_3));
-        $this->product_model->del_one($id);        
-        redirect('admin/product/index');  
     }
     
     private function set_upload_options()
