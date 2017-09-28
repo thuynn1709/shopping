@@ -73,12 +73,12 @@
                         </div>
                         <div class="col-md-4">
                             <label>Tổng số lượng</label>
-                            <input type="text" name="amount" class="form-control" id="exampleInputAmount" value=" <?php echo $item->amount ; ?>" placeholder="000">
+                            <input type="text" name="amount" id="total_amount" class="form-control" id="exampleInputAmount" value=" <?php echo $item->amount ; ?>" placeholder="000">
                            
                         </div>
                         <div class="col-md-4">
                             <label for="exampleInputEmail1">Tổng tiền đơn hàng</label>
-                            <input type="text" name="amount" class="form-control" id="exampleInputAmount" value=" <?php echo $item->amount ; ?>" placeholder="000">
+                            <input type="text" name="price" id="total_price" class="form-control" id="exampleInputAmount" value=" <?php echo $item->pricetotal ; ?>" placeholder="000">
                         </div>
                     </div>
                 </div>
@@ -164,16 +164,20 @@
         if (r == true) {
             var order_detail_id = $(this).attr("data-value");
             var tr_id = '#order_detail_' + order_detail_id;
-            
+            var order_id = <?php echo $item->id; ?>;
+            var url = '<?php echo base_url('admin/order/delete_orderdetail_by_id'); ?>';
             $.ajax
             ({ 
-                url: '<?php echo base_url('admin/order/delete_orderdetail_by_id'); ?>',
-                data: {"order_detail_id": order_detail_id},
+                url: url,
+                data: {'order_detail_id': order_detail_id, 'order_id' : order_id},
                 type: 'post',
-                success: function(result)
-                {
-                    if ( result == 'ok') {
+                success: function(result) {
+                    obj = jQuery.parseJSON(result);
+                    
+                    if ( obj.msg == 'success') {
                         $(tr_id).remove();
+                        $('#total_price').val(obj.price);
+                        $('#total_amount').val(obj.amount);
                         $("#table-order-detail").notify(
                             "Xóa thành công !", 
                             { position:"top", className: 'success', }

@@ -248,12 +248,27 @@ class Order extends MY_Controller {
     
     public function delete_orderdetail_by_id()
     {
-        $order_detail_id = $_POST['order_detail_id'];
         
+        $order_detail_id = $_POST['order_detail_id'];
+        $order_id = $_POST['order_id'];
+        
+        $order = $this->order_model->get_one($order_id);
+        $order_detail = $this->orderdetail_model->get_one($order_detail_id);
+        
+        $amount = $order->amount - $order_detail->amount;
+        $price = $order->pricetotal - $order_detail->price;
+        $data = array(
+            'amount' => $amount,
+            'pricetotal' => $price
+        );
+       
         if($this->orderdetail_model->del_one($order_detail_id)) {
-            echo 'ok';die;
+            $this->order_model->update( $order_id, $data);
+            $array = array ('msg' => 'success', 'amount' => $amount, 'price' => $price);
+            echo json_encode($array);die;
         } else {
-            echo 'notok';die;
+            $array = array ('msg' => 'error');
+            echo json_encode($array);die;
         }
     }
     
