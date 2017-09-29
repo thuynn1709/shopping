@@ -5,6 +5,8 @@ class MY_Controller extends CI_Controller {
     public function __construct() {
         parent::__construct();
         $this->load->library(array('session'));
+        $this->load->helper('cookie');
+        var_dump(array(1));die;
     }
     
     public function _loadFrontendHeader(){
