@@ -176,7 +176,6 @@ class Order extends MY_Controller {
             show_404();
         }
         $order = $this->order_model->get_one($id);
-       
         if (count ( (array)$order) == 0 ) {
             redirect('admin/order/index');
         }
@@ -184,61 +183,30 @@ class Order extends MY_Controller {
         if (count ( (array)$order_detail) == 0 ) {
             redirect('admin/order/index');
         }
-        
+       
         $user = $this->user_model->get_one($order->user_id);
        
-        if (isset($_POST['name'])){  
-            $name = $_POST['name'];
-            $alias = sanitizeTitle($name);
-            
-            $category = $_POST['category'];
-            $marken = $_POST['marken'];
-            $amount = $_POST['amount'];
-           
-            $describe = $_POST['describe'];
-            
-            $expired = $_POST['expired'];
-            $expired = $expired.' 00:00:00';
-            $expired = date('Y-m-d H:i:s', strtotime($expired));
-            
-            $element = $_POST['element'];
-            $guide = $_POST['guide'];
-            $price = $_POST['price'];
-            $discount = $_POST['discount'];
-            $color = $_POST['color'];
+        if (isset($_POST['pay_status'])){  
+            $pay_status = $_POST['pay_status'];
+            $pay_method = $_POST['pay_method'];
             $status = $_POST['status'];
-            $updated = date('Y-m-d H:i:s');
+            $created = date('Y-m-d H:i:s');
             
-            $data = array('name'=> $name,
-                'alias'=> $alias,
-                'category_id'=> $category,
-                'marken_id'=> $marken,
-                'amount'=> $amount,
-                'img_thumb' => $img_thumb,
-                'img' => $img,
-                'img_1' => $img_1,
-                'img_2' => $img_2,
-                'img_3' => $img_3,
-                'describe' => $describe,
-                'expired' => $expired,
-                'element' => $element,
-                'guide' => $guide,
-                'price' => $price,
-                'discount' => $discount,
-                'color' => $color,
-                'status' => $status,
-                'updated' => $updated
+            $data = array(
+                'pay_status'=> $pay_status,
+                'pay_method'=> $pay_method,
+                'status'=> $status,
+                'created'=> $created,
             );
 
-            if ($this->product_model->update($id, $data)) {
-                redirect('admin/product/index');
+            if ($this->order_model->update($id, $data)) {
+                redirect('admin/order');
             } else{ 
-                redirect('admin/product/add');
+                redirect('admin/order');
             }
         }
         
         $this->_loadAdminHeader();
-        
         $data['user'] = $user;
         $data['item'] = $order;
         $data['results'] = $order_detail;

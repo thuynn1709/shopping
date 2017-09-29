@@ -47,7 +47,7 @@
                     <div class="row" >
                         <div class="col-md-6">
                             <label>Cách thanh toán</label>
-                            <select name="pay_status" class="form-control">
+                            <select name="pay_method" class="form-control">
                                 <option value="1" <?php echo ($item->pay_status == 1) ? 'selected="selected"' : '' ?>> Tiền mặt</option>
                                 <option value="0" <?php echo ($item->pay_status == 0) ? 'selected="selected"' : '' ?>> Chuyển khoản</option> 
                             </select>
@@ -107,10 +107,10 @@
                     <tr id="order_detail_<?php echo $rs->id; ?>">
                         <td><?php echo $offset; ?></td>
                         <td><?php echo $rs->name; ?></td>
-                        <td><input type="text" name="amount" id="amount_detail_<?php echo $rs->id; ?>" class="form-control" id="exampleInputEmail1" value="<?php echo $rs->amount; ?>" placeholder="Số lượng sản phẩm"></td>
+                        <td><input type="text" name="amount_detail" id="amount_detail_<?php echo $rs->id; ?>" class="form-control" id="exampleInputEmail1" value="<?php echo $rs->amount; ?>" placeholder="Số lượng sản phẩm"></td>
                         <td class="text-center"><?php echo $rs->pamount; ?></td>
                         <td class="text-center"><?php echo $rs->price; ?></td>
-                        <td><input type="text" name="discount" id="discount_detail_<?php echo $rs->id; ?>" class="form-control" id="exampleInputEmail1" value="<?php echo $rs->discount; ?>" placeholder="Giảm giá nếu có"></td>
+                        <td><input type="text" name="discount_detail" id="discount_detail_<?php echo $rs->id; ?>" class="form-control" id="exampleInputEmail1" value="<?php echo $rs->discount; ?>" placeholder="Giảm giá nếu có"></td>
                         <td class="pull-right">    
                             <div class="btn-group">
                                 <button type="button" data-value="<?php echo $rs->id; ?>" class="btn btn-info">Cập nhật</button>
