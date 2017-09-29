@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-27 16:50:53
+Date: 2017-09-29 14:10:02
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -262,7 +262,6 @@ CREATE TABLE `orders` (
   `user_id` int(11) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `pricetotal` int(11) DEFAULT NULL,
-  `list_id` varchar(100) DEFAULT NULL COMMENT 'chuoi json',
   `pay_method` tinyint(3) DEFAULT NULL COMMENT '1-tien mat, 0- thanh toan chuyen khoan',
   `pay_status` tinyint(3) DEFAULT NULL COMMENT '0-chua thanh toan, 1-da thanh toan',
   `status` tinyint(3) DEFAULT NULL COMMENT '0- chua giao hang, 1-da giao hang',
@@ -273,7 +272,7 @@ CREATE TABLE `orders` (
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
-INSERT INTO `orders` VALUES ('1', '1', '12', '700000', null, '1', '1', '1', '2017-09-27 16:21:40');
+INSERT INTO `orders` VALUES ('1', '1', '2', '240000', '1', '1', '1', '2017-09-27 16:21:40');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -285,15 +284,18 @@ CREATE TABLE `order_detail` (
   `product_id` int(11) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
-  `status` tinyint(5) DEFAULT NULL,
+  `discount` int(11) DEFAULT NULL,
+  `status` tinyint(5) DEFAULT NULL COMMENT '0 chưa hoàn than, 1 hoàn thành',
   `created` datetime DEFAULT NULL,
   `updated` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_detail
 -- ----------------------------
+INSERT INTO `order_detail` VALUES ('0', null, null, null, null, null, null, null, null);
+INSERT INTO `order_detail` VALUES ('2', '1', '8', '2', '120000', '0', '1', '2017-09-28 17:01:37', '2017-09-28 17:01:37');
 
 -- ----------------------------
 -- Table structure for products
@@ -328,12 +330,12 @@ CREATE TABLE `products` (
 -- ----------------------------
 -- Records of products
 -- ----------------------------
-INSERT INTO `products` VALUES ('3', '1', '1', '5', '3', '2', null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null);
+INSERT INTO `products` VALUES ('3', '1', '1', '5', '3', '2', null, null, null, null, null, null, null, null, null, null, '140000', null, null, null, null, null);
 INSERT INTO `products` VALUES ('4', 'fdasfasfdf', 'fdasfasfdf', null, null, '1111', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2017-09-21 00:00:00', null);
-INSERT INTO `products` VALUES ('5', '121213', '121213', null, null, '1111', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2017-09-21 00:00:00', null);
+INSERT INTO `products` VALUES ('5', '121213', '121213', null, null, '1111', null, null, null, null, null, null, null, null, null, null, '140000', null, null, null, '2017-09-21 00:00:00', null);
 INSERT INTO `products` VALUES ('6', '1213123', '1213123', null, null, '1111', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2017-09-21 00:00:00', null);
 INSERT INTO `products` VALUES ('7', '12321321', '12321321', null, null, '12123', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2017-09-21 00:00:00', null);
-INSERT INTO `products` VALUES ('8', 'SkinActive Maske Granatapfel ', 'skinactive-maske-granatapfel', '15', '1', '2', null, null, null, null, null, '', '1970-01-01 01:00:00', '', '', null, '', '', '#000000', '1', '2017-09-23 00:00:00', '2017-09-23 02:42:18');
+INSERT INTO `products` VALUES ('8', 'SkinActive Maske Granatapfel ', 'skinactive-maske-granatapfel', '15', '1', '2', null, null, null, null, null, '', '1970-01-01 01:00:00', '', '', null, '120000', '', '#000000', '1', '2017-09-23 00:00:00', '2017-09-23 02:42:18');
 INSERT INTO `products` VALUES ('9', 'SkinActive Maske Grüntee', 'skinactive-maske-grüntee', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
 INSERT INTO `products` VALUES ('10', 'SkinActive Maske Lavendel', 'skinactive-maske-lavendel', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
 INSERT INTO `products` VALUES ('11', 'SkinActive Maske Sakura', 'skinactive-maske-sakura', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2017-09-23 00:00:00', '2017-09-23 00:00:00');
@@ -398,9 +400,6 @@ CREATE TABLE `sales` (
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `order_detail_id` int(11) DEFAULT NULL,
-  `fullname` varchar(50) DEFAULT NULL,
-  `phone` varchar(30) DEFAULT NULL,
-  `address` varchar(100) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
   `discount` varchar(20) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,

@@ -47,8 +47,14 @@ class Orderdetail_model extends CI_Model {
         return $this->db->delete( $this->table, array('id' => $id));  
     }
     
+    
+    
     public function del_all(){
         return $this->db->empty_table( $this->table); 
+    }
+    
+    public function del_all_by_orderId($id){
+        return $this->db->delete( $this->table, array('order_id' => $id));   
     }
 
     public function update($id , $data = array()){

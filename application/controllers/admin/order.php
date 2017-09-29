@@ -242,13 +242,12 @@ class Order extends MY_Controller {
         $data['user'] = $user;
         $data['item'] = $order;
         $data['results'] = $order_detail;
-        $this->load->view('admin/order/edit', $data);
+        $this->load->view('admin/order/detail', $data);
         $this->_loadAdminFooter();
     }
     
     public function delete_orderdetail_by_id()
     {
-        
         $order_detail_id = $_POST['order_detail_id'];
         $order_id = $_POST['order_id'];
         
@@ -272,6 +271,56 @@ class Order extends MY_Controller {
         }
     }
     
+    public function update_cart()
+    {
+        if ($_POST) {
+            $order_detail_id = $_POST['order_detail_id'];
+            $order_id = $_POST['order_id'];
+            $discount = $_POST['discount'];
+            $amount = $_POST['amount'];
+            if ($this->orderdetail_model->update($order_detail_id, array ('amount' => $amount, 'discount' => $discount))){
+                $all_orders = $this->orderdetail_model->get_all_by_order_id($order_id);
+                $amount = 0;
+                $pricetotal = 0;
+                if (!empty((array)$all_orders)) {
+                    foreach ($all_orders as $r) {
+                        $amount += $r->amount;
+                        $pricetotal += $r->amount * $r->price;
+                    }
+
+                    $data = array(
+                    'amount' => $amount,
+                    'pricetotal' => $pricetotal
+                    );
+                    $this->order_model->update( $order_id, $data);
+                }
+                $array = array ('msg' => 'success', 'amount' => $amount, 'price' => $pricetotal);
+                echo json_encode($array);die;
+            }
+            $array = array ('msg' => 'error');
+            echo json_encode($array);die;
+        }
+        $array = array ('msg' => 'error');
+        echo json_encode($array);die;
+    }        
+
+    public function delete()
+    {
+        $id = $this->uri->segment(4);
+        if (empty($id)){
+            show_404();
+        }
+        $order = $this->order_model->get_one($id);
+       
+        if (count ( (array)$order) == 0 ) {
+            redirect('admin/order');
+        }
+        
+        $this->order_model->get_one($id);
+        $this->orderdetail_model->del_all_by_orderId($id);
+        redirect('admin/order');
+    }
+
     private function set_upload_options()
     {   
         //upload an image options
