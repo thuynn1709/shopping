@@ -65,6 +65,15 @@
         </li>
         
         <li>
+          <a href="<?php echo base_url('admin/order') ; ?>">
+            <i class="fa fa-list-ol" aria-hidden="true"></i> <span>Quản lý đơn hàng</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-green"></small>
+            </span>
+          </a>
+        </li>
+        
+        <li>
           <a href="<?php echo base_url('admin/import') ; ?>">
             <i class="fa fa-floppy-o" aria-hidden="true"></i> <span>Quản lý nhập hàng</span>
             <span class="pull-right-container">

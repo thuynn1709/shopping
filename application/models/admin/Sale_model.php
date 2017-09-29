@@ -24,6 +24,11 @@ class Sale_model extends CI_Model {
         return  $this->db->get( $this->table, $limit, $offset)->result();
     }
     
+    public function get_all_by_orderDetailId( $ids) {
+        $this->db->where_in("order_detail_id", $ids);
+        return  $this->db->get( $this->table)->result();
+    }
+    
     public function get_one( $id) {
         $this->db->where('id', $id);
         return  $this->db->get( $this->table)->row();
@@ -53,6 +58,13 @@ class Sale_model extends CI_Model {
             return true;
         }
         $this->db->insert( $this->table, $data);
+        return true;
+    }
+    
+    public function delete_by_orderDetailId($ids)
+    {
+        $this->db->where_in('order_detail_id', $ids);
+        $this->db->delete( $this->table);
         return true;
     }
     

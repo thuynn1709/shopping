@@ -24,6 +24,7 @@ class Order extends MY_Controller {
         $this->load->model('admin/menu_model');
         $this->load->model('admin/order_model');
         $this->load->model('admin/orderdetail_model');
+        $this->load->model('admin/sale_model');
         $this->load->model('admin/user_model');
         $this->load->library('pagination');
     }
@@ -200,6 +201,34 @@ class Order extends MY_Controller {
             );
 
             if ($this->order_model->update($id, $data)) {
+                
+                $orderDetail_ids = array();
+                foreach ( $order_detail as $od) {
+                    $orderDetail_ids[] = $od->id;
+                }
+                
+                if ( $status == 1){
+                    $checked = $this->sale_model->get_all_by_orderDetailId($orderDetail_ids);
+                    if ( count((array)$checked) <= 0) {
+                        $sale_insert = array();
+                        foreach ( $order_detail as $od) {
+                            $sale_insert[] = array(
+                                'product_id' => $od->product_id,
+                                'user_id' => $order->user_id,
+                                'order_detail_id' => $od->id,
+                                'price' => $od->price,
+                                'discount' => $od->discount,
+                                'amount' => $od->amount,
+                                'type' => 1,
+                                'created' => date('Y-m-d H:i:s'),
+                            );
+                        }
+                        $this->sale_model->insert($sale_insert, true);
+                    }
+                }else {
+                    $this->sale_model->delete_by_orderDetailId($orderDetail_ids);
+                }
+                
                 redirect('admin/order');
             } else{ 
                 redirect('admin/order');

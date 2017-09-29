@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-29 14:10:02
+Date: 2017-09-29 15:51:12
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -272,7 +272,7 @@ CREATE TABLE `orders` (
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
-INSERT INTO `orders` VALUES ('1', '1', '2', '240000', '1', '1', '1', '2017-09-27 16:21:40');
+INSERT INTO `orders` VALUES ('1', '1', '2', '240000', '0', '0', '0', '2017-09-29 15:50:57');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -294,7 +294,6 @@ CREATE TABLE `order_detail` (
 -- ----------------------------
 -- Records of order_detail
 -- ----------------------------
-INSERT INTO `order_detail` VALUES ('0', null, null, null, null, null, null, null, null);
 INSERT INTO `order_detail` VALUES ('2', '1', '8', '2', '120000', '0', '1', '2017-09-28 17:01:37', '2017-09-28 17:01:37');
 
 -- ----------------------------
@@ -396,17 +395,17 @@ INSERT INTO `products_category` VALUES ('15', 'Vệ sinh răng miệng', 've-sin
 -- ----------------------------
 DROP TABLE IF EXISTS `sales`;
 CREATE TABLE `sales` (
-  `id` int(11) unsigned NOT NULL,
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
   `product_id` int(11) DEFAULT NULL,
   `user_id` int(11) DEFAULT NULL,
   `order_detail_id` int(11) DEFAULT NULL,
   `amount` int(11) DEFAULT NULL,
-  `discount` varchar(20) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
+  `discount` int(11) DEFAULT NULL,
   `type` tinyint(3) DEFAULT NULL COMMENT '0-qua tang, 1- ban hang cho khach',
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sales
