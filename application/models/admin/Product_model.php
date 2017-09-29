@@ -60,7 +60,7 @@ class Product_model extends CI_Model {
         return FALSE;    
     }
 
-        public function count_all_results($search = '', $category_id = '', $marken_id = '') {
+    public function count_all_results($search = '', $category_id = '', $marken_id = '') {
         $this->db->select('p.*, pc.id as pcid, pc.name as pcname');
         $this->db->from($this->table. ' as p');
         $this->db->join('products_category as pc', 'p.category_id = pc.id', 'left');
@@ -75,7 +75,6 @@ class Product_model extends CI_Model {
             $this->db->where('p.marken_id', $marken_id);
         }
         return $this->db->count_all_results();
- 
     }
     
     public function del_one ($id){

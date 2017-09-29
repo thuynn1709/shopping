@@ -19,9 +19,23 @@ class Sale_model extends CI_Model {
         parent::__construct();
     }
     
-    public function get_all($limit = 10, $offset = 0) {
-        $this->db->order_by("updated", "desc");
-        return  $this->db->get( $this->table, $limit, $offset)->result();
+    public function get_all($user_id = '', $product_id = '', $limit = 10, $offset = 0) {
+        $this->db->select('s.*, u.id, u.fullname, p.id, p.name');
+        $this->db->from($this->table. ' as s');
+        $this->db->join('users as u', 's.user_id = u.id', 'left');
+        $this->db->join('products as p', 's.product_id = p.id', 'left');
+        
+        if ($product_id !='') {
+            $this->db->where('p.product_id', $product_id);
+        }
+        
+        if ($user_id !='') {
+            $this->db->where('u.user_id', $user_id);
+        }
+        
+        $this->db->order_by('s.created', 'desc');
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result();
     }
     
     public function get_all_by_orderDetailId( $ids) {
@@ -34,8 +48,19 @@ class Sale_model extends CI_Model {
         return  $this->db->get( $this->table)->row();
     }
     
-    public function count_all_results() {
-        $this->db->from( $this->table);
+    public function count_all_results( $user_id = '', $product_id = '') {
+        $this->db->select('s.*, u.id, u.fullname, p.id, p.name');
+        $this->db->from($this->table. ' as s');
+        $this->db->join('users as u', 's.user_id = u.id', 'left');
+        $this->db->join('products as p', 's.product_id = p.id', 'left');
+        
+        if ($product_id !='') {
+            $this->db->where('p.product_id', $product_id);
+        }
+        
+        if ($user_id !='') {
+            $this->db->where('u.user_id', $user_id);
+        }
         return $this->db->count_all_results();
     }
     

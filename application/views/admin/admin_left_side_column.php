@@ -65,6 +65,15 @@
         </li>
         
         <li>
+          <a href="<?php echo base_url('admin/sale') ; ?>">
+            <i class="fa fa-money" aria-hidden="true"></i> <span>Đơn hàng đã bán</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-green"></small>
+            </span>
+          </a>
+        </li>
+        
+        <li>
           <a href="<?php echo base_url('admin/order') ; ?>">
             <i class="fa fa-list-ol" aria-hidden="true"></i> <span>Quản lý đơn hàng</span>
             <span class="pull-right-container">

@@ -219,6 +219,7 @@ class Order extends MY_Controller {
                                 'price' => $od->price,
                                 'discount' => $od->discount,
                                 'amount' => $od->amount,
+                                'pricetotal' => ($od->price * $od->amount ) - $od->discount,
                                 'type' => 1,
                                 'created' => date('Y-m-d H:i:s'),
                             );
@@ -287,11 +288,11 @@ class Order extends MY_Controller {
 
                     $data = array(
                     'amount' => $amount,
-                    'pricetotal' => $pricetotal
+                    'pricetotal' => $pricetotal - $discount
                     );
                     $this->order_model->update( $order_id, $data);
                 }
-                $array = array ('msg' => 'success', 'amount' => $amount, 'price' => $pricetotal);
+                $array = array ('msg' => 'success', 'amount' => $amount, 'price' => $pricetotal - $discount);
                 echo json_encode($array);die;
             }
             $array = array ('msg' => 'error');
