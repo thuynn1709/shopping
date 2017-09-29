@@ -79,7 +79,7 @@ class Menu extends MY_Controller {
                           'priority'=>$priority,
                             'alias'=>$alias,
                           'status'=>$status,
-                          'created' => date ("Y-m-d H:i:s")
+                          'created' => now()
                     );
             if ($this->menu_model->insert($data)) {
                 redirect('admin/menu/index');
@@ -114,7 +114,7 @@ class Menu extends MY_Controller {
                           'priority'=> $priority,
                           'alias'=> $alias,
                           'status'=> $status,
-                          'created' => date ("Y-m-d H:i:s")
+                          'created' => now()
                     );
             if ($this->menu_model->update($id, $data)) {
                 redirect('admin/menu/index');

@@ -127,8 +127,8 @@ class Order extends MY_Controller {
                 $discount = $_POST['discount'];
                 $color = $_POST['color'];
                 $status = $_POST['status'];
-                $created = date('Y-m-d H:i:s');
-                $updated = date('Y-m-d H:i:s');
+                $created = now();
+                $updated = now();
 
                 $data = array('name'=> $name,
                             'alias'=> $alias,
@@ -221,7 +221,7 @@ class Order extends MY_Controller {
                                 'amount' => $od->amount,
                                 'pricetotal' => ($od->price * $od->amount ) - $od->discount,
                                 'type' => 1,
-                                'created' => date('Y-m-d H:i:s'),
+                                'created' => now(),
                             );
                         }
                         $this->sale_model->insert($sale_insert, true);

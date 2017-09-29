@@ -58,7 +58,6 @@
                 <h3 class="box-title"><label>Danh sách hàng đã bán </label></h3>
               <div class="box-tools">
               </div>
-             
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">

@@ -79,6 +79,7 @@ class User extends MY_Controller {
                             'password'=> $password,
                             'group'=> $group,
                             'status'=> $status,
+                            'created' => now()
                     );
             if ($this->user_model->insert($data)) {
                 redirect('admin/user/index');
@@ -120,6 +121,7 @@ class User extends MY_Controller {
                             'address'=> $address,
                             'group'=> $group,
                             'status'=> $status,
+                            'created' => now()
                     );
             if ($this->user_model->update($id, $data)) {
                 redirect('admin/user/index');

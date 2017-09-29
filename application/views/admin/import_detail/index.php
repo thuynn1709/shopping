@@ -10,22 +10,24 @@
       <!-- /.row -->
       <div class="row">
         <div class="col-xs-12">
-            <div class="col-xs-3">
-                <button style="width: 150px" type="button" id="add_new" value="<?php echo $import_id ; ?>" class="btn btn-block btn-primary">Thêm mới</button>  
-            </div>
-            <div class="col-xs-3"></div>
-            <div class="col-xs-3">
+            <div class="col-xs-6">
+                <div class="col-xs-3">
+                    <button  type="button" id="add_new" value="<?php echo $import_id ; ?>" class="btn btn-block btn-primary">Thêm mới</button>  
+                </div>
+                <div class="col-xs-3">
+                    <button type="button" class="btn btn-info pull-left" data-toggle="modal" data-target="#modal-info">
+                        Import file Excel
+                    </button>
+                </div>
+                
                 
             </div>
-            <div class="col-xs-3">
-                <button type="button" value="<?php echo $import_id ; ?>" id="import_to_product" class="btn btn-success pull-left">
-                    Import to Products
-                </button>&nbsp; &nbsp; &nbsp; 
-                <button type="button" class="btn btn-info pull-right" data-toggle="modal" data-target="#modal-info">
-                    Import file Excel
+            
+            <div class="col-xs-6 pull-right">
+                <button type="button" value="<?php echo $import_id ; ?>" id="import_to_product" class="btn btn-success pull-right">
+                    Export to Products
                 </button>
             </div>
-           
         </div>
           
         

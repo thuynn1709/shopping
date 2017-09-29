@@ -100,7 +100,7 @@ class Import_detail extends MY_Controller {
                     'price' => $price,
                     'amount' => $amount,
                     'status' => 0,
-                    'created' =>  date('Y-m-d H:i:s')
+                    'created' => now()
                 );
             }
                 
@@ -115,8 +115,8 @@ class Import_detail extends MY_Controller {
                         'price' => $price,
                         'amount' => $value['amount'],
                         'status' => 0,
-                        'created' =>  date('Y-m-d H:i:s'),
-                        'updated' =>  date('Y-m-d H:i:s')
+                        'created' =>  now(),
+                        'updated' =>  now()
                     );
                 } else {
                     $structured_results[$value['product_alias']] = array(
@@ -126,8 +126,8 @@ class Import_detail extends MY_Controller {
                         'price' => $price,
                         'amount' => $value['amount'] + $structured_results[$value['product_alias']]['amount'],
                         'status' => 0,
-                        'created' =>  date('Y-m-d H:i:s'),
-                        'updated' =>  date('Y-m-d H:i:s')
+                        'created' =>  now(),
+                        'updated' =>  now()
                     );
                 }
             }
@@ -168,7 +168,7 @@ class Import_detail extends MY_Controller {
                           'price'=> floatval(str_replace(',', '.', $price)),
                           'amount'=>$amount,
                           'status'=> $data['item']->status,
-                          'updated' => date ("Y-m-d H:i:s")
+                          'updated' => now()
                     );
             
                     //var_dump($data);die;
@@ -226,7 +226,7 @@ class Import_detail extends MY_Controller {
                 $update_batch[] = array(
                     'alias' => $r['product_alias'],
                     'amount' => $r['amount'],
-                    'updated' =>  date('Y-m-d')
+                    'updated' =>  now()
                 );
             }else {
                 $insert_batch[] = array(
@@ -234,8 +234,8 @@ class Import_detail extends MY_Controller {
                     'alias' => $r['product_alias'],
                     'amount' => $r['amount'],
                     'status' => 0,
-                    'created' =>  date('Y-m-d'),
-                    'updated' =>  date('Y-m-d')
+                    'created' =>  now(),
+                    'updated' =>  now()
                 );
             }
         }
@@ -291,8 +291,8 @@ class Import_detail extends MY_Controller {
                         'price'=> floatval(str_replace(',', '.', $price)), 
                         'amount'=> $qty,
                         'status' => 0,
-                        'created' =>  date('Y-m-d H:i:s'),
-                        'updated' =>  date('Y-m-d H:i:s')
+                        'created' =>  now(),
+                        'updated' =>  now()
                     );
                 }
             }

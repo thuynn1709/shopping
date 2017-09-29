@@ -92,7 +92,7 @@ class Config extends MY_Controller {
             $products = $this->product_model->get_product_by_alias($alias_array);
             $insert_array = array(
                 'product_id' => $products->id,
-                'created' => date('Y-m-d H:i:s')
+                'created' => now()
             );
             
             $this->featuresitems_model->insert( $insert_array, true);

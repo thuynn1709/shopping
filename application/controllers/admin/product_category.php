@@ -87,7 +87,7 @@ class Product_category extends MY_Controller {
                           'alias'=> $alias,
                           'status'=> $status,
                           'menu_id' => $menu_id,
-                          'created' => date ("Y-m-d H:i:s")
+                          'created' => now()
                     );
             if ($this->productcategory_model->insert($data)) {
                 redirect('admin/product_category/index');
@@ -126,7 +126,7 @@ class Product_category extends MY_Controller {
                           'status'=>$status,
                           'priority'=>$priority,
                           'menu_id'=> $menu_id,
-                          'created' => date ("Y-m-d H:i:s")
+                          'created' => now()
                     );
             if ($this->productcategory_model->update($id, $data)) {
                 redirect('admin/product_category/index');
