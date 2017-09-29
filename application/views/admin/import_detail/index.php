@@ -15,11 +15,10 @@
                     <button  type="button" id="add_new" value="<?php echo $import_id ; ?>" class="btn btn-block btn-primary">Thêm mới</button>  
                 </div>
                 <div class="col-xs-3">
-                    <button type="button" class="btn btn-info pull-left" data-toggle="modal" data-target="#modal-info">
+                    <button type="button" class="btn bg-navy btn-flat pull-left" data-toggle="modal" data-target="#modal-info">
                         Import file Excel
                     </button>
                 </div>
-                
                 
             </div>
             
@@ -151,8 +150,14 @@
         
         $('#import_to_product').click(function() {
             var id = $(this).val();
-            window.location.href = '<?php echo base_url(); ?>admin/import_detail/import_to_product/'+ id ;
-            return false;
+            var r = confirm("Chắc chắn nhập dữ liệu vào bảng sản phẩm  ?");
+            if (r == true) {
+                window.location.href = '<?php echo base_url(); ?>admin/import_detail/import_to_product/'+ id ;
+                return false;
+            } else {
+                txt = "You pressed Cancel!";
+                return false;
+            }
         });
         
         $('.edit_button').click(function() {      
