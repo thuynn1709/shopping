@@ -24,6 +24,7 @@ class Order extends MY_Controller {
         $this->load->model('admin/menu_model');
         $this->load->model('admin/order_model');
         $this->load->model('admin/orderdetail_model');
+        $this->load->model('admin/sale_model');
         $this->load->model('admin/user_model');
         $this->load->library('pagination');
     }
@@ -126,8 +127,8 @@ class Order extends MY_Controller {
                 $discount = $_POST['discount'];
                 $color = $_POST['color'];
                 $status = $_POST['status'];
-                $created = date('Y-m-d H:i:s');
-                $updated = date('Y-m-d H:i:s');
+                $created = now();
+                $updated = now();
 
                 $data = array('name'=> $name,
                             'alias'=> $alias,
@@ -176,7 +177,6 @@ class Order extends MY_Controller {
             show_404();
         }
         $order = $this->order_model->get_one($id);
-       
         if (count ( (array)$order) == 0 ) {
             redirect('admin/order/index');
         }
@@ -184,71 +184,68 @@ class Order extends MY_Controller {
         if (count ( (array)$order_detail) == 0 ) {
             redirect('admin/order/index');
         }
-        
+       
         $user = $this->user_model->get_one($order->user_id);
        
-        if (isset($_POST['name'])){  
-            $name = $_POST['name'];
-            $alias = sanitizeTitle($name);
-            
-            $category = $_POST['category'];
-            $marken = $_POST['marken'];
-            $amount = $_POST['amount'];
-           
-            $describe = $_POST['describe'];
-            
-            $expired = $_POST['expired'];
-            $expired = $expired.' 00:00:00';
-            $expired = date('Y-m-d H:i:s', strtotime($expired));
-            
-            $element = $_POST['element'];
-            $guide = $_POST['guide'];
-            $price = $_POST['price'];
-            $discount = $_POST['discount'];
-            $color = $_POST['color'];
+        if (isset($_POST['pay_status'])){  
+            $pay_status = $_POST['pay_status'];
+            $pay_method = $_POST['pay_method'];
             $status = $_POST['status'];
-            $updated = date('Y-m-d H:i:s');
+            $created = date('Y-m-d H:i:s');
             
-            $data = array('name'=> $name,
-                'alias'=> $alias,
-                'category_id'=> $category,
-                'marken_id'=> $marken,
-                'amount'=> $amount,
-                'img_thumb' => $img_thumb,
-                'img' => $img,
-                'img_1' => $img_1,
-                'img_2' => $img_2,
-                'img_3' => $img_3,
-                'describe' => $describe,
-                'expired' => $expired,
-                'element' => $element,
-                'guide' => $guide,
-                'price' => $price,
-                'discount' => $discount,
-                'color' => $color,
-                'status' => $status,
-                'updated' => $updated
+            $data = array(
+                'pay_status'=> $pay_status,
+                'pay_method'=> $pay_method,
+                'status'=> $status,
+                'created'=> $created,
             );
 
-            if ($this->product_model->update($id, $data)) {
-                redirect('admin/product/index');
+            if ($this->order_model->update($id, $data)) {
+                
+                $orderDetail_ids = array();
+                foreach ( $order_detail as $od) {
+                    $orderDetail_ids[] = $od->id;
+                }
+                
+                if ( $status == 1){
+                    $checked = $this->sale_model->get_all_by_orderDetailId($orderDetail_ids);
+                    if ( count((array)$checked) <= 0) {
+                        $sale_insert = array();
+                        foreach ( $order_detail as $od) {
+                            $sale_insert[] = array(
+                                'product_id' => $od->product_id,
+                                'user_id' => $order->user_id,
+                                'order_detail_id' => $od->id,
+                                'price' => $od->price,
+                                'discount' => $od->discount,
+                                'amount' => $od->amount,
+                                'pricetotal' => ($od->price * $od->amount ) - $od->discount,
+                                'type' => 1,
+                                'created' => now(),
+                            );
+                        }
+                        $this->sale_model->insert($sale_insert, true);
+                    }
+                }else {
+                    $this->sale_model->delete_by_orderDetailId($orderDetail_ids);
+                }
+                
+                redirect('admin/order');
             } else{ 
-                redirect('admin/product/add');
+                redirect('admin/order');
             }
         }
         
         $this->_loadAdminHeader();
-        
         $data['user'] = $user;
         $data['item'] = $order;
         $data['results'] = $order_detail;
-        $this->load->view('admin/order/edit', $data);
+        $this->load->view('admin/order/detail', $data);
         $this->_loadAdminFooter();
     }
     
     public function delete_orderdetail_by_id()
     {
-        
         $order_detail_id = $_POST['order_detail_id'];
         $order_id = $_POST['order_id'];
         
@@ -272,6 +269,56 @@ class Order extends MY_Controller {
         }
     }
     
+    public function update_cart()
+    {
+        if ($_POST) {
+            $order_detail_id = $_POST['order_detail_id'];
+            $order_id = $_POST['order_id'];
+            $discount = $_POST['discount'];
+            $amount = $_POST['amount'];
+            if ($this->orderdetail_model->update($order_detail_id, array ('amount' => $amount, 'discount' => $discount))){
+                $all_orders = $this->orderdetail_model->get_all_by_order_id($order_id);
+                $amount = 0;
+                $pricetotal = 0;
+                if (!empty((array)$all_orders)) {
+                    foreach ($all_orders as $r) {
+                        $amount += $r->amount;
+                        $pricetotal += $r->amount * $r->price;
+                    }
+
+                    $data = array(
+                    'amount' => $amount,
+                    'pricetotal' => $pricetotal - $discount
+                    );
+                    $this->order_model->update( $order_id, $data);
+                }
+                $array = array ('msg' => 'success', 'amount' => $amount, 'price' => $pricetotal - $discount);
+                echo json_encode($array);die;
+            }
+            $array = array ('msg' => 'error');
+            echo json_encode($array);die;
+        }
+        $array = array ('msg' => 'error');
+        echo json_encode($array);die;
+    }        
+
+    public function delete()
+    {
+        $id = $this->uri->segment(4);
+        if (empty($id)){
+            show_404();
+        }
+        $order = $this->order_model->get_one($id);
+       
+        if (count ( (array)$order) == 0 ) {
+            redirect('admin/order');
+        }
+        
+        $this->order_model->get_one($id);
+        $this->orderdetail_model->del_all_by_orderId($id);
+        redirect('admin/order');
+    }
+
     private function set_upload_options()
     {   
         //upload an image options

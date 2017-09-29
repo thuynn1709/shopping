@@ -86,7 +86,7 @@
                           ?> 
                         <td><span class="label label-success">Tiền mặt</span></td>
                           <?php } else {  ?> 
-                        <td><span class="label label-danger">Chuyển khoản</span></td>
+                        <td><span class="label label-success">Chuyển khoản</span></td>
                         <?php } ?> 
                         
                         <?php 

@@ -125,8 +125,8 @@ class Product extends MY_Controller {
                 $discount = $_POST['discount'];
                 $color = $_POST['color'];
                 $status = $_POST['status'];
-                $created = date('Y-m-d H:i:s');
-                $updated = date('Y-m-d H:i:s');
+                $created = now();
+                $updated = now();
 
                 $data = array('name'=> $name,
                             'alias'=> $alias,
@@ -224,7 +224,8 @@ class Product extends MY_Controller {
             $discount = $_POST['discount'];
             $color = $_POST['color'];
             $status = $_POST['status'];
-            $updated = date('Y-m-d H:i:s');
+            $created = now();
+            $updated = now();
             
             $data = array('name'=> $name,
                 'alias'=> $alias,
@@ -244,6 +245,7 @@ class Product extends MY_Controller {
                 'discount' => $discount,
                 'color' => $color,
                 'status' => $status,
+                'created' => $created,
                 'updated' => $updated
             );
 

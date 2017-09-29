@@ -19,9 +19,32 @@ class Sale_model extends CI_Model {
         parent::__construct();
     }
     
-    public function get_all($limit = 10, $offset = 0) {
-        $this->db->order_by("updated", "desc");
-        return  $this->db->get( $this->table, $limit, $offset)->result();
+    public function get_all($fullname = '', $marken_id = '', $category_id = '', $limit = 10, $offset = 0) {
+        $this->db->select('s.*, u.id, u.fullname, p.id, p.name');
+        $this->db->from($this->table. ' as s');
+        $this->db->join('users as u', 's.user_id = u.id');
+        $this->db->join('products as p', 's.product_id = p.id');
+        
+        if ( $marken_id != '') {
+            $this->db->where('p.marken_id', $marken_id);
+        }
+        
+        if ( $category_id != '') {
+            $this->db->where('p.category_id', $category_id);
+        }
+        
+        if ($fullname !='') {
+            $this->db->like('u.fullname', $fullname);
+        }
+        
+        $this->db->order_by('s.created', 'desc');
+        $this->db->limit($limit, $offset);
+        return $this->db->get()->result();
+    }
+    
+    public function get_all_by_orderDetailId( $ids) {
+        $this->db->where_in("order_detail_id", $ids);
+        return  $this->db->get( $this->table)->result();
     }
     
     public function get_one( $id) {
@@ -29,8 +52,23 @@ class Sale_model extends CI_Model {
         return  $this->db->get( $this->table)->row();
     }
     
-    public function count_all_results() {
-        $this->db->from( $this->table);
+    public function count_all_results( $fullname = '', $marken_id = '', $category_id = '') {
+        $this->db->select('s.*, u.id, u.fullname, p.id, p.name');
+        $this->db->from($this->table. ' as s');
+        $this->db->join('users as u', 's.user_id = u.id');
+        $this->db->join('products as p', 's.product_id = p.id');
+        
+        if ( $marken_id != '') {
+            $this->db->where('p.marken_id', $marken_id);
+        }
+        
+        if ( $category_id != '') {
+            $this->db->where('p.category_id', $category_id);
+        }
+        
+        if ($fullname !='') {
+            $this->db->like('u.fullname', $fullname);
+        }
         return $this->db->count_all_results();
     }
     
@@ -53,6 +91,13 @@ class Sale_model extends CI_Model {
             return true;
         }
         $this->db->insert( $this->table, $data);
+        return true;
+    }
+    
+    public function delete_by_orderDetailId($ids)
+    {
+        $this->db->where_in('order_detail_id', $ids);
+        $this->db->delete( $this->table);
         return true;
     }
     
