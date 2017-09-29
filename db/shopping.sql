@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-29 15:51:12
+Date: 2017-09-29 16:39:27
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -272,7 +272,7 @@ CREATE TABLE `orders` (
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
-INSERT INTO `orders` VALUES ('1', '1', '2', '240000', '0', '0', '0', '2017-09-29 15:50:57');
+INSERT INTO `orders` VALUES ('1', '1', '2', '230000', '0', '0', '1', '2017-09-29 16:12:19');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -294,7 +294,7 @@ CREATE TABLE `order_detail` (
 -- ----------------------------
 -- Records of order_detail
 -- ----------------------------
-INSERT INTO `order_detail` VALUES ('2', '1', '8', '2', '120000', '0', '1', '2017-09-28 17:01:37', '2017-09-28 17:01:37');
+INSERT INTO `order_detail` VALUES ('2', '1', '8', '2', '120000', '10000', '1', '2017-09-28 17:01:37', '2017-09-28 17:01:37');
 
 -- ----------------------------
 -- Table structure for products
@@ -402,14 +402,16 @@ CREATE TABLE `sales` (
   `amount` int(11) DEFAULT NULL,
   `price` int(11) DEFAULT NULL,
   `discount` int(11) DEFAULT NULL,
+  `pricetotal` int(11) DEFAULT NULL,
   `type` tinyint(3) DEFAULT NULL COMMENT '0-qua tang, 1- ban hang cho khach',
   `created` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sales
 -- ----------------------------
+INSERT INTO `sales` VALUES ('2', '8', '1', '2', '2', '120000', '0', '240000', '1', '2017-09-29 16:10:05');
 
 -- ----------------------------
 -- Table structure for slidebar

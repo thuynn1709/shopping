@@ -30,18 +30,22 @@ class Sale extends MY_Controller {
     
     public function index() {
         $this->_loadAdminHeader();
-        $user_id = '';
-        $product_id = '';
-        $marken = '';
+        $user_name = '';
+        $product_name = '';
+        $category_id = '';
+        $marken_id = '';
         if ($_POST) {
-            $category = $_POST['category'];
-            $marken = $_POST['marken'];
+            $user_name = $_POST['name'];
+            $category_id = $_POST['category_id'] ;
+            $marken_id = $_POST['marken_id'] ;
+            $product_name = $_POST['product_name'] ;
+            
         }
         $data = array();
         $limit = 20;
         $config = array();
         $config["base_url"] = base_url() . "admin/sale/index";
-        $total_row = $this->sale_model->count_all_results( $user_id, $product_id);
+        $total_row = $this->sale_model->count_all_results( $user_name, $marken_id, $category_id );
         $config["total_rows"] = $total_row;
         $config["per_page"] = $limit;
         $config['use_page_numbers'] = TRUE;
@@ -63,18 +67,19 @@ class Sale extends MY_Controller {
         $config['next_tag_open'] = '<li>';
         $config['next_tag_close'] = '</li>';
         
-        
         $this->pagination->initialize($config);
         $offset = 0;
         $offset = $this->uri->segment(4) > 0 ? (($this->uri->segment(4) + 0) * $config['per_page'] - $config['per_page']) : $this->uri->segment(4) ;
         
-        $data["results"] = $this->sale_model->get_all( $user_id, $product_id, $config["per_page"], $offset);
+        $data["results"] = $this->sale_model->get_all( $user_name, $marken_id, $category_id, $config["per_page"], $offset);
         $data["links"] = $this->pagination->create_links();
 
-        // View data according to array.
-       
         $data['offset'] = $offset;
-        
+        $data['users'] = $this->user_model->get_all_name();
+        $data["marken"] = $this->marken_model->get_all( 100, 0);
+        $data["category"] = $this->productcategory_model->get_all( 100, 0);
+        $data['product_name'] = $product_name;
+        $data['user_name'] = $user_name;
         
         $this->load->view('admin/sale/index', $data);
         $this->_loadAdminFooter();

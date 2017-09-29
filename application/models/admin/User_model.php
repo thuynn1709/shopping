@@ -86,7 +86,15 @@ class User_model extends CI_Model {
         $array = array('email' => $user_info['email'], 'password' => $user_info['password']);
         $this->db->where($array);
         return $this->db->get( $this->table)->row();
-    }        
+    }
+    
+    public function get_all_name()
+    {
+        $this->db->select('id, fullname');
+        return $this->db->get( $this->table)->row();
+    }
+    
+    
    
 
 

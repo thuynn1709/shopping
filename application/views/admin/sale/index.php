@@ -7,27 +7,44 @@
         <form action="<?php echo site_url('admin/product/index');?>" method = "post">
             <div class="col-xs-12">
                     <div class="col-xs-3">
-                        <button style="width: 150px; margin-top: 25px;" id="add_new" type="button" class="btn btn-block btn-primary">Thêm mới</button>  
+                        <label>Tên sản phẩm</label> 
+                        <input type="text" name="product_name" value="<?php echo $product_name; ?>" class="form-control pull-right" placeholder="Tên sản phẩm">
                     </div>
                     
                     <div class="col-xs-3">
                         <label>Loại sản phẩm</label> 
                         <select name="category" class="form-control">
                             <option value=""> Chọn loại sản phẩm</option>
-                            
+                            <?php 
+                            if (!empty($category)){
+                               foreach ($category as $ct) {                  
+                           ?>
+                                   <option value="<?php echo $ct->id; ?>"> <?php echo $ct->name; ?></option>
+                            <?php                      
+                               }                        
+                           }                
+                           ?>
                          </select>
                     </div>
                     <div class="col-xs-3">
                         <label>Nhãn hiệu</label> 
                         <select name="marken" class="form-control">
                             <option value=""> Chọn thương hiệu</option>
-                            
+                            <?php 
+                            if (!empty($marken)){
+                               foreach ($marken as $ct) {                  
+                            ?>
+                                    <option value="<?php echo $ct->id; ?>"> <?php echo $ct->name; ?></option>
+                             <?php                      
+                                }                        
+                            }                
+                            ?>
                          </select>
                     </div>
                     <div class="col-xs-3">
-                        <label>Tên sản phẩm</label> 
+                        <label>Tên người mua</label> 
                         <div class="input-group">
-                            <input type="text" name="search" value="" class="form-control pull-right" placeholder="Search">
+                            <input type="text" name="search" value="<?php echo $user_name; ?>" class="form-control pull-right" placeholder="Search">
                             <div class="input-group-btn">
                             <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                           </div>
@@ -38,7 +55,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-              <h3 class="box-title">Danh mục hàng đã bán</h3>
+                <h3 class="box-title"><label>Danh sách hàng đã bán </label></h3>
               <div class="box-tools">
               </div>
              

@@ -120,6 +120,20 @@ class Product_model extends CI_Model {
         $this->db->from($this->table);
         return $this->db->count_all_results();
     }
+    
+    public function get_ids_by_categoryId ( $category_id){
+        $this->db->select( 'id, category_id');
+        $this->db->where('category_id', $category_id);
+        $this->db->from($this->table);
+        return $this->db->result();
+    }
+    
+    public function get_ids_by_ ( $category_id){
+        $this->db->select( 'id, category_id');
+        $this->db->where('category_id', $category_id);
+        $this->db->from($this->table);
+        return $this->db->result();
+    }
    
 
 

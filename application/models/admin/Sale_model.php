@@ -19,18 +19,22 @@ class Sale_model extends CI_Model {
         parent::__construct();
     }
     
-    public function get_all($user_id = '', $product_id = '', $limit = 10, $offset = 0) {
+    public function get_all($fullname = '', $marken_id = '', $category_id = '', $limit = 10, $offset = 0) {
         $this->db->select('s.*, u.id, u.fullname, p.id, p.name');
         $this->db->from($this->table. ' as s');
-        $this->db->join('users as u', 's.user_id = u.id', 'left');
-        $this->db->join('products as p', 's.product_id = p.id', 'left');
+        $this->db->join('users as u', 's.user_id = u.id');
+        $this->db->join('products as p', 's.product_id = p.id');
         
-        if ($product_id !='') {
-            $this->db->where('p.product_id', $product_id);
+        if ( $marken_id != '') {
+            $this->db->where('p.marken_id', $marken_id);
         }
         
-        if ($user_id !='') {
-            $this->db->where('u.user_id', $user_id);
+        if ( $category_id != '') {
+            $this->db->where('p.category_id', $category_id);
+        }
+        
+        if ($fullname !='') {
+            $this->db->like('u.fullname', $fullname);
         }
         
         $this->db->order_by('s.created', 'desc');
@@ -48,18 +52,22 @@ class Sale_model extends CI_Model {
         return  $this->db->get( $this->table)->row();
     }
     
-    public function count_all_results( $user_id = '', $product_id = '') {
+    public function count_all_results( $fullname = '', $marken_id = '', $category_id = '') {
         $this->db->select('s.*, u.id, u.fullname, p.id, p.name');
         $this->db->from($this->table. ' as s');
-        $this->db->join('users as u', 's.user_id = u.id', 'left');
-        $this->db->join('products as p', 's.product_id = p.id', 'left');
+        $this->db->join('users as u', 's.user_id = u.id');
+        $this->db->join('products as p', 's.product_id = p.id');
         
-        if ($product_id !='') {
-            $this->db->where('p.product_id', $product_id);
+        if ( $marken_id != '') {
+            $this->db->where('p.marken_id', $marken_id);
         }
         
-        if ($user_id !='') {
-            $this->db->where('u.user_id', $user_id);
+        if ( $category_id != '') {
+            $this->db->where('p.category_id', $category_id);
+        }
+        
+        if ($fullname !='') {
+            $this->db->like('u.fullname', $fullname);
         }
         return $this->db->count_all_results();
     }
