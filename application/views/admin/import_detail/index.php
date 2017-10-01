@@ -68,6 +68,7 @@
                   <th>Tên sản phẩm</th>
                   <th>Giá (€)</th>
                   <th>Số lượng</th>
+                  <th>Trạng thái</th>
                   <th>Thời gian</th>
                   <th>#</th>
                 </tr>
@@ -82,9 +83,23 @@
                       <td><?php echo $rs->product_name; ?></td>
                       <td><?php echo $rs->price; ?></td>
                       <td><?php echo $rs->amount; ?></td>
+                      <?php 
+                        if ($rs->status == 1) {
+                        ?> 
+                      <td><span class="label label-success">Đã Import</span></td>
+                        <?php } else {  ?> 
+                      <td><span class="label label-danger">Chưa Import</span></td>
+                      <?php } ?> 
                       <td><?php echo $rs->created; ?></td>
                       <td>
                         <div class="btn-group">
+                            <?php 
+                            if ($rs->status == 0) {
+                            ?> 
+                            <button type="button" ref="<?php echo base_url('admin/import_detail/import/'). $rs->id ; ?>" id="edit" class="btn btn-danger edit_button">Import</button>
+                             <?php } else {  ?> 
+                            <button type="button" ref="" id="edit" disabled="disabled" class="btn btn-success edit_button">Đã Import</button>
+                            <?php } ?> 
                             <button type="button" ref="<?php echo base_url('admin/import_detail/edit/'). $rs->id ; ?>" id="edit" class="btn btn-info edit_button">Sửa</button>
                             <button type="button" ref="<?php echo base_url('admin/import_detail/delete/'). $rs->id ; ?>" id="delete" class="btn btn-warning delete_button">Xóa</button>
                         </div>  

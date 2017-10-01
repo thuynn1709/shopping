@@ -105,12 +105,17 @@ class Product_model extends CI_Model {
     }
     
     public function get_product_by_alias ( $alias = array()){
-        $this->db->select('id');
+        $this->db->select('id, alias');
         $this->db->where_in('alias', $alias);
-        //$this->db->where('status', 1);
-      
         $this->db->from($this->table);
-        return $this->db->get()->result();
+        return $this->db->get()->row();
+    }
+    
+    public function get_one_product_by_alias ( $alias = ''){
+        $this->db->select('id, alias, amount');
+        $this->db->where('alias', $alias);
+        $this->db->from($this->table);
+        return $this->db->get()->row();
     }
     
     public function count_alls_features_items ( $ids = array()){

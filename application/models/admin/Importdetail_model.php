@@ -21,7 +21,7 @@ class Importdetail_model extends CI_Model {
     
     public function get_all($import_id, $limit = 10, $offset = 0) {
         $this->db->where('import_id', $import_id);
-        $this->db->order_by("created", "DESC");
+        $this->db->order_by('id', 'DESC');
         $this->db->limit( $limit, $offset);
         $results =  $this->db->get( $this->table)->result();
         
@@ -67,7 +67,10 @@ class Importdetail_model extends CI_Model {
         return true;
     }
     
-    
+    public function update_status_imported_to_product($data = array()){
+        $this->db->where_in('product_alias', $data);
+        return $this->db->update( $this->table, array( 'status' => 1)); 
+    }
    
 
 
