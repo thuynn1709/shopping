@@ -317,5 +317,17 @@ class Import_detail extends MY_Controller {
         }
     }
     
+    public function import_one(){
+        $import_detail_id = $_POST['import_detail_id'];
+        $chk = $this->importdetail_model->update_status_one($import_detail_id);
+        if ($chk) {
+            $array = array ('msg' => 'success');
+            echo json_encode($array);die;
+        }
+        $array = array ('msg' => 'error');
+        echo json_encode($array);die;
+        
+    }
+    
     
 }

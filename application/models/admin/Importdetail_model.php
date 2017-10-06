@@ -71,6 +71,11 @@ class Importdetail_model extends CI_Model {
         $this->db->where_in('product_alias', $data);
         return $this->db->update( $this->table, array( 'status' => 1)); 
     }
+    
+    public function update_status_one( $id){
+        $this->db->where('id', $id);
+        return $this->db->update( $this->table, array( 'status' => 1)); 
+    }
    
 
 

@@ -96,7 +96,7 @@
                             <?php 
                             if ($rs->status == 0) {
                             ?> 
-                            <button type="button" ref="<?php echo base_url('admin/import_detail/import/'). $rs->id ; ?>" id="edit" class="btn btn-danger edit_button">Import</button>
+                            <button type="button" rel="<?php echo base_url('admin/import_detail/import_one/') ; ?>" value="<?php echo $rs->id; ?>" class="btn btn-danger change-status">Import</button>
                              <?php } else {  ?> 
                             <button type="button" ref="" id="edit" disabled="disabled" class="btn btn-success edit_button">Đã Import</button>
                             <?php } ?> 
@@ -173,6 +173,32 @@
                 txt = "You pressed Cancel!";
                 return false;
             }
+        });
+        
+        $(".change-status").click(function( event) {
+            event.preventDefault();
+            
+            var classId = $(this);
+            var url = $(this).attr('rel');
+            var import_detail_id = $(this).val();
+            $.ajax
+            ({ 
+                url: url,
+                data: {'import_detail_id': import_detail_id},
+                type: 'post',
+                success: function(result) {
+                    obj = jQuery.parseJSON(result);
+                    if ( obj.msg == 'success') {
+                        $( classId ).removeClass( "btn-danger" );
+                        $( classId ).addClass( "btn-success" );
+                        $( classId ).prop('disabled', true);
+                        $( classId ).html('Đã Import');
+                        $( classId ).notify( "Cập nhật thành công !", { position:"top", className: 'success', });
+                    }else {
+                         $( classId ).notify("Cập nhật không thành công !", "error");
+                    }
+                }
+            });
         });
         
         $('.edit_button').click(function() {      
