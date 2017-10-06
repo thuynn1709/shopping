@@ -6,6 +6,9 @@ class MY_Controller extends CI_Controller {
         parent::__construct();
         $this->load->library(array('session'));
         $this->load->helper('cookie');
+        $this->load->model('productcategory_model');
+        $this->load->model('marken_model');
+        
     }
     
     public function _loadFrontendHeader(){
@@ -21,7 +24,9 @@ class MY_Controller extends CI_Controller {
     }
     
     public function _loadFrontendLeftSlidebar(){
-        $this->load->view('frontend/left-slidebar');
+        $all_product = $this->marken_model->get_all_product_in_category();
+        $data['markens'] = $all_product;
+        $this->load->view('frontend/left-slidebar', $data);
     }
 
     public function _loadFrontendFooter(){

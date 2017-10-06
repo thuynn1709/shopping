@@ -326,7 +326,6 @@ class Import_detail extends MY_Controller {
         }
         $array = array ('msg' => 'error');
         echo json_encode($array);die;
-        
     }
     
     
