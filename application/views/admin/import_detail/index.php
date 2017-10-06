@@ -177,7 +177,6 @@
         
         $(".change-status").click(function( event) {
             event.preventDefault();
-            
             var classId = $(this);
             var url = $(this).attr('rel');
             var import_detail_id = $(this).val();
