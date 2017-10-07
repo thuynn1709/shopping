@@ -6,8 +6,9 @@ class MY_Controller extends CI_Controller {
         parent::__construct();
         $this->load->library(array('session'));
         $this->load->helper('cookie');
-        $this->load->model('productcategory_model');
-        $this->load->model('marken_model');
+        $this->load->model('fproductcategory_model');
+        $this->load->model('fproduct_model');
+        $this->load->model('fmarken_model');
         
     }
     
@@ -24,8 +25,18 @@ class MY_Controller extends CI_Controller {
     }
     
     public function _loadFrontendLeftSlidebar(){
-        $all_product = $this->marken_model->get_all_product_in_category();
+        
+        $categories = $this->fproductcategory_model->get_all_category();
+        $product_in_category = array();
+        foreach ( $categories as $ct) {
+            $product_in_category[$ct->id]['name'] = $ct->name;
+            $product_in_category[$ct->id]['alias'] = $ct->alias;
+            $product_in_category[$ct->id]['details'] = $this->fproduct_model->get_all_by_categoryId($ct->id);
+        }
+       
+        $all_product = $this->fmarken_model->get_all_product_in_marken();
         $data['markens'] = $all_product;
+        $data['product_in_category'] = $product_in_category;
         $this->load->view('frontend/left-slidebar', $data);
     }
 

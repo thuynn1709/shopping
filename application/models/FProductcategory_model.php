@@ -11,7 +11,7 @@
  *
  * @author Nguyen Ruy
  */
-class Productcategory_model extends CI_Model {
+class FProductcategory_model extends CI_Model {
    
     public $table = 'products_category';
     //put your code here
@@ -29,7 +29,13 @@ class Productcategory_model extends CI_Model {
         return $this->db->get()->result();
     }
     
-    public function get_one( $id) {
+    public function get_all_category() {
+        $this->db->select('id, name, alias');
+        $this->db->from($this->table);
+        return $this->db->get()->result();
+    }
+
+        public function get_one( $id) {
         $this->db->where('id', $id);
         return   $this->db->get( $this->table)->row();
     }

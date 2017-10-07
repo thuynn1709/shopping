@@ -20,7 +20,6 @@ class Marken_model extends CI_Model {
     }
     
     public function get_all($limit = 10, $offset = 0) {
-        
         return  $this->db->get( $this->table, $limit, $offset)->result();
     }
     

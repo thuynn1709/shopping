@@ -11,7 +11,7 @@
  *
  * @author Nguyen Ruy
  */
-class Marken_model extends CI_Model {
+class FMarken_model extends CI_Model {
    
     public $table = 'marken';
     //put your code here
@@ -19,7 +19,7 @@ class Marken_model extends CI_Model {
         parent::__construct();
     }
     
-    public function get_all_product_in_category( $limit = 20, $offset = 0) {
+    public function get_all_product_in_marken( $limit = 20, $offset = 0) {
         $this->db->select('m.*, count(p.marken_id) as total');
         $this->db->from($this->table. ' as m');
         $this->db->join('products as p', 'p.marken_id = m.id');
