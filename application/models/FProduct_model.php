@@ -19,11 +19,21 @@ class FProduct_model extends CI_Model {
         parent::__construct();
     }
 
-    public function get_all_by_categoryId( $id) {
-        $this->db->select('id, name, alias');
+    public function get_all_by_categoryId( $id, $limit = null) {
+        $this->db->select('id, name, alias, img, price, amount');
         $this->db->where('category_id', $id);
         $this->db->where('status', 1);
         $this->db->order_by('amount', 'desc');
+        if ($limit){
+            $this->db->limit($limit);
+        }
+        return  $this->db->get( $this->table)->result();
+    }
+    
+    public function get_all_by_Ids( $ids) {
+        $this->db->select('id, name, alias, img_thumb, amount, price');
+        $this->db->where_in('id', $ids);
+        $this->db->order_by('created', 'desc');
         return  $this->db->get( $this->table)->result();
     }
 }

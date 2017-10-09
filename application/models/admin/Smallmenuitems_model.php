@@ -19,7 +19,7 @@ class Smallmenuitems_model extends CI_Model {
         parent::__construct();
     }
     
-    public function get_all($limit = 10, $offset = 0) {
+    public function get_all($limit = 6, $offset = 0) {
         $this->db->order_by("created", "desc");
         $this->db->last_query();
         return  $this->db->get( $this->table, $limit, $offset)->result();
