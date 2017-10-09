@@ -112,6 +112,7 @@
             <ul class="treeview-menu">
                 <li><a href="<?php echo base_url('admin/slidebar') ; ?>"><i class="fa fa-circle-o"></i> Slide trang chủ</a></li>
                 <li><a href="<?php echo base_url('admin/config/featuresitems') ; ?>"><i class="fa fa-circle-o"></i> Sản phẩm nổi bật trang chủ</a></li>
+                <li><a href="<?php echo base_url('admin/config/small_menu_items') ; ?>"><i class="fa fa-circle-o"></i> Danh mục SP nổi bật trang chủ</a></li>
             </ul>
         </li>
         
