@@ -33,10 +33,10 @@ class MY_Controller extends CI_Controller {
             $product_in_category[$ct->id]['alias'] = $ct->alias;
             $product_in_category[$ct->id]['details'] = $this->fproduct_model->get_all_by_categoryId($ct->id);
         }
-       
         $all_product = $this->fmarken_model->get_all_product_in_marken();
         $data['markens'] = $all_product;
         $data['product_in_category'] = $product_in_category;
+        
         $this->load->view('frontend/left-slidebar', $data);
     }
 

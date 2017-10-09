@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-3">
             <div class="left-sidebar">
-                <h2>Category</h2>
+                <h2>Danh mục sản phẩm</h2>
                 <div class="panel-group category-products" id="accordian"><!--category-productsr-->
                     <?php 
                     if (!empty($product_in_category)){
@@ -12,20 +12,26 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">
                             <h4 class="panel-title">
-                                <a data-toggle="collapse" data-parent="#accordian" href="#<?php echo $pc->alias; ?>">
+                                <a data-toggle="collapse" data-parent="#accordian" href="#<?php echo str_replace('&','-',$pc['alias']); ?>">
+                                    <?php 
+                                    if (!empty($pc['details'])){
+                                    ?>
                                     <span class="badge pull-right"><i class="fa fa-plus"></i></span>
-                                    Sportswear
+                                    <?php                      
+                                    }                
+                                    ?>
+                                    <?php echo $pc['name']; ?>
                                 </a>
                             </h4>
                         </div>
                         <?php 
-                        if (!empty($pc->details)){
+                        if (!empty($pc['details'])){
                         ?>
-                        <div id="<?php echo $pc->alias; ?>" class="panel-collapse collapse">
+                        <div id="<?php echo str_replace('&','-',$pc['alias']); ?>" class="panel-collapse collapse">
                             <div class="panel-body">
                                 <ul>
                                     <?php 
-                                    foreach ($pc->details as $dl) {                  
+                                    foreach ($pc['details'] as $dl) {                  
                                     ?>
                                     <li><a href="#"><?php echo $dl->name; ?> </a></li>
                                     <?php                      
@@ -43,11 +49,6 @@
                         }                        
                     }                
                     ?>
-                    <div class="panel panel-default">
-                        <div class="panel-heading">
-                            <h4 class="panel-title"><a href="#">Shoes</a></h4>
-                        </div>
-                    </div>
                 </div><!--/category-products-->
 
                 <div class="brands_products"><!--brands_products-->

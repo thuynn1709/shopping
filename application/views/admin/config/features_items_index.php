@@ -60,7 +60,6 @@
                 <tr>
                   <th>ID</th>
                   <th>Tên sản phẩm</th>
-                  <th>Trạng thái</th>
                   <th>#</th>
                 </tr>
                 
@@ -71,14 +70,7 @@
                     ?> 
                     <tr>
                       <td><?php echo $offset; ?></td>
-                      <td><?php echo $rs->name; ?></td>
-                      <?php 
-                        if ($rs->status == 1) {
-                        ?> 
-                      <td><span class="label label-success">Hiển thị</span></td>
-                        <?php } else {  ?> 
-                      <td><span class="label label-danger">Không hiển thị</span></td>
-                      <?php } ?> 
+                      <td><?php echo $rs->product_name; ?></td>
                       <td>
                         <div class="btn-group">
                            
@@ -113,7 +105,7 @@
         
         $('#add_new').click(function() {
             var id = $(this).val();
-            window.location.href = '<?php echo base_url(); ?>admin/config/featuresitmesadd' ;
+            window.location.href = '<?php echo base_url(); ?>admin/config/featuresitemsadd' ;
             return false;
         });
         

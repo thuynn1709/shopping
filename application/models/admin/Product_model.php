@@ -105,10 +105,10 @@ class Product_model extends CI_Model {
     }
     
     public function get_product_by_alias ( $alias = array()){
-        $this->db->select('id, alias');
+        $this->db->select('id, alias, name');
         $this->db->where_in('alias', $alias);
         $this->db->from($this->table);
-        return $this->db->get()->row();
+        return $this->db->get()->result();
     }
     
     public function get_one_product_by_alias ( $alias = ''){

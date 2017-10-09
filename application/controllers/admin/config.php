@@ -28,7 +28,6 @@ class Config extends MY_Controller {
     public function featuresitems(){
         $this->_loadAdminHeader();
         $data = array();
-        
         $limit = 20;
         $config = array();
         $config["base_url"] = base_url() . "admin/config/featuresitems";
@@ -67,9 +66,8 @@ class Config extends MY_Controller {
         $this->_loadAdminFooter();
     }
     
-    public function featuresitmesadd(){
+    public function featuresitemsadd(){
         $this->_loadAdminHeader();
-        
         $all_name_products = $this->product_model->get_name_all_products();
         
         $all_products_id = array();
@@ -87,18 +85,20 @@ class Config extends MY_Controller {
                 $alias = sanitizeTitle($product_name);
                 $alias_array[] = $alias;
             }
-            
+            $alias_array = array_unique($alias_array);
             $products = array();
             $products = $this->product_model->get_product_by_alias($alias_array);
-            $insert_array = array(
-                'product_id' => $products->id,
-                'created' => now()
-            );
-            
+            $insert_array = array();
+            foreach ( $products as $p) {
+                $insert_array[] = array(
+                    'product_id' => $p->id,
+                    'product_name' => $p->name,
+                    'created' => now()
+                );
+            }
             $this->featuresitems_model->insert( $insert_array, true);
+            redirect('admin/config/featuresitems');  
         }
-        
-        
         
         $this->load->view('admin/config/features_items_add', $data);
         $this->_loadAdminFooter();
@@ -108,14 +108,7 @@ class Config extends MY_Controller {
     public function featuresitmesdelete()
     {
         $del_id = $this->uri->segment(4);
-        $list_ids  = $this->config->item('featuresitems');
-        if(($key = array_search($del_id, $list_ids)) !== false) {
-            unset($list_ids[$key]);
-        }
-        
-        var_dump($list_ids);die;
-        $this->config->set_item('featuresitems', '1');
-       
+        $this->featuresitems_model->del_one($del_id);  
         redirect('admin/config/featuresitems');  
     }
     
