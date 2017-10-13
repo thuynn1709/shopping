@@ -49,11 +49,17 @@ class Home extends MY_Controller {
             $first_key = key($list_small_menus);
             $active = $list_small_menus[$first_key]['alias'];
         }
+        // list sản phẩm RECOMMENDED ITEMS;
+        $recommend_items = array();
+        $recommend_items = $this->fproduct_model->get_recommend_items();
+        $recommend_items = array_chunk($recommend_items, 3);
         
+        $data['recommend_items'] = $recommend_items;
         $data['list_small_menus'] = $list_small_menus;
         $data['features'] = $features;
-        $data['active_small_menu'] = $active;
+        $data['active_small_menu'] = str_replace('-','',$active);
         $this->load->view('frontend/home/index', $data);
+        
         $this->_loadFrontendFooter();
         
     }

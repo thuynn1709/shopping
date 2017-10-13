@@ -41,11 +41,11 @@
         <div class="col-sm-12">
             <ul class="nav nav-tabs">
                 <?php 
-                if (!empty($features)){
-                   foreach ($features as $f) {                  
+                if (!empty($list_small_menus)){
+                   foreach ($list_small_menus as $f) {                  
                 ?>
-                <li class="<?php echo ($f->alias == $active_small_menu) ? 'active' : '' ; ?>">
-                    <a href="#<?php echo $f->alias ; ?>" data-toggle="tab"><?php echo $f->name ; ?></a>
+                <li class="<?php echo (str_replace('-','', $f['alias']) == $active_small_menu) ? 'active' : '' ; ?>">
+                    <a href="#<?php echo str_replace('-','', $f['alias']) ; ?>" data-toggle="tab"><?php echo $f['name'] ; ?></a>
                 </li>
                 <?php                      
                     }                        
@@ -55,20 +55,20 @@
         </div>
         <div class="tab-content">
             <?php 
-            if (!empty($features)){
-                foreach ($features as $f) {                  
+            if (!empty($list_small_menus)){
+                foreach ($list_small_menus as $f) {                  
             ?>
-            <div class="tab-pane fade <?php echo ($f->alias == $active_small_menu) ? 'active in' : '' ; ?>" id="<?php echo $f->alias ; ?>" >
+            <div class="tab-pane fade <?php echo (str_replace('-','', $f['alias']) == $active_small_menu) ? 'active in' : '' ; ?>" id="<?php echo str_replace('-','', $f['alias']) ; ?>" >
                 <?php 
-                if( !empty($features['details'])) {
-                    foreach ($features['details'] as $d) {                  
+                if( !empty($f['details'])) {
+                    foreach ($f['details'] as $d) {                  
                 ?>
                 <div class="col-sm-3">
                     <div class="product-image-wrapper">
                         <div class="single-products">
                             <div class="productinfo text-center">
                                 <img src="<?php echo base_url(); ?>public/images/products/<?php echo $d->img ; ?>" alt="" />
-                                <h2>$56</h2>
+                                <h2><?php echo  number_format($d->price); ?> VND</h2>
                                 <p><?php echo $d->name ; ?></p>
                                 <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                             </div>
@@ -93,88 +93,38 @@
 
         <div id="recommended-item-carousel" class="carousel slide" data-ride="carousel">
             <div class="carousel-inner">
-                <div class="item active">	
+                <?php 
+                if (!empty($recommend_items)){
+                    for ($i = 0; $i <= 2; $i++) {                  
+                ?>
+                <div class="item <?php echo ( $i == 0) ? 'active' : '' ; ?>">
+                    <?php 
+                    if (!empty($recommend_items[$i])){
+                        foreach ($recommend_items[$i] as $r)  {                  
+                    ?>
                     <div class="col-sm-4">
                         <div class="product-image-wrapper">
                             <div class="single-products">
                                 <div class="productinfo text-center">
-                                    <img src="<?php echo base_url(); ?>public/frontend/images/home/recommend1.jpg" alt="" />
-                                    <h2>$56</h2>
-                                    <p>Easy Polo Black Edition</p>
+                                    <img src="<?php echo base_url(); ?>public/images/products/<?php echo $r['img_1'] ; ?>" alt="" />
+                                    <h2><?php echo  number_format($r['price']); ?> VND</h2>
+                                    <p><?php echo $r['name'] ; ?></p>
                                     <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
                                 </div>
 
                             </div>
                         </div>
                     </div>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="<?php echo base_url(); ?>public/frontend/images/home/recommend2.jpg" alt="" />
-                                    <h2>$56</h2>
-                                    <p>Easy Polo Black Edition</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="<?php echo base_url(); ?>public/frontend/images/home/recommend3.jpg" alt="" />
-                                    <h2>$56</h2>
-                                    <p>Easy Polo Black Edition</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
+                    <?php                      
+                        }
+                    }  
+                    ?>
+                    
                 </div>
-                <div class="item">	
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="<?php echo base_url(); ?>public/frontend/images/home/recommend1.jpg" alt="" />
-                                    <h2>$56</h2>
-                                    <p>Easy Polo Black Edition</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="<?php echo base_url(); ?>public/frontend/images/home/recommend2.jpg" alt="" />
-                                    <h2>$56</h2>
-                                    <p>Easy Polo Black Edition</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-sm-4">
-                        <div class="product-image-wrapper">
-                            <div class="single-products">
-                                <div class="productinfo text-center">
-                                    <img src="<?php echo base_url(); ?>public/frontend/images/home/recommend3.jpg" alt="" />
-                                    <h2>$56</h2>
-                                    <p>Easy Polo Black Edition</p>
-                                    <a href="#" class="btn btn-default add-to-cart"><i class="fa fa-shopping-cart"></i>Add to cart</a>
-                                </div>
-
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                <?php                      
+                    }
+                }  
+                ?>
             </div>
             <a class="left recommended-item-control" href="#recommended-item-carousel" data-slide="prev">
                 <i class="fa fa-angle-left"></i>
