@@ -96,14 +96,12 @@
                     </div>
                 </div>  
                   
-                  
-                  
                 <div class="form-group">
                     <div class="row" >
                         <div class="col-md-6">
                             <label for="exampleInputFile">Ảnh menu con trang chủ</label>
                             <input type="file" name="images[]" multiple="multiple">
-                            <p class="help-block">208 x 183 px.</p>
+                            <p class="help-block">207 x 183 px.</p>
                         </div>
                         <div class="col-md-6">
                             <label for="exampleInputFile">Ảnh recommended</label>
@@ -121,9 +119,9 @@
                             <p class="help-block">266 x 381 px.</p>
                         </div>
                         <div class="col-md-6">
-                            <label for="exampleInputFile">Ảnh trang chi tiết 3</label>
+                            <label for="exampleInputFile">Ảnh trang chi tiết sản phẩm ( phụ)</label>
                             <input type="file" name="images[]" multiple="multiple">
-                            <p class="help-block">330 x 380 px.</p>
+                            <p class="help-block">266 x 381 px.</p>
                         </div>
                     </div>
                 </div>   

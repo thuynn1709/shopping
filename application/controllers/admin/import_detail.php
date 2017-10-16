@@ -62,7 +62,7 @@ class Import_detail extends MY_Controller {
         $offset = $this->uri->segment(5) > 0 ? (($this->uri->segment(5) + 0) * $config['per_page'] - $config['per_page']) : $this->uri->segment(5) ;
         
         $data["results"] = $this->importdetail_model->get_all($import_id, $config["per_page"], $offset);
-       //get_all_by_importId
+       
         $data["links"] = $this->pagination->create_links();
 
         // View data according to array.
@@ -201,31 +201,38 @@ class Import_detail extends MY_Controller {
         $structured_results = array();
         foreach($all_products_by_importId as $key => $value)
         {
-            if( !isset($structured_results[$value->product_alias])) {
-                $structured_results[$value->product_alias] = array( 
-                   
-                    'product_name' => $value->product_name ,
-                    'product_alias' => $value->product_alias, 
-                    'amount' => $value->amount,
-                );
-            } else {
-                $structured_results[$value->product_alias] = array(
-                    
-                    'product_name' => $value->product_name ,
-                    'product_alias' => $value->product_alias, 
-                    'amount' => $value->amount + $structured_results[$value->product_alias]['amount'],
-                );
+            if ($value->status == 0) {
+                if( !isset($structured_results[$value->product_alias])) {
+                    $structured_results[$value->product_alias] = array( 
+
+                        'product_name' => $value->product_name ,
+                        'product_alias' => $value->product_alias, 
+                        'amount' => $value->amount,
+                    );
+                } else {
+                    $structured_results[$value->product_alias] = array(
+                        'product_name' => $value->product_name ,
+                        'product_alias' => $value->product_alias, 
+                        'amount' => $value->amount + $structured_results[$value->product_alias]['amount'],
+                    );
+                }
             }
         }
         
+        if ( empty($structured_results)) {
+            $this->session->set_flashdata('error', 'Không có dữ liệu mới để import!');
+            redirect(base_url('admin/import_detail/index/'. $import_id));
+        }
         $insert_batch = array();
         $update_batch = array();
+        $update_status_imported_to_product = array();
         
         foreach( $structured_results as $r) {
             if ($this->product_model->check_one_by_alias($r['product_alias'])) {
+                $product = $this->product_model->get_one_product_by_alias($r['product_alias']);
                 $update_batch[] = array(
                     'alias' => $r['product_alias'],
-                    'amount' => $r['amount'],
+                    'amount' => $r['amount'] + $product->amount,
                     'updated' =>  now()
                 );
             }else {
@@ -238,6 +245,7 @@ class Import_detail extends MY_Controller {
                     'updated' =>  now()
                 );
             }
+            $update_status_imported_to_product[] = $r['product_alias'];
         }
         
         if(!empty($insert_batch)) {
@@ -246,6 +254,8 @@ class Import_detail extends MY_Controller {
         if(!empty($update_batch)) {
             $this->product_model->update_batch( $update_batch, 'alias'); 
         }
+        
+        $this->importdetail_model->update_status_imported_to_product($update_status_imported_to_product);
         $this->session->set_flashdata('success', 'Import dữ liệu thành công!');
         redirect('admin/product/index');  
     }
@@ -305,6 +315,17 @@ class Import_detail extends MY_Controller {
             $this->session->set_flashdata('error', 'Không thành công  !');
             echo 'notok';die;
         }
+    }
+    
+    public function import_one(){
+        $import_detail_id = $_POST['import_detail_id'];
+        $chk = $this->importdetail_model->update_status_one($import_detail_id);
+        if ($chk) {
+            $array = array ('msg' => 'success');
+            echo json_encode($array);die;
+        }
+        $array = array ('msg' => 'error');
+        echo json_encode($array);die;
     }
     
     

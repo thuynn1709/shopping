@@ -20,7 +20,7 @@ class Slidebar_model extends CI_Model {
     }
     
     public function get_all($limit = 10, $offset = 0) {
-        $this->db->order_by("updated", "desc");
+        $this->db->order_by("created", "desc");
         return  $this->db->get( $this->table, $limit, $offset)->result();
     }
     

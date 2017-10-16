@@ -11,27 +11,18 @@
  *
  * @author Nguyen Ruy
  */
-class Productcategory_model extends CI_Model {
+class Smallmenuitems_model extends CI_Model {
    
-    public $table = 'products_category';
+    public $table = 'config_small_menu_home_items';
     //put your code here
     public function __construct() {
         parent::__construct();
     }
     
-    public function get_all( $limit = 10, $offset = 0) {
-        
+    public function get_all($limit = 6, $offset = 0) {
         $this->db->order_by("created", "desc");
-        $this->db->limit($limit, $offset);
         $this->db->last_query();
-        $result =  $this->db->get($this->table)->result();
-        
-        return $result;
-    }
-    
-    public function get_one( $id) {
-        $this->db->where('id', $id);
-        return   $this->db->get( $this->table)->row();
+        return  $this->db->get( $this->table, $limit, $offset)->result();
     }
     
     public function count_all_results() {
@@ -61,12 +52,6 @@ class Productcategory_model extends CI_Model {
         return true;
     }
     
-    public function get_productcategory_by_alias ( $alias = array()){
-        $this->db->select('id, alias, name');
-        $this->db->where_in('alias', $alias);
-        $this->db->from($this->table);
-        return $this->db->get()->result();
-    }
     
    
 

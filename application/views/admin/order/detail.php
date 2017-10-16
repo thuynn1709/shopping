@@ -148,7 +148,7 @@
   <!-- /.content-wrapper -->
   
 
-<script src="<?php echo base_url(); ?>public/admin/js/notify.js"></script>
+
 
 <script>
     $(function () {

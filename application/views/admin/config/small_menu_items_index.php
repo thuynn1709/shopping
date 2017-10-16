@@ -4,7 +4,7 @@
     <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="<?php echo base_url('admin/import/'); ?>">Cấu hình</a></li>
-        <li class="active">Danh sách sản phẩm FUETURES ITEMS ( Trang chủ)</li>
+        <li class="active">Danh mục sản phẩm menu nhỏ ( Trang chủ)</li>
     </ol>
     <section class="content">
       <!-- /.row -->
@@ -29,7 +29,7 @@
           <div class="box">
             <div class="box-header">
             
-              <h3 class="box-title">Danh sách sản phẩm</h3>
+              <h3 class="box-title">Danh sách danh mục sản phẩm</h3>
               <div class="box-tools">
                 <div class="input-group input-group-sm" style="width: 150px;">
                   <input type="text" name="table_search" class="form-control pull-right" placeholder="Search">
@@ -59,7 +59,7 @@
               <table class="table table-hover">
                 <tr>
                   <th>ID</th>
-                  <th>Tên sản phẩm</th>
+                  <th>Name</th>
                   <th>#</th>
                 </tr>
                 
@@ -70,11 +70,11 @@
                     ?> 
                     <tr>
                       <td><?php echo $offset; ?></td>
-                      <td><?php echo $rs->product_name; ?></td>
+                      <td><?php echo $rs->category_name; ?></td>
                       <td>
                         <div class="btn-group">
                            
-                            <button type="button" ref="<?php echo base_url('admin/config/featuresitmesdelete/'). $rs->id ; ?>" id="delete" class="btn btn-warning delete_button">Xóa</button>
+                            <button type="button" ref="<?php echo base_url('admin/config/small_menu_items_delete/'). $rs->id ; ?>" id="delete" class="btn btn-warning delete_button">Xóa</button>
                         </div>  
                         
                       </td>
@@ -105,7 +105,7 @@
         
         $('#add_new').click(function() {
             var id = $(this).val();
-            window.location.href = '<?php echo base_url(); ?>admin/config/featuresitemsadd' ;
+            window.location.href = '<?php echo base_url(); ?>admin/config/small_menu_items_add' ;
             return false;
         });
         

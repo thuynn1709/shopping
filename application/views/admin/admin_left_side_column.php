@@ -103,16 +103,17 @@
         </li>
         
         <li class="treeview">
-          <a href="#">
-            <i class="fa fa-cog" aria-hidden="true"></i> <span>Cấu hình</span>
-            <span class="pull-right-container">
-              <i class="fa fa-angle-left pull-right"></i>
-            </span>
-          </a>
-          <ul class="treeview-menu">
-            <li><a href="<?php echo base_url('admin/slidebar') ; ?>"><i class="fa fa-circle-o"></i> Slide trang chủ</a></li>
-           
-          </ul>
+            <a href="#">
+                <i class="fa fa-cog" aria-hidden="true"></i> <span>Cấu hình</span>
+                <span class="pull-right-container">
+                  <i class="fa fa-angle-left pull-right"></i>
+                </span>
+            </a>
+            <ul class="treeview-menu">
+                <li><a href="<?php echo base_url('admin/slidebar') ; ?>"><i class="fa fa-circle-o"></i> Slide trang chủ</a></li>
+                <li><a href="<?php echo base_url('admin/config/featuresitems') ; ?>"><i class="fa fa-circle-o"></i> Sản phẩm nổi bật trang chủ</a></li>
+                <li><a href="<?php echo base_url('admin/config/small_menu_items') ; ?>"><i class="fa fa-circle-o"></i> Danh mục SP nổi bật trang chủ</a></li>
+            </ul>
         </li>
         
         <!--

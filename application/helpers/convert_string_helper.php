@@ -19,6 +19,7 @@ if ( ! function_exists('sanitizeTitle'))
         $str = preg_replace("/(Ỳ|Ý|Ỵ|Ỷ|Ỹ)/", "Y", $str);
         $str = preg_replace("/(Đ)/", "D", $str);
         $str = str_replace(" ", "-", str_replace("&*#39;","",$str));
+        $str = str_replace("&", "-", str_replace("&*#39;","",$str));
         return strtolower($str);
     }
     

@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-09-29 17:45:58
+Date: 2017-10-09 15:11:06
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -20,15 +20,23 @@ SET FOREIGN_KEY_CHECKS=0;
 -- ----------------------------
 DROP TABLE IF EXISTS `config_featureas_items`;
 CREATE TABLE `config_featureas_items` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `product_id` int(11) DEFAULT NULL,
+  `product_name` varchar(60) DEFAULT NULL,
   `created` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of config_featureas_items
 -- ----------------------------
+INSERT INTO `config_featureas_items` VALUES ('6', '8', 'SkinActive Maske Granatapfel ', '1507553908');
+INSERT INTO `config_featureas_items` VALUES ('7', '13', 'Creme-Gel Maske Melone', '1507553949');
+INSERT INTO `config_featureas_items` VALUES ('8', '19', 'Velvet Matt Lip Cream 020', '1507553949');
+INSERT INTO `config_featureas_items` VALUES ('9', '20', 'Velvet Matt Lip Cream 080', '1507553949');
+INSERT INTO `config_featureas_items` VALUES ('10', '21', 'Ultimate Colour 500', '1507553949');
+INSERT INTO `config_featureas_items` VALUES ('11', '28', 'Lips2Last 45A ', '1507554198');
+INSERT INTO `config_featureas_items` VALUES ('12', '12', 'Anti-Age Maske', '1507554222');
 
 -- ----------------------------
 -- Table structure for contact
@@ -132,37 +140,37 @@ CREATE TABLE `import_detail` (
 -- ----------------------------
 -- Records of import_detail
 -- ----------------------------
-INSERT INTO `import_detail` VALUES ('1', '1', 'SkinActive Maske Granatapfel', 'skinactive-maske-granatapfel', '2.2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('2', '1', 'SkinActive Maske Grüntee', 'skinactive-maske-grüntee', '2.2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('3', '1', 'SkinActive Maske Lavendel', 'skinactive-maske-lavendel', '2.2', '2', '0', '20170922', '20170923');
-INSERT INTO `import_detail` VALUES ('4', '1', 'SkinActive Maske Sakura', 'skinactive-maske-sakura', '2.2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('5', '1', 'Anti-Age Maske', 'anti-age-maske', '2.2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('6', '1', 'Creme-Gel Maske Melone', 'creme-gel-maske-melone', '2.2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('7', '1', 'Peel-Off Maske', 'peel-off-maske', '2.2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('8', '1', 'Luxus Maske', 'luxus-maske', '2.2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('9', '1', 'Peel-Off Maske', 'peel-off-maske', '2.2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('10', '1', 'Colour Lippenstift 020', 'colour-lippenstift-020', '2.2', '1', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('11', '1', 'Ultimate Matt Lipstick 020', 'ultimate-matt-lipstick-020', '2.2', '4', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('12', '1', 'Ultimate Matt Lipstick 030', 'ultimate-matt-lipstick-030', '2.2', '4', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('13', '1', 'Velvet Matt Lip Cream 020', 'velvet-matt-lip-cream-020', '2.2', '3', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('14', '1', 'Velvet Matt Lip Cream 080', 'velvet-matt-lip-cream-080', '2.2', '3', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('15', '1', 'Ultimate Colour 500', 'ultimate-colour-500', '2.2', '1', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('16', '1', 'Ultimate Colour 310', 'ultimate-colour-310', '2.2', '1', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('17', '1', 'Ultimate Colour 370', 'ultimate-colour-370', '2.2', '1', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('18', '1', 'Ultimate Colour 020', 'ultimate-colour-020', '2.2', '1', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('19', '1', 'Superstay 24h 135', 'superstay-24h-135', '2.2', '1', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('20', '1', 'Superstay 24h 460', 'superstay-24h-460', '2.2', '1', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('21', '1', 'Superstay 24h 542', 'superstay-24h-542', '2.2', '1', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('22', '1', 'Lips2Last 45A', 'lips2last-45a', '2.2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('23', '1', 'Lips2Last 48L', 'lips2last-48l', '2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('24', '1', 'Lips2Last 43H', 'lips2last-43h', '2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('25', '1', 'Lips2Last 59L', 'lips2last-59l', '2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('26', '1', 'Lips2Last 59N', 'lips2last-59n', '2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('27', '1', 'Lips2Last 44Q', 'lips2last-44q', '1', '1', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('28', '1', 'Lips2Last 56Q', 'lips2last-56q', '1', '1', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('29', '1', 'Lips2Last ', 'lips2last', '1', '1', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('30', '1', 'All in One Lipstick 470', 'all-in-one-lipstick-470', '2', '2', '0', '20170923', '20170923');
-INSERT INTO `import_detail` VALUES ('31', '1', 'All in One Lipstick 470', 'all-in-one-lipstick-470', '3', '333', '0', '20170923', '20170923');
+INSERT INTO `import_detail` VALUES ('1', '1', 'SkinActive Maske Granatapfel', 'skinactive-maske-granatapfel', '2.2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('2', '1', 'SkinActive Maske Grüntee', 'skinactive-maske-grüntee', '2.2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('3', '1', 'SkinActive Maske Lavendel', 'skinactive-maske-lavendel', '2.2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('4', '1', 'SkinActive Maske Sakura', 'skinactive-maske-sakura', '2.2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('5', '1', 'Anti-Age Maske', 'anti-age-maske', '2.2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('6', '1', 'Creme-Gel Maske Melone', 'creme-gel-maske-melone', '2.2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('7', '1', 'Peel-Off Maske', 'peel-off-maske', '2.2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('8', '1', 'Luxus Maske', 'luxus-maske', '2.2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('9', '1', 'Peel-Off Maske', 'peel-off-maske', '2.2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('10', '1', 'Colour Lippenstift 020', 'colour-lippenstift-020', '2.2', '1', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('11', '1', 'Ultimate Matt Lipstick 020', 'ultimate-matt-lipstick-020', '2.2', '4', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('12', '1', 'Ultimate Matt Lipstick 030', 'ultimate-matt-lipstick-030', '2.2', '4', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('13', '1', 'Velvet Matt Lip Cream 020', 'velvet-matt-lip-cream-020', '2.2', '3', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('14', '1', 'Velvet Matt Lip Cream 080', 'velvet-matt-lip-cream-080', '2.2', '3', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('15', '1', 'Ultimate Colour 500', 'ultimate-colour-500', '2.2', '1', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('16', '1', 'Ultimate Colour 310', 'ultimate-colour-310', '2.2', '1', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('17', '1', 'Ultimate Colour 370', 'ultimate-colour-370', '2.2', '1', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('18', '1', 'Ultimate Colour 020', 'ultimate-colour-020', '2.2', '1', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('19', '1', 'Superstay 24h 135', 'superstay-24h-135', '2.2', '1', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('20', '1', 'Superstay 24h 460', 'superstay-24h-460', '2.2', '1', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('21', '1', 'Superstay 24h 542', 'superstay-24h-542', '2.2', '1', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('22', '1', 'Lips2Last 45A', 'lips2last-45a', '2.2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('23', '1', 'Lips2Last 48L', 'lips2last-48l', '2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('24', '1', 'Lips2Last 43H', 'lips2last-43h', '2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('25', '1', 'Lips2Last 59L', 'lips2last-59l', '2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('26', '1', 'Lips2Last 59N', 'lips2last-59n', '2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('27', '1', 'Lips2Last 44Q', 'lips2last-44q', '1', '1', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('28', '1', 'Lips2Last 56Q', 'lips2last-56q', '1', '1', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('29', '1', 'Lips2Last ', 'lips2last', '1', '1', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('30', '1', 'All in One Lipstick 470', 'all-in-one-lipstick-470', '2', '2', '1', '1506853956', '1506853956');
+INSERT INTO `import_detail` VALUES ('31', '1', 'All in One Lipstick 470', 'all-in-one-lipstick-470', '3', '333', '1', '1506853958', '1506853958');
 
 -- ----------------------------
 -- Table structure for marken
@@ -289,7 +297,7 @@ CREATE TABLE `order_detail` (
   `created` int(11) DEFAULT NULL,
   `updated` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of order_detail
@@ -329,40 +337,35 @@ CREATE TABLE `products` (
 -- ----------------------------
 -- Records of products
 -- ----------------------------
-INSERT INTO `products` VALUES ('3', '1', '1', '5', '3', '2', null, null, null, null, null, null, null, null, null, null, '140000', null, null, null, null, null);
-INSERT INTO `products` VALUES ('4', 'fdasfasfdf', 'fdasfasfdf', null, null, '1111', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2147483647', null);
-INSERT INTO `products` VALUES ('5', '121213', '121213', null, null, '1111', null, null, null, null, null, null, null, null, null, null, '140000', null, null, null, '2147483647', null);
-INSERT INTO `products` VALUES ('6', '1213123', '1213123', null, null, '1111', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2147483647', null);
-INSERT INTO `products` VALUES ('7', '12321321', '12321321', null, null, '12123', null, null, null, null, null, null, null, null, null, null, null, null, null, null, '2147483647', null);
-INSERT INTO `products` VALUES ('8', 'SkinActive Maske Granatapfel ', 'skinactive-maske-granatapfel', '15', '1', '2', null, null, null, null, null, '', '1970-01-01 01:00:00', '', '', null, '120000', '', '#000000', '1', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('9', 'SkinActive Maske Grüntee', 'skinactive-maske-grüntee', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('10', 'SkinActive Maske Lavendel', 'skinactive-maske-lavendel', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('11', 'SkinActive Maske Sakura', 'skinactive-maske-sakura', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('12', 'Anti-Age Maske', 'anti-age-maske', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('13', 'Creme-Gel Maske Melone', 'creme-gel-maske-melone', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('14', 'Peel-Off Maske', 'peel-off-maske', null, null, '4', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('15', 'Luxus Maske', 'luxus-maske', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('16', 'Colour Lippenstift 020', 'colour-lippenstift-020', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('17', 'Ultimate Matt Lipstick 020', 'ultimate-matt-lipstick-020', null, null, '4', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('18', 'Ultimate Matt Lipstick 030', 'ultimate-matt-lipstick-030', null, null, '4', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('19', 'Velvet Matt Lip Cream 020', 'velvet-matt-lip-cream-020', null, null, '3', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('20', 'Velvet Matt Lip Cream 080', 'velvet-matt-lip-cream-080', null, null, '3', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('21', 'Ultimate Colour 500', 'ultimate-colour-500', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('22', 'Ultimate Colour 310', 'ultimate-colour-310', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('23', 'Ultimate Colour 370', 'ultimate-colour-370', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('24', 'Ultimate Colour 020', 'ultimate-colour-020', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('25', 'Superstay 24h 135', 'superstay-24h-135', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('26', 'Superstay 24h 460', 'superstay-24h-460', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('27', 'Superstay 24h 542', 'superstay-24h-542', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('28', 'Lips2Last 45A ', 'lips2last-45a', '15', '1', '2', null, null, null, null, null, '', '1970-01-01 00:00:00', '', '', null, '', '', '#000000', '1', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('29', 'Lips2Last 48L', 'lips2last-48l', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('30', 'Lips2Last 43H', 'lips2last-43h', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('31', 'Lips2Last 59L', 'lips2last-59l', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('32', 'Lips2Last 59N', 'lips2last-59n', null, null, '2', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('33', 'Lips2Last 44Q', 'lips2last-44q', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('34', 'Lips2Last 56Q', 'lips2last-56q', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('35', 'Lips2Last ', 'lips2last', null, null, '1', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
-INSERT INTO `products` VALUES ('36', 'All in One Lipstick 470', 'all-in-one-lipstick-470', null, null, '335', null, null, null, null, null, null, null, null, null, null, null, null, null, '0', '2147483647', '2147483647');
+INSERT INTO `products` VALUES ('8', 'SkinActive Maske Granatapfel ', 'skinactive-maske-granatapfel', '15', '1', '12', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, '', '2020-09-10 00:00:00', '', '', null, '120000', '', '#000000', '1', '1507552526', '1506854606');
+INSERT INTO `products` VALUES ('9', 'SkinActive Maske Grüntee ', 'skinactive-maske-grüntee', '5', '1', '12', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, '<p>\r\n\r\nMặt nạ trj mụn nóng Garnier SkinActive Anti-pickel<br>Giá: 50k/miếng có 2 gói nhỏ dùng được 3-4 lần<br>Mặt nạ trị mụn nóng Garnier là loại mặt nạ rất thích hợp cho các bạn da dầu mụn. Với cơ chế làm nóng tự nhiên của khoáng chất, mặt sẽ giúp đưa các chất làm sạch vào sâu trong lỗ chân lông, loại bỏ mụn và kiềm dầu.\r\n\r\n<br></p><p>\r\n\r\nThành phần Salycilic Acid và Kẽm giúp làm sạch sâu lỗ chân', '2020-09-10 00:00:00', '', '', null, '120000', '', '#000000', '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('10', 'SkinActive Maske Lavendel', 'skinactive-maske-lavendel', '5', '2', '12', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('11', 'SkinActive Maske Sakura', 'skinactive-maske-sakura', '6', '3', '12', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('12', 'Anti-Age Maske', 'anti-age-maske', '9', '6', '12', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('13', 'Creme-Gel Maske Melone', 'creme-gel-maske-melone', '8', '4', '12', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('14', 'Peel-Off Maske', 'peel-off-maske', '8', '5', '22', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('15', 'Luxus Maske', 'luxus-maske', '11', '5', '12', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('16', 'Colour Lippenstift 020', 'colour-lippenstift-020', '10', '1', '6', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('17', 'Ultimate Matt Lipstick 020', 'ultimate-matt-lipstick-020', '10', '2', '24', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('18', 'Ultimate Matt Lipstick 030', 'ultimate-matt-lipstick-030', '8', '3', '24', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('19', 'Velvet Matt Lip Cream 020', 'velvet-matt-lip-cream-020', '7', '4', '18', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('20', 'Velvet Matt Lip Cream 080', 'velvet-matt-lip-cream-080', '7', '1', '18', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('21', 'Ultimate Colour 500', 'ultimate-colour-500', '7', '2', '6', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('22', 'Ultimate Colour 310', 'ultimate-colour-310', '8', '3', '6', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('23', 'Ultimate Colour 370', 'ultimate-colour-370', '9', '2', '6', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('24', 'Ultimate Colour 020', 'ultimate-colour-020', '9', '1', '6', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('25', 'Superstay 24h 135', 'superstay-24h-135', '7', '4', '6', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('26', 'Superstay 24h 460', 'superstay-24h-460', '7', '3', '6', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('27', 'Superstay 24h 542', 'superstay-24h-542', '6', '3', '6', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('28', 'Lips2Last 45A ', 'lips2last-45a', '6', '2', '12', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, '', '2020-09-10 00:00:00', '', '', null, '120000', '', '#000000', '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('29', 'Lips2Last 48L', 'lips2last-48l', '6', '1', '12', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('30', 'Lips2Last 43H', 'lips2last-43h', '6', '4', '12', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('31', 'Lips2Last 59L', 'lips2last-59l', '6', '2', '12', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('32', 'Lips2Last 59N', 'lips2last-59n', '5', '2', '12', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('33', 'Lips2Last 44Q', 'lips2last-44q', '5', '3', '6', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('34', 'Lips2Last 56Q', 'lips2last-56q', '8', '3', '6', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('35', 'Lips2Last ', 'lips2last', '9', '2', '6', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
+INSERT INTO `products` VALUES ('36', 'All in One Lipstick 470', 'all-in-one-lipstick-470', '9', '1', '2010', '268249.jpg', '207183.jpg', '268134.jpg', '71upsnw9GOL__SY355__-_Kopie.jpg', null, null, '2020-09-10 00:00:00', null, null, null, '120000', null, null, '1', '1507552526', '1507552526');
 
 -- ----------------------------
 -- Table structure for products_category
@@ -387,8 +390,8 @@ INSERT INTO `products_category` VALUES ('6', 'Son môi', 'son-moi', '1', '2', '3
 INSERT INTO `products_category` VALUES ('7', 'Make Up', 'make-up', '1', '3', '3', '2147483647');
 INSERT INTO `products_category` VALUES ('8', 'Chăm sóc & Làm sạch da', 'cham-soc-&-lam-sach-da', '1', '4', '3', '2147483647');
 INSERT INTO `products_category` VALUES ('9', 'Sữa', 'sua', '1', '1', '9', '2147483647');
-INSERT INTO `products_category` VALUES ('14', 'Kem & Bàn chải', 'kem-&-ban-chai', '1', '1', '9', '2147483647');
-INSERT INTO `products_category` VALUES ('15', 'Vệ sinh răng miệng', 've-sinh-rang-mieng', '1', '1', '3', '2147483647');
+INSERT INTO `products_category` VALUES ('10', 'Kem & Bàn chải', 'kem-&-ban-chai', '1', '1', '9', '2147483647');
+INSERT INTO `products_category` VALUES ('11', 'Vệ sinh răng miệng', 've-sinh-rang-mieng', '1', '1', '3', '2147483647');
 
 -- ----------------------------
 -- Table structure for sales
