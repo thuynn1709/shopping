@@ -85,4 +85,74 @@ class Sale extends MY_Controller {
         $this->_loadAdminFooter();
     }
     
+    public function add(){
+        $this->_loadAdminHeader();
+        
+        $all_name_products = $this->product_model->get_name_all_products();
+        
+        $all_products_id = array();
+        foreach ( $all_name_products as $al) {
+            $all_products_id[] = $al['name'];
+        }
+        $data['all_name_products'] = json_encode($all_products_id);
+        
+        if (isset($_POST['count'])){
+            $count = (int)$_POST['count'];
+            $insert_array  = array();
+            for( $i = 1; $i <= $count; $i++) {
+                $field_id = 'field'.$i;
+                $qty_id = 'qty'.$i;
+                $price_id = 'price'.$i;
+                $product_name = $_POST[$field_id];
+                $price = ($_POST[$price_id]);
+                $amount = (int)$_POST[$qty_id];
+                $alias = sanitizeTitle($product_name);
+                $insert_array[] = array(
+                    'product_name' => $product_name ,
+                    'product_alias' => sanitizeTitle($product_name) , 
+                    'price' => $price,
+                    'amount' => $amount,
+                    'status' => 0,
+                    'created' => now()
+                );
+            }
+                
+            $structured_results = array();
+            foreach($insert_array as $key => $value)
+            {
+                if( !isset($structured_results[$value['product_alias']])) {
+                    $structured_results[$value['product_alias']] = array( 
+                        'import_id' => $import_id,
+                        'product_name' => $value['product_name'] ,
+                        'product_alias' => $value['product_alias'], 
+                        'price' => $price,
+                        'amount' => $value['amount'],
+                        'status' => 0,
+                        'created' =>  now(),
+                        'updated' =>  now()
+                    );
+                } else {
+                    $structured_results[$value['product_alias']] = array(
+                        'import_id' => $import_id,
+                        'product_name' => $value['product_name'] ,
+                        'product_alias' => $value['product_alias'], 
+                        'price' => $price,
+                        'amount' => $value['amount'] + $structured_results[$value['product_alias']]['amount'],
+                        'status' => 0,
+                        'created' =>  now(),
+                        'updated' =>  now()
+                    );
+                }
+            }
+
+            if (!empty($structured_results)) {
+                //$this->importdetail_model->insert($structured_results, true);
+            }
+            redirect('admin/import_detail/index/');
+        }
+        
+        $this->load->view('admin/sale/add', $data);
+        $this->_loadAdminFooter();
+    }
+    
 }
