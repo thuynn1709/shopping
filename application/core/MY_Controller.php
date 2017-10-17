@@ -9,7 +9,6 @@ class MY_Controller extends CI_Controller {
         $this->load->model('fproductcategory_model');
         $this->load->model('fproduct_model');
         $this->load->model('fmarken_model');
-
         $this->load->model('fmenu_model');
     }
     
