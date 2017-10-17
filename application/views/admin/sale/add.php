@@ -68,7 +68,16 @@
         $( "#field1" ).autocomplete({
             source: availableTags,
             delay: 10,
-            change: function (event, ui) { alert(ui.item.id); }
+            select: function(event, ui) {
+                alert(ui.item ? ui.item.id : "");
+            },
+            change: function (event, ui) { 
+                if (typeof(ui.item) != 'undefined' && ui.item != null) {
+                    alert( ui.item.id);
+                }; 
+            }
+            
+            
         });
         $( "#cancel" ).click(function() {
             window.location.href = '<?php echo base_url(); ?>admin/import/index';
