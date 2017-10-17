@@ -94,6 +94,11 @@ class User_model extends CI_Model {
         return $this->db->get( $this->table)->row();
     }
     
+    public function get_name_all_user() {
+        $this->db->select('fullname, id');
+        $this->db->from($this->table);
+        return $this->db->get()->result_array();
+    }
     
    
 

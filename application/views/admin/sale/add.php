@@ -63,7 +63,7 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>public/jquery_ui/jquery-ui.js"></script>
 <script>
     $(function () {
-        var availableTags =  <?php echo $all_name_products; ?> ;
+        var availableTags =  <?php echo $all_users; ?> ;
         
         $( "#field1" ).autocomplete({
             source: availableTags,

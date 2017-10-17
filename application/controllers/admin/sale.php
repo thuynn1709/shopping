@@ -88,13 +88,13 @@ class Sale extends MY_Controller {
     public function add(){
         $this->_loadAdminHeader();
         
-        $all_name_products = $this->product_model->get_name_all_products();
-        $all_products_id = array();
-        foreach ( $all_name_products as $al) {
-            $push = array('label' => $al['name'], 'value' => $al['name'], 'id' => $al['id']);
-            array_push($all_products_id, $push);
+        $all_name_users = $this->user_model->get_name_all_user();
+        $all_users = array();
+        foreach ( $all_name_users as $al) {
+            $push = array('label' => $al['fullname'], 'value' => $al['fullname'], 'id' => $al['id']);
+            array_push($all_users, $push);
         }
-        $data['all_name_products'] = json_encode($all_products_id);
+        $data['all_users'] = json_encode($all_users);
         
         if (isset($_POST['count'])){
             $count = (int)$_POST['count'];
