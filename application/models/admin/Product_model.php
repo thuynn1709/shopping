@@ -40,7 +40,7 @@ class Product_model extends CI_Model {
     }
     
     public function get_name_all_products() {
-        $this->db->select('name');
+        $this->db->select('name, id');
         $this->db->from($this->table);
         return $this->db->get()->result_array();
     }

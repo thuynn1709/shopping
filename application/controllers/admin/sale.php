@@ -89,10 +89,10 @@ class Sale extends MY_Controller {
         $this->_loadAdminHeader();
         
         $all_name_products = $this->product_model->get_name_all_products();
-        
         $all_products_id = array();
         foreach ( $all_name_products as $al) {
-            $all_products_id[] = $al['name'];
+            $push = array('label' => $al['name'], 'value' => $al['name'], 'id' => $al['id']);
+            array_push($all_products_id, $push);
         }
         $data['all_name_products'] = json_encode($all_products_id);
         

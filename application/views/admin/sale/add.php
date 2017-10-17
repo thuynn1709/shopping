@@ -64,9 +64,11 @@
 <script>
     $(function () {
         var availableTags =  <?php echo $all_name_products; ?> ;
+        
         $( "#field1" ).autocomplete({
             source: availableTags,
-            delay: 10
+            delay: 10,
+            change: function (event, ui) { alert(ui.item.id); }
         });
         $( "#cancel" ).click(function() {
             window.location.href = '<?php echo base_url(); ?>admin/import/index';
