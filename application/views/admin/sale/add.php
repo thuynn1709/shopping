@@ -73,11 +73,26 @@
             },
             change: function (event, ui) { 
                 if (typeof(ui.item) != 'undefined' && ui.item != null) {
-                    alert( ui.item.id);
+                    $.ajax
+                    ({ 
+                        url: url,
+                        data: {'user_id': ui.item.id},
+                        type: 'post',
+                        success: function(result) {
+                            obj = jQuery.parseJSON(result);
+                            if ( obj.msg == 'success') {
+                                $( classId ).removeClass( "btn-danger" );
+                                $( classId ).addClass( "btn-success" );
+                                $( classId ).prop('disabled', true);
+                                $( classId ).html('Đã Import');
+                                $( classId ).notify( "Cập nhật thành công !", { position:"top", className: 'success', });
+                            }else {
+                                 $( classId ).notify("Cập nhật không thành công !", "error");
+                            }
+                        }
+                    });
                 }; 
             }
-            
-            
         });
         $( "#cancel" ).click(function() {
             window.location.href = '<?php echo base_url(); ?>admin/import/index';
