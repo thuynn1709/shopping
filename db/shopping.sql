@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-10-09 15:11:06
+Date: 2017-10-17 13:09:20
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -25,7 +25,7 @@ CREATE TABLE `config_featureas_items` (
   `product_name` varchar(60) DEFAULT NULL,
   `created` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of config_featureas_items
@@ -36,7 +36,27 @@ INSERT INTO `config_featureas_items` VALUES ('8', '19', 'Velvet Matt Lip Cream 0
 INSERT INTO `config_featureas_items` VALUES ('9', '20', 'Velvet Matt Lip Cream 080', '1507553949');
 INSERT INTO `config_featureas_items` VALUES ('10', '21', 'Ultimate Colour 500', '1507553949');
 INSERT INTO `config_featureas_items` VALUES ('11', '28', 'Lips2Last 45A ', '1507554198');
-INSERT INTO `config_featureas_items` VALUES ('12', '12', 'Anti-Age Maske', '1507554222');
+
+-- ----------------------------
+-- Table structure for config_small_menu_home_items
+-- ----------------------------
+DROP TABLE IF EXISTS `config_small_menu_home_items`;
+CREATE TABLE `config_small_menu_home_items` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) DEFAULT NULL,
+  `category_name` varchar(60) DEFAULT NULL,
+  `created` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of config_small_menu_home_items
+-- ----------------------------
+INSERT INTO `config_small_menu_home_items` VALUES ('13', '10', 'Kem & Bàn chải', '1507558617');
+INSERT INTO `config_small_menu_home_items` VALUES ('14', '7', 'Make Up', '1507560266');
+INSERT INTO `config_small_menu_home_items` VALUES ('15', '8', 'Chăm sóc & Làm sạch da', '1507560266');
+INSERT INTO `config_small_menu_home_items` VALUES ('16', '9', 'Sữa', '1507560266');
+INSERT INTO `config_small_menu_home_items` VALUES ('17', '11', 'Vệ sinh răng miệng', '1507560266');
 
 -- ----------------------------
 -- Table structure for contact
@@ -217,7 +237,7 @@ CREATE TABLE `menu` (
 -- Records of menu
 -- ----------------------------
 INSERT INTO `menu` VALUES ('3', 'Mỹ phẩm ', 'my-pham', '1', '3', '2147483647');
-INSERT INTO `menu` VALUES ('6', 'Mua hàng & Thanh toán', 'mua-hang-&-thanh-toan', '1', '4', '2147483647');
+INSERT INTO `menu` VALUES ('6', 'Mua hàng & Thanh toán', 'mua-hang---thanh-toan', '1', '4', '2147483647');
 INSERT INTO `menu` VALUES ('7', 'Liên hệ', 'lien-he', '1', '5', '2147483647');
 INSERT INTO `menu` VALUES ('8', 'Trang chủ', 'trang-chu', '1', '1', '2147483647');
 INSERT INTO `menu` VALUES ('9', 'Đồ cho bé', 'do-cho-be', '1', '2', '2147483647');
@@ -380,7 +400,7 @@ CREATE TABLE `products_category` (
   `menu_id` tinyint(3) DEFAULT NULL,
   `created` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of products_category
@@ -388,9 +408,9 @@ CREATE TABLE `products_category` (
 INSERT INTO `products_category` VALUES ('5', 'Mặt nạ', 'mat-na', '1', '1', '3', '2147483647');
 INSERT INTO `products_category` VALUES ('6', 'Son môi', 'son-moi', '1', '2', '3', '2147483647');
 INSERT INTO `products_category` VALUES ('7', 'Make Up', 'make-up', '1', '3', '3', '2147483647');
-INSERT INTO `products_category` VALUES ('8', 'Chăm sóc & Làm sạch da', 'cham-soc-&-lam-sach-da', '1', '4', '3', '2147483647');
+INSERT INTO `products_category` VALUES ('8', 'Chăm sóc & Làm sạch da', 'cham-soc---lam-sach-da', '1', '4', '3', '2147483647');
 INSERT INTO `products_category` VALUES ('9', 'Sữa', 'sua', '1', '1', '9', '2147483647');
-INSERT INTO `products_category` VALUES ('10', 'Kem & Bàn chải', 'kem-&-ban-chai', '1', '1', '9', '2147483647');
+INSERT INTO `products_category` VALUES ('10', 'Kem & Bàn chải', 'kem---ban-chai', '1', '1', '9', '2147483647');
 INSERT INTO `products_category` VALUES ('11', 'Vệ sinh răng miệng', 've-sinh-rang-mieng', '1', '1', '3', '2147483647');
 
 -- ----------------------------

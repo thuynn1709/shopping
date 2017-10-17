@@ -45,4 +45,11 @@ class FProductcategory_model extends CI_Model {
         return $this->db->count_all_results();
     }
     
+    public function get_all_category_by_menuId( $menu_id) {
+        $this->db->select('id, name, alias');
+        $this->db->where('menu_id', $menu_id);
+        $this->db->where('status', 1);
+        $data =  $this->db->get( $this->table)->result();
+        return $data;
+    }
 }
