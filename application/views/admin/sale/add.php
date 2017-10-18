@@ -23,21 +23,62 @@
                 <div class="box-body">
                     <input type="hidden" name="count" id="count" value="1" />
                     <div class="control-group" id="form-add-multi">
-                        <div class="row">
-                            <div class="col-md-6"><label>Tên sản phẩm</label></div>
-                            <div class="col-md-2 pull-left"><label>Giá</label></div>
-                            <div class="col-md-2">Số lượng</div>
-                            <div class="col-md-2"></div>
+                        <input type="hidden" name="user_id" id="user_id" value="" />
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Thông tin khách hàng</h3>
+                            </div>
+                            <div class="row" >
+                                <div class="col-md-4">
+                                    <label for="exampleInputEmail1">Tên người mua</label>
+                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên người mua">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="exampleInputEmail1">Email</label>
+                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                </div>
+                                <div class="col-md-4">
+                                    <label for="exampleInputEmail1">Số điện thoại</label>
+                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Số điện thoại">
+                                </div>
+
+                            </div>
+
+                            <div class="row" >
+                                <div class="col-md-12">
+                                    <label for="exampleInputEmail1">Địa chỉ</label>
+                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Địa chỉ khách hàng">
+                                </div>
+                            </div>
+                            <div class="row" >
+                                <div class="col-md-12">
+                                    <label for="exampleInputEmail1">Địa chỉ ship</label>
+                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Địa chỉ giao hàng ">
+                                </div>
+                            </div>
                         </div>
-                        <small>Ấn + để thêm nhiều sản phẩm cùng lúc :)</small>
-                        <div class="row" id="fields">
-                            <div class="col-md-6"><input autocomplete="on" class="form-control" id="field1" name="field1" type="text" placeholder="Tên sản phẩm" data-items="8"/></div>
-                            <div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="price1" name="price1" type="text" placeholder="Giá" data-items="8"/></div>
-                            <div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="qty1" name="qty1" type="text" placeholder="Số lượng" data-items="8"/></div>
-                            <div class="col-md-2"><button id="b1" class="btn btn-primary add-more" type="button">+</button></div>
-                        </div>
-                        </div>
+                        
+                        <div class="box">
+                            <div class="box-header with-border">
+                                <h3 class="box-title">Chi tiết đơn hàng</h3>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-6"><label>Tên sản phẩm</label></div>
+                                <div class="col-md-2 pull-left"><label>Giảm giá ( nếu có )</label></div>
+                                <div class="col-md-2"><label>Số lượng</label></div>
+                                <div class="col-md-2"></div>
+                            </div>
+                            <small>Ấn + để thêm nhiều sản phẩm cùng lúc :)</small>
+                            <div class="row" id="fields">
+                                <div class="col-md-6"><input autocomplete="on" class="form-control" id="field1" name="field1" type="text" placeholder="Tên sản phẩm" data-items="8"/></div>
+                                <div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="price1" name="price1" type="text" placeholder="Giảm giá" data-items="8"/></div>
+                                <div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="qty1" name="qty1" type="text" placeholder="Số lượng" data-items="8"/></div>
+                                <div class="col-md-2"><button id="b1" class="btn btn-primary add-more" type="button">+</button></div>
+                            </div>
+                        </div>    
                     </div>
+                </div>
                 </div>
                 </div>
                 <!-- /.box-body -->
@@ -108,7 +149,7 @@
                             '<div class="col-md-6"><input autocomplete="off" class="form-control" id="field'+ addBlockId +'" name="field'+ addBlockId +'" type="text" placeholder="Tên sản phẩm" data-items="8"/></div>' +
                             '<div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="price'+ addBlockId +'" name="price'+ addBlockId +'" type="text" placeholder="Giá" data-items="8"/></div>' +                    
                             '<div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="qty'+ addBlockId +'" name="qty'+ addBlockId +'" type="text" placeholder="Số lượng" data-items="8"/></div>' +
-                            '<div class="col-md-2"><button id="remove' + (addBlockId - 1) + '" class="btn btn-danger remove-me" >-</button></div>' +
+                            '<div class="col-md-2"><button value="' + (addBlockId) + '" id="remove' + (addBlockId - 1) + '" class="btn btn-danger remove-me" >-</button></div>' +
                             
                         '</div>';
             $(addBlock).appendTo($('#form-add-multi')).insertBefore( "#fields" );
@@ -119,8 +160,9 @@
             });
             $('#count').val(total);
             $('.remove-me').click(function(e){
+                var removeId = $(this).val();
                 e.preventDefault();
-                var field = '#fields' + addBlockId;
+                var field = '#fields' + removeId;
                 $(field).remove();
               
             });

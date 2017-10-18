@@ -88,6 +88,16 @@ class Sale extends MY_Controller {
     public function add(){
         $this->_loadAdminHeader();
         
+        // suggest product
+        $all_name_products = $this->product_model->get_name_all_products();
+        
+        $all_products_id = array();
+        foreach ( $all_name_products as $al) {
+            $all_products_id[] = $al['name'];
+        }
+        $data['all_name_products'] = json_encode($all_products_id);
+        
+        // suggest user
         $all_name_users = $this->user_model->get_name_all_user();
         $all_users = array();
         foreach ( $all_name_users as $al) {
