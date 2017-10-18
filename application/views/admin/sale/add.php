@@ -24,41 +24,43 @@
                     <input type="hidden" name="count" id="count" value="1" />
                     <div class="control-group" id="form-add-multi">
                         <input type="hidden" name="user_id" id="user_id" value="" />
-                        <div class="box">
-                            <div class="box-header with-border">
-                                <h3 class="box-title">Thông tin khách hàng</h3>
-                            </div>
-                            <div class="row" >
-                                <div class="col-md-4">
-                                    <label for="exampleInputEmail1">Tên người mua</label>
-                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên người mua">
+                        <div class="box-body" style=" border: 1px solid #ccc;border-radius: 4px;">
+             
+                                <div class="box-header with-border">
+                                    <h3 class="box-title">Thông tin khách hàng</h3>
                                 </div>
-                                <div class="col-md-4">
-                                    <label for="exampleInputEmail1">Email</label>
-                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Email">
-                                </div>
-                                <div class="col-md-4">
-                                    <label for="exampleInputEmail1">Số điện thoại</label>
-                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Số điện thoại">
+                                <div class="row" >
+                                    <div class="col-md-4">
+                                        <label for="exampleInputEmail1">Tên người mua</label>
+                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên người mua">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="exampleInputEmail1">Email</label>
+                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                    </div>
+                                    <div class="col-md-4">
+                                        <label for="exampleInputEmail1">Số điện thoại</label>
+                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Số điện thoại">
+                                    </div>
+
                                 </div>
 
-                            </div>
-
-                            <div class="row" >
-                                <div class="col-md-12">
-                                    <label for="exampleInputEmail1">Địa chỉ</label>
-                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Địa chỉ khách hàng">
+                                <div class="row" >
+                                    <div class="col-md-12">
+                                        <label for="exampleInputEmail1">Địa chỉ</label>
+                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Địa chỉ khách hàng">
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="row" >
-                                <div class="col-md-12">
-                                    <label for="exampleInputEmail1">Địa chỉ ship</label>
-                                    <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Địa chỉ giao hàng ">
+                                <div class="row" >
+                                    <div class="col-md-12">
+                                        <label for="exampleInputEmail1">Địa chỉ ship</label>
+                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Địa chỉ giao hàng ">
+                                    </div>
                                 </div>
-                            </div>
+                            
                         </div>
                         
-                        <div class="box">
+                        <div class="box-body"  style=" border: 1px solid #ccc;border-radius: 4px;margin-top: 10px">
                             <div class="box-header with-border">
                                 <h3 class="box-title">Chi tiết đơn hàng</h3>
                             </div>
