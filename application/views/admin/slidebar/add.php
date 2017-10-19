@@ -3,7 +3,7 @@
     <!-- Content Header (Page header) -->
     
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
+        <li><a href="<?php echo base_url('admin/dashboard') ; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="#">Cấu hình</a></li>
         <li class="active">Slide trang chủ</li>
       </ol>

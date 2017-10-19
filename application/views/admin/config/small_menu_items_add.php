@@ -2,7 +2,7 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="<?php echo base_url('admin/dashboard') ; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
         <li><a href="<?php echo base_url('admin/config/small_menu_items'); ?>">Danh mục SP ở menu con trang chủ </a></li>
         <li class="active">Thêm mới</li>
      </ol>

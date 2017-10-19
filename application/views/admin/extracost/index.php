@@ -5,7 +5,7 @@
     <section class="content">
       <!-- /.row -->
       <div class="row">
-        <form action="<?php echo site_url('admin/user/index');?>" method = "post">
+        <form action="<?php echo site_url('admin/extracost/index');?>" method = "post">
             <div class="col-xs-12">
                     <div class="col-xs-3">
                         <button style="width: 150px; margin-top: 25px;" id="add_new" type="button" class="btn btn-block btn-primary">Thêm mới</button>  
@@ -15,15 +15,10 @@
                        
                     </div>
                     <div class="col-xs-3">
-                        <label>Group</label> 
-                        <select class="form-control">
-                            <option value="0">Admin</option>
-                            <option value="1">Mode</option>
-                            <option value="2">User</option>
-                      </select>
+                       
                     </div>
                     <div class="col-xs-3">
-                        <label>Tên người dùng</label> 
+                        <label>Nội dung chi tiêu</label> 
                         <div class="input-group">
                             <input type="text" name="search" value="<?php echo $search; ?>" class="form-control pull-right" placeholder="Search">
                             <div class="input-group-btn">
@@ -36,7 +31,7 @@
         <div class="col-xs-12">
           <div class="box">
             <div class="box-header">
-                <h3 class="box-title">Danh sách user</h3>
+                <h3 class="box-title">Danh sách chi tiêu</h3>
                 <div class="box-tools"></div>
             </div>
             <!-- /.box-header -->
@@ -44,10 +39,10 @@
               <table class="table table-hover">
                 <tr>
                   <th>ID</th>
-                  <th>Username</th>
-                  <th>Fullname</th>
-                  <th>Phone</th>
-                  <th>Nhóm</th>
+                  <th>Người chi tiêu</th>
+                  <th>Số tiền</th>
+                  <th>Nội dung</th>
+                  <th>Ngày </th>
                   <th>Action</th>
                 </tr>
                 
@@ -59,22 +54,14 @@
                     ?> 
                     <tr>
                       <td><?php echo $stt; ?></td>
-                      <td><?php echo $rs->email; ?></td>
-                      <td><?php echo $rs->fullname; ?></td>
-                      <td><?php echo $rs->phone; ?></td>
-                      <?php 
-                        if ($rs->group == 0) {
-                        ?> 
-                      <td>Admin</td>
-                        <?php } else if ($rs->group == 1) {  ?> 
-                      <td>Mode</td>
-                      <?php }else { ?> 
-                      <td>User</td>  
-                      <?php } ?> 
+                      <td><?php echo $rs->author; ?></td>
+                      <td><?php echo $rs->price; ?></td>
+                      <td><?php echo $rs->notice; ?></td>
+                      <td><?php echo $rs->created; ?></td>
                       <td>
                         <div class="btn-group">
-                            <button type="button" ref="<?php echo base_url('admin/user/edit/'). $rs->id ; ?>" class="btn btn-info">Sửa</button>
-                            <button type="button" ref="<?php echo base_url('admin/user/delete/'). $rs->id ; ?>" class="btn btn-warning">Xóa</button>
+                            <button type="button" ref="<?php echo base_url('admin/extracost/edit/'). $rs->id ; ?>" class="btn btn-info">Sửa</button>
+                            <button type="button" ref="<?php echo base_url('admin/extracost/delete/'). $rs->id ; ?>" class="btn btn-warning">Xóa</button>
                         </div>  
                         
                       </td>
@@ -104,7 +91,7 @@
     $( document ).ready(function() {
         console.log( "ready!" );
         $('#add_new').click(function() {
-            window.location.href = '<?php echo base_url(); ?>admin/user/add';
+            window.location.href = '<?php echo base_url(); ?>admin/extracost/add';
             return false;
         });
         

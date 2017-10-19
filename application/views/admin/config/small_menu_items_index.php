@@ -2,8 +2,8 @@
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <ol class="breadcrumb">
-        <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="<?php echo base_url('admin/import/'); ?>">Cấu hình</a></li>
+        <li><a href="<?php echo base_url('admin/dashboard') ; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
+        <li><a href="#">Cấu hình</a></li>
         <li class="active">Danh mục sản phẩm menu nhỏ ( Trang chủ)</li>
     </ol>
     <section class="content">

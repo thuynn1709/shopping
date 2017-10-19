@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-10-17 13:09:20
+Date: 2017-10-19 12:44:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -105,18 +105,19 @@ CREATE TABLE `export` (
 -- ----------------------------
 DROP TABLE IF EXISTS `extracost`;
 CREATE TABLE `extracost` (
-  `id` int(11) unsigned NOT NULL,
-  `name` varchar(500) DEFAULT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `price` float DEFAULT NULL,
   `author` varchar(50) DEFAULT NULL,
-  `notice` varchar(100) DEFAULT NULL,
+  `notice` varchar(300) DEFAULT NULL,
   `created` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of extracost
 -- ----------------------------
+INSERT INTO `extracost` VALUES ('1', '120', 'fdasf ', 'fdsafdsafdf', '1508409579');
+INSERT INTO `extracost` VALUES ('2', '380', 'fdsafdsaf', 'fdfasf', '1508409563');
 
 -- ----------------------------
 -- Table structure for import
@@ -300,7 +301,7 @@ CREATE TABLE `orders` (
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
-INSERT INTO `orders` VALUES ('1', '1', '2', '230000', '0', '0', '1', '2147483647');
+INSERT INTO `orders` VALUES ('1', '1', '2', '230000', '0', '1', '1', '2017');
 
 -- ----------------------------
 -- Table structure for order_detail

@@ -3,9 +3,9 @@
     <!-- Content Header (Page header) -->
     <ol class="breadcrumb">
         <li><a href="<?php echo base_url('admin/dashboard') ; ?>"><i class="fa fa-dashboard"></i> Home</a></li>
-        <li><a href="#">Quản lý danh mục sản phẩm</a></li>
-        <li class="active">Thêm mới danh mục sản phẩm</li>
-      </ol>
+        <li><a href="<?php echo base_url('admin/extracost') ; ?>">Quản lý chi tiêu</a></li>
+        <li class="active">Thêm mới nội dung chi tiêu</li>
+    </ol>
 
     <!-- Main content -->
     <section class="content">
@@ -19,33 +19,23 @@
             </div>
             <!-- /.box-header -->
             <!-- form start -->
-            <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/menu/add') ; ?>">
+            <form role="form" name="submit" method="post" enctype="multipart/form-data" action="<?php echo base_url('admin/extracost/add') ; ?>">
               <div class="box-body">
                 <div class="form-group">
-                  <label for="exampleInputEmail1">Tên menu</label>
-                  <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Enter menu">
-                </div>
-                <div class="form-group">
-                    <label>Ưu tiên</label>
-                    <select name="priority" class="form-control">
-                        <?php 
-                        for ( $i = 1; $i <= 10; $i++) {                  
-                        ?>
-                               <option value="<?php echo $i; ?>"> <?php echo $i; ?></option>
-                        <?php 
-                        }                        
-                        ?>
-                    </select>
+                  <label for="exampleInputEmail1">Tên người chi tiêu</label>
+                  <input type="text" name="author" class="form-control" id="exampleInputEmail1" placeholder="Họ tên">
                 </div>
                   
-                  <div class="form-group">
-                  <label>Hiển thị</label>
-                  <select name="status" class="form-control">
-                    <option value="1"> Hiển thị</option>
-                    <option value="0"> Không hiển thị</option>
-                   
-                  </select>
+                <div class="form-group">
+                  <label for="exampleInputEmail1">Số tiền</label>
+                  <input type="text" name="price" class="form-control" id="exampleInputEmail1" placeholder="Số tiền">
                 </div>
+                  
+                <div class="form-group">
+                    <label for="exampleInputEmail1">Nội dung</label>
+                    <textarea class="form-control" name="notice" rows="3"  placeholder="Mô tả chi tiết nội dung chi tiêu ..."></textarea>
+                </div>
+                  
               </div>
               <!-- /.box-body -->
 
@@ -69,7 +59,7 @@
   <script type="text/javascript">
     $( document ).ready(function() {
         $('#cancel').click(function() {
-            window.location.href = '<?php echo base_url(); ?>admin/product_category/index';
+            window.location.href = '<?php echo base_url(); ?>admin/extracost/index';
             return false;
         });
     });
