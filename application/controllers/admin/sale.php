@@ -108,50 +108,51 @@ class Sale extends MY_Controller {
         
         if (isset($_POST['count'])){
             $count = (int)$_POST['count'];
-            $insert_array  = array();
+            $insert_user  = array();
             
             $user_id = $_POST['user_id'];
+           
             if (empty($user_id)) {
-                
-                $insert_array = array (
+                $insert_user = array (
                     'fullname' => $_POST['name'],
                     'email' => $_POST['email'],
                     'phone' => $_POST['phone'],
                     'address' => $_POST['address'],
                     'address_ship' =>  $_POST['address_ship'],
                 );
-                $user_id = $this->user_model->insert($insert_array);
-            }
-            
+                $user_id = $this->user_model->insert($insert_user);
+            }         
+            $insert_array = array();
             for( $i = 1; $i <= $count; $i++) {
                 $field_id = 'field'.$i;
-                if ( isset($$field_id) && $_POST[$field_id] != '' ) {
+                if ( isset($field_id) && $_POST[$field_id] != '' ) {
                     $field_id = 'field'.$i;
                     $qty_id = 'qty'.$i;
-                    $discount = 'price'.$i;
+                    $discount_id = 'price'.$i;
                     $pid = 'pid'. $i;
                     $product_name = $_POST[$field_id];
                     $product_id = $_POST[$pid];
-                    $discount = ($_POST[$price_id]);
+                    $discount = (int)($_POST[$discount_id]);
                     $amount = (int)$_POST[$qty_id];
                     $alias = sanitizeTitle($product_name);
                     $product_detail = $this->product_model->get_one_product_by_alias($alias);
+                   
                     if ($product_detail) {
                         $insert_array[] = array(
                             'product_id' => $product_detail->id ,
                             'user_id' => $user_id, 
                             'order_detail_id' => 0, 
                             'amount' => $amount,
-                            'price' => $product_detail->price - $product_detail->discount,
+                            'price' => (int)$product_detail->price - (int)$product_detail->discount,
                             'discount' => $discount,
-                            'pricetotal' =>  ($product_detail->price - $product_detail->discount ) * $amount - $discount,
+                            'pricetotal' =>  ((int)$product_detail->price - (int)$product_detail->discount ) * (int)$amount - (int)$discount,
                             'type' => 1,
                             'created' => now()
                         );
                     }
                 }
             }
-                
+            
             $structured_results = array();
             foreach($insert_array as $key => $value)
             {
@@ -182,13 +183,10 @@ class Sale extends MY_Controller {
                 }
             }
             
-            echo '<pre>';
-            var_dump( $structured_results);die;
-            
             if (!empty($structured_results)) {
-                //$this->importdetail_model->insert($structured_results, true);
+                $this->sale_model->insert($structured_results, true);
             }
-            redirect('admin/import_detail/index/');
+            redirect('admin/sale/index/');
         }
         
         $this->load->view('admin/sale/add', $data);
