@@ -95,9 +95,14 @@
           </a>
         </li>
         
-        
-        
-        
+        <li>
+          <a href="<?php echo base_url('admin/extracost') ; ?>">
+            <i class="fa fa-sticky-note-o" aria-hidden="true"></i> <span>Quản lý chi tiêu phát sinh</span>
+            <span class="pull-right-container">
+              <small class="label pull-right bg-green"></small>
+            </span>
+          </a>
+        </li>
         
         <li>
           <a href="<?php echo base_url('admin/menu/index') ; ?>">
