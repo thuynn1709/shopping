@@ -26,21 +26,21 @@
                         <input type="hidden" name="user_id" id="user_id" value="" />
                         <div class="box-body" style=" border: 1px solid #ccc;border-radius: 4px;">
              
-                                <div class="box-header with-border">
+                                <div class="box-header with-border" id="info-user">
                                     <h3 class="box-title">Thông tin khách hàng</h3>
                                 </div>
                                 <div class="row" >
                                     <div class="col-md-4">
                                         <label for="exampleInputEmail1">Tên người mua</label>
-                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Nhập tên người mua">
+                                        <input type="text" name="name" class="form-control" id="name" placeholder="Nhập tên người mua">
                                     </div>
                                     <div class="col-md-4">
                                         <label for="exampleInputEmail1">Email</label>
-                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                                        <input type="text" name="email" class="form-control" id="email" placeholder="Email">
                                     </div>
                                     <div class="col-md-4">
                                         <label for="exampleInputEmail1">Số điện thoại</label>
-                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Số điện thoại">
+                                        <input type="text" name="phone" class="form-control" id="phone"   placeholder="Số điện thoại">
                                     </div>
 
                                 </div>
@@ -48,13 +48,13 @@
                                 <div class="row" >
                                     <div class="col-md-12">
                                         <label for="exampleInputEmail1">Địa chỉ</label>
-                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Địa chỉ khách hàng">
+                                        <input type="text" name="address" class="form-control" id="address"   placeholder="Địa chỉ khách hàng">
                                     </div>
                                 </div>
                                 <div class="row" >
                                     <div class="col-md-12">
                                         <label for="exampleInputEmail1">Địa chỉ ship</label>
-                                        <input type="text" name="name" class="form-control" id="exampleInputEmail1" placeholder="Địa chỉ giao hàng ">
+                                        <input type="text" name="address_ship" class="form-control" id="address_ship" placeholder="Địa chỉ giao hàng ">
                                     </div>
                                 </div>
                             
@@ -73,10 +73,20 @@
                             </div>
                             <small>Ấn + để thêm nhiều sản phẩm cùng lúc :)</small>
                             <div class="row" id="fields">
-                                <div class="col-md-6"><input autocomplete="on" class="form-control" id="field1" name="field1" type="text" placeholder="Tên sản phẩm" data-items="8"/></div>
-                                <div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="price1" name="price1" type="text" placeholder="Giảm giá" data-items="8"/></div>
-                                <div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="qty1" name="qty1" type="text" placeholder="Số lượng" data-items="8"/></div>
-                                <div class="col-md-2"><button id="b1" class="btn btn-primary add-more" type="button">+</button></div>
+                                <input autocomplete="off" class="form-control" id="pid1" value="" name="pid1" type="hidden"/>
+                                <div class="col-md-6">
+                                    <input autocomplete="on" class="form-control" id="field1" name="field1" type="text" placeholder="Tên sản phẩm" data-items="8"/>
+                                </div>
+                                
+                                <div class="col-md-2 pull-left">
+                                    <input autocomplete="off" class="form-control" id="price1" name="price1" type="text" placeholder="Giảm giá" data-items="8"/>
+                                </div>
+                                <div class="col-md-2 pull-left">
+                                    <input autocomplete="off" class="form-control" id="qty1" name="qty1" type="text" placeholder="Số lượng" data-items="8"/>
+                                </div>
+                                <div class="col-md-2">
+                                    <button id="b1" class="btn btn-primary add-more" type="button">+</button>
+                                </div>
                             </div>
                         </div>    
                     </div>
@@ -106,35 +116,59 @@
 <script type="text/javascript" src="<?php echo base_url(); ?>public/jquery_ui/jquery-ui.js"></script>
 <script>
     $(function () {
-        var availableTags =  <?php echo $all_users; ?> ;
-        
+        var nameProducts =  <?php echo $all_name_products; ?> ;
+        console.log ( nameProducts);
         $( "#field1" ).autocomplete({
-            source: availableTags,
+            source: nameProducts,
             delay: 10,
             select: function(event, ui) {
-                alert(ui.item ? ui.item.id : "");
             },
             change: function (event, ui) { 
                 if (typeof(ui.item) != 'undefined' && ui.item != null) {
+                    $('#pid1').val(ui.item.id);
+                } else {
+                    $('#pid1').val('');
+                }
+            }
+        });
+        
+        
+        var availableTags =  <?php echo $all_users; ?> ;
+        
+        $( "#name" ).autocomplete({
+            source: availableTags,
+            delay: 10,
+            select: function(event, ui) {
+            },
+            change: function (event, ui) { 
+                if (typeof(ui.item) != 'undefined' && ui.item != null) {
+                    $('#user_id').val(ui.item.id);
                     $.ajax
                     ({ 
-                        url: url,
+                        url: '<?php echo base_url('admin/sale/get_info_user_byId'); ?>' ,
                         data: {'user_id': ui.item.id},
                         type: 'post',
                         success: function(result) {
                             obj = jQuery.parseJSON(result);
                             if ( obj.msg == 'success') {
-                                $( classId ).removeClass( "btn-danger" );
-                                $( classId ).addClass( "btn-success" );
-                                $( classId ).prop('disabled', true);
-                                $( classId ).html('Đã Import');
-                                $( classId ).notify( "Cập nhật thành công !", { position:"top", className: 'success', });
+                                $('#email').val( obj.data.email );
+                                $('#phone').val( obj.data.phone );
+                                $('#address').val( obj.data.address );
+                                $('#address_ship').val( obj.data.address_ship );
+                                $( '#info-user' ).notify( "Load thành công thông tin người mua !", { position:"top", className: 'success', });
                             }else {
-                                 $( classId ).notify("Cập nhật không thành công !", "error");
+                                $( '#info-user' ).notify("Load không thành công thông tin người mua !", { position:"top", className: 'error', });
                             }
                         }
                     });
-                }; 
+                } else {
+                    $('#user_id').val('');
+                    $('#email').val( '' );
+                    $('#phone').val( '' );
+                    $('#address').val( '' );
+                    $('#address_ship').val( '' );
+                    $( '#info-user' ).notify("Bạn đang nhập người mua mới chưa tồn tại trên hệ thống !", { position:"top", className: 'info', });
+                }
             }
         });
         $( "#cancel" ).click(function() {
@@ -144,21 +178,31 @@
         
         var total = 1; // Our default for how many contacts we have
         $(".add-more").click(function(e){
-
             var addBlockId = total = total + 1;
 
             var addBlock = '<div class="row" style="padding-top:5px;padding-bottom:5px" id="fields'+ addBlockId +'">' +
+                            '<input autocomplete="off" class="form-control" id="pid'+ addBlockId +'" name="pid'+ addBlockId +'" type="hidden"/>' +
                             '<div class="col-md-6"><input autocomplete="off" class="form-control" id="field'+ addBlockId +'" name="field'+ addBlockId +'" type="text" placeholder="Tên sản phẩm" data-items="8"/></div>' +
-                            '<div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="price'+ addBlockId +'" name="price'+ addBlockId +'" type="text" placeholder="Giá" data-items="8"/></div>' +                    
+                            '<div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="price'+ addBlockId +'" name="price'+ addBlockId +'" type="text" placeholder="Giảm giá" data-items="8"/></div>' +                    
                             '<div class="col-md-2 pull-left"><input autocomplete="off" class="form-control" id="qty'+ addBlockId +'" name="qty'+ addBlockId +'" type="text" placeholder="Số lượng" data-items="8"/></div>' +
                             '<div class="col-md-2"><button value="' + (addBlockId) + '" id="remove' + (addBlockId - 1) + '" class="btn btn-danger remove-me" >-</button></div>' +
                             
                         '</div>';
             $(addBlock).appendTo($('#form-add-multi')).insertBefore( "#fields" );
             var field = '#field' + addBlockId;
+            var pid = '#pid' + addBlockId;
             $( field ).autocomplete({
-                source: availableTags,
-                delay: 10
+                source: nameProducts,
+                delay: 10,
+                select: function(event, ui) {
+                },
+                change: function (event, ui) { 
+                    if (typeof(ui.item) != 'undefined' && ui.item != null) {
+                        $( pid ).val(ui.item.id);
+                    } else {
+                        $( pid ).val('');
+                    }
+                }
             });
             $('#count').val(total);
             $('.remove-me').click(function(e){

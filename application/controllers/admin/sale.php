@@ -90,10 +90,10 @@ class Sale extends MY_Controller {
         
         // suggest product
         $all_name_products = $this->product_model->get_name_all_products();
-        
         $all_products_id = array();
         foreach ( $all_name_products as $al) {
-            $all_products_id[] = $al['name'];
+            $push = array('label' => $al['name'], 'value' => $al['name'], 'id' => $al['id']);
+            array_push($all_products_id, $push);
         }
         $data['all_name_products'] = json_encode($all_products_id);
         
@@ -109,52 +109,82 @@ class Sale extends MY_Controller {
         if (isset($_POST['count'])){
             $count = (int)$_POST['count'];
             $insert_array  = array();
+            
+            $user_id = $_POST['user_id'];
+            if (empty($user_id)) {
+                
+                $insert_array = array (
+                    'fullname' => $_POST['name'],
+                    'email' => $_POST['email'],
+                    'phone' => $_POST['phone'],
+                    'address' => $_POST['address'],
+                    'address_ship' =>  $_POST['address_ship'],
+                );
+                $user_id = $this->user_model->insert($insert_array);
+            }
+            
             for( $i = 1; $i <= $count; $i++) {
                 $field_id = 'field'.$i;
-                $qty_id = 'qty'.$i;
-                $price_id = 'price'.$i;
-                $product_name = $_POST[$field_id];
-                $price = ($_POST[$price_id]);
-                $amount = (int)$_POST[$qty_id];
-                $alias = sanitizeTitle($product_name);
-                $insert_array[] = array(
-                    'product_name' => $product_name ,
-                    'product_alias' => sanitizeTitle($product_name) , 
-                    'price' => $price,
-                    'amount' => $amount,
-                    'status' => 0,
-                    'created' => now()
-                );
+                if ( isset($$field_id) && $_POST[$field_id] != '' ) {
+                    $field_id = 'field'.$i;
+                    $qty_id = 'qty'.$i;
+                    $discount = 'price'.$i;
+                    $pid = 'pid'. $i;
+                    $product_name = $_POST[$field_id];
+                    $product_id = $_POST[$pid];
+                    $discount = ($_POST[$price_id]);
+                    $amount = (int)$_POST[$qty_id];
+                    $alias = sanitizeTitle($product_name);
+                    $product_detail = $this->product_model->get_one_product_by_alias($alias);
+                    if ($product_detail) {
+                        $insert_array[] = array(
+                            'product_id' => $product_detail->id ,
+                            'user_id' => $user_id, 
+                            'order_detail_id' => 0, 
+                            'amount' => $amount,
+                            'price' => $product_detail->price - $product_detail->discount,
+                            'discount' => $discount,
+                            'pricetotal' =>  ($product_detail->price - $product_detail->discount ) * $amount - $discount,
+                            'type' => 1,
+                            'created' => now()
+                        );
+                    }
+                }
             }
                 
             $structured_results = array();
             foreach($insert_array as $key => $value)
             {
-                if( !isset($structured_results[$value['product_alias']])) {
-                    $structured_results[$value['product_alias']] = array( 
-                        'import_id' => $import_id,
-                        'product_name' => $value['product_name'] ,
-                        'product_alias' => $value['product_alias'], 
-                        'price' => $price,
+                if( !isset($structured_results[$value['product_id']])) {
+                    $structured_results[$value['product_id']] = array( 
+                        'product_id' => $value['product_id'] ,
+                        'user_id' => $value['user_id'], 
+                        'order_detail_id' => $value['order_detail_id'], 
                         'amount' => $value['amount'],
-                        'status' => 0,
-                        'created' =>  now(),
-                        'updated' =>  now()
+                        'price' => $value['price'],
+                        'discount' => $value['discount'],
+                        'pricetotal' =>  $value['pricetotal'],
+                        'type' => 1,
+                        'created' => now()
                     );
                 } else {
-                    $structured_results[$value['product_alias']] = array(
-                        'import_id' => $import_id,
-                        'product_name' => $value['product_name'] ,
-                        'product_alias' => $value['product_alias'], 
-                        'price' => $price,
-                        'amount' => $value['amount'] + $structured_results[$value['product_alias']]['amount'],
-                        'status' => 0,
-                        'created' =>  now(),
-                        'updated' =>  now()
+                    $structured_results[$value['product_id']] = array(
+                        'product_id' => $value['product_id'] ,
+                        'user_id' => $value['user_id'], 
+                        'order_detail_id' => $value['order_detail_id'], 
+                        'amount' => $value['amount'] + $structured_results[$value['product_id']]['amount'],
+                        'price' => $value['price'],
+                        'discount' => $value['discount'] + $structured_results[$value['product_id']]['discount'],
+                        'pricetotal' =>  $value['pricetotal'] + $structured_results[$value['product_id']]['pricetotal'],
+                        'type' => 1,
+                        'created' => now()
                     );
                 }
             }
-
+            
+            echo '<pre>';
+            var_dump( $structured_results);die;
+            
             if (!empty($structured_results)) {
                 //$this->importdetail_model->insert($structured_results, true);
             }
@@ -165,4 +195,18 @@ class Sale extends MY_Controller {
         $this->_loadAdminFooter();
     }
     
+    public function get_info_user_byId() {
+        if ($_POST) {
+            $user_id = $_POST['user_id'];
+            $user = $this->user_model->get_one($user_id);
+            if ($user) {
+                $array = array ('msg' => 'success', 'data' => $user);
+                echo json_encode($array);die;
+            }
+            $array = array ('msg' => 'error');
+            echo json_encode($array);die;
+        }
+        $array = array ('msg' => 'error');
+        echo json_encode($array);die;
+    }
 }

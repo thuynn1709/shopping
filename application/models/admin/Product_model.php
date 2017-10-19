@@ -112,7 +112,7 @@ class Product_model extends CI_Model {
     }
     
     public function get_one_product_by_alias ( $alias = ''){
-        $this->db->select('id, alias, amount');
+        $this->db->select('*');
         $this->db->where('alias', $alias);
         $this->db->from($this->table);
         return $this->db->get()->row();
