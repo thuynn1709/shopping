@@ -28,4 +28,13 @@ class Product extends MY_Controller {
         $this->_loadFrontendFooter();
         
     }
+    
+    public function detail(){
+        
+        $this->_loadFrontendHeaderAccount();
+        $this->_loadFrontendLeftSlidebar();
+        $this->load->view('frontend/product/detail');
+        $this->_loadFrontendFooter();
+        
+    }
 }
