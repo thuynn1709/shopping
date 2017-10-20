@@ -12,9 +12,6 @@
  * @author Nguyen Ruy
  */
 class Contact extends MY_Controller {
-    //put your code here
-            
-    private $b_Check = true;
     
     public function __construct() {
         parent::__construct();

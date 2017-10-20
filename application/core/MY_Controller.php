@@ -40,6 +40,10 @@ class MY_Controller extends CI_Controller {
         $this->load->view('frontend/header_account', $data);
     }
     
+    public function _loadFrontendAdvertisement(){
+        $this->load->view('frontend/advertisement');
+    }
+    
     public function _loadFrontendSlider(){
         $this->load->view('frontend/slider');
     }
