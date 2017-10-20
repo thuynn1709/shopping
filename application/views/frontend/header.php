@@ -22,6 +22,16 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>public/frontend/images/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>public/frontend/images/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>public/frontend/images/ico/apple-touch-icon-57-precomposed.png">
+        
+        <script src="<?php echo base_url(); ?>public/frontend/js/jquery.js"></script>
+        <script src="<?php echo base_url(); ?>public/frontend/js/jquery-3.2.1.min.js"></script>
+        <script src="<?php echo base_url(); ?>public/frontend/js/bootstrap.min.js"></script>
+        <script src="<?php echo base_url(); ?>public/frontend/js/jquery.scrollUp.min.js"></script>
+        <script src="<?php echo base_url(); ?>public/frontend/js/price-range.js"></script>
+        <script src="<?php echo base_url(); ?>public/frontend/js/jquery.prettyPhoto.js"></script>
+        <script src="<?php echo base_url(); ?>public/frontend/js/main.js"></script>
+        <script src="<?php echo base_url(); ?>public/admin/js/notify.js"></script>
+        
     </head><!--/head-->
 
     <body>

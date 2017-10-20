@@ -12,13 +12,17 @@
                 <div class="contact-form">
                     <h2 class="title text-center">GỬI EMAIL CHO CHÚNG TÔI !</h2>
                     <div class="status alert alert-success" style="display: none"></div>
-                    <form id="main-contact-form" class="contact-form row" name="contact-form" method="post">
+                    <form id="main-contact-form" class="contact-form row" name="contact-form" action="<?php echo base_url('contact/register_contact'); ?>" method="post">
                         <div class="form-group col-md-6">
                             <input type="text" name="name" class="form-control" required="required" placeholder="Họ tên">
                         </div>
                         <div class="form-group col-md-6">
+                            <input type="tel" name="phone"  maxlength = "11" min = "10" class="form-control" required="required" placeholder="Số điện thoại ( 10 hoặc 11 số )">
+                        </div>
+                        <div class="form-group col-md-12">
                             <input type="email" name="email" class="form-control" required="required" placeholder="Địa chỉ email">
                         </div>
+                        
                         <div class="form-group col-md-12">
                             <input type="text" name="subject" class="form-control" required="required" placeholder="Tiêu đề">
                         </div>
@@ -57,7 +61,37 @@
     </div>	
 </div><!--/#contact-page-->
 
+
 <script>
+    
+    $(function () {
+        $('#main-contact-form').submit(function(event){
+            event.preventDefault();
+            var r = confirm("Bạn chắc chắn muốn gửi tin nhắn !");
+            if (r == true) {
+                var form = $('#main-contact-form');
+                $.ajax
+                ({ 
+                    type : "POST",
+                    url  :   form.attr("action"),
+                    data : form.serialize(),
+                    success: function(result) {
+                        obj = jQuery.parseJSON(result);
+                        if ( obj.msg == 'success') {
+                            $(".btn-primary").notify( "Gửi tin nhắn thành công !",  { position:"left", className: 'success', });
+                            $('#main-contact-form')[0].reset();
+                        }else {
+                             $(".btn-primary").notify( "Gửi tin nhắn không thành công !",  { position:"left", className: 'error', });
+                        }
+                    }
+                });
+            } else {
+                
+            }
+            return false;
+        });
+    })
+    
     function initMap() {
       var uluru = {lat: 20.399958, lng: 106.226360};
       var map = new google.maps.Map(document.getElementById('map_google'), {

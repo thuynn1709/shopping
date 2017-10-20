@@ -55,3 +55,4 @@ $route['translate_uri_dashes'] = FALSE;
 
 $route['trang-chu'] = "home/index";
 $route['lien-he'] = "contact/index";
+$route['contact/register_contact'] = "contact/register_contact";

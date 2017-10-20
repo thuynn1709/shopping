@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-10-19 12:44:34
+Date: 2017-10-20 15:27:04
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -63,20 +63,24 @@ INSERT INTO `config_small_menu_home_items` VALUES ('17', '11', 'Vệ sinh răng 
 -- ----------------------------
 DROP TABLE IF EXISTS `contact`;
 CREATE TABLE `contact` (
-  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `email` varchar(40) DEFAULT NULL,
   `name` varchar(40) DEFAULT NULL,
   `phone` varchar(20) DEFAULT NULL,
-  `content` varchar(200) DEFAULT NULL,
-  `address` varchar(100) DEFAULT NULL,
+  `message` varchar(300) DEFAULT NULL,
+  `subject` varchar(100) DEFAULT NULL,
   `status` tinyint(2) DEFAULT NULL,
   `created` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of contact
 -- ----------------------------
+INSERT INTO `contact` VALUES ('1', 'thuynn1709@gmail.com', 'Ngoc Thuy Nguyen', '1732510257', 'ffffffffffffffffffffffffffffffffff', 'fffffffffffffffffffffffffffffffff', '0', '1508505781');
+INSERT INTO `contact` VALUES ('2', 'thuynn1709@gmail.com', 'Ngoc Thuy Nguyen', '1732510257', 'ffffffffffffffffffffffff', 'fffffffffffffffffffffffffff', '0', '1508505809');
+INSERT INTO `contact` VALUES ('3', 'thuynn1709@gmail.com', 'Ngoc Thuy Nguyen', '1732510257', 'f1111111111111111111', '11111111111111111', '0', '1508505863');
+INSERT INTO `contact` VALUES ('4', 'thuynn1709@gmail.com', 'Ngoc Thuy Nguyen', '1732510257', 'fdsafsdfsdaf', 'fsfsafdf', '0', '1508505994');
 
 -- ----------------------------
 -- Table structure for export
@@ -430,12 +434,13 @@ CREATE TABLE `sales` (
   `type` tinyint(3) DEFAULT NULL COMMENT '0-qua tang, 1- ban hang cho khach',
   `created` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 
 -- ----------------------------
 -- Records of sales
 -- ----------------------------
 INSERT INTO `sales` VALUES ('2', '8', '1', '2', '2', '120000', '0', '240000', '1', '2147483647');
+INSERT INTO `sales` VALUES ('3', '8', '1', '0', '3', '120000', '333', '359667', '1', '1508422620');
 
 -- ----------------------------
 -- Table structure for slidebar

@@ -17,11 +17,13 @@ class Home extends MY_Controller {
         parent::__construct();
         $this->load->model('admin/featuresitems_model');
         $this->load->model('admin/smallmenuitems_model');
-        $this->load->model('admin/fproduct_model');
-        $this->load->model('admin/fproductcategory_model');
+        $this->load->model('fproduct_model');
+        $this->load->model('fproductcategory_model');
     }
     
     public function index(){
+        
+              echo "<pre>". print_r((array)$this->session, true) ."</pre>";
         $this->_loadFrontendHeader();
         $this->_loadFrontendSlider();
         $this->_loadFrontendLeftSlidebar();

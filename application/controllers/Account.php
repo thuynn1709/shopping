@@ -20,6 +20,7 @@ class Account extends MY_Controller {
         parent::__construct();
         $this->load->helper(array('form', 'url', 'cookie'));
         $this->load->library(array('form_validation','session'));
+        $this->load->model('fuser_model');
     }
     
     public function login(){
@@ -47,7 +48,7 @@ class Account extends MY_Controller {
                     $a_UserInfo['email'] = $this->input->post('email');
                     $a_UserInfo['password'] = sha1($this->input->post('password'));
                     $this->session->set_userdata('remember_me', $this->input->post('remember_me'));
-                    $a_UserChecking = $this->user_model->check_user( $a_UserInfo );
+                    $a_UserChecking = $this->fuser_model->check_user( $a_UserInfo );
                     if($a_UserChecking){
                             $user_info = array(
                                 'email'     => $a_UserChecking->email,
@@ -77,10 +78,11 @@ class Account extends MY_Controller {
                     $a_UserInfo['email'] = $this->input->post('email');
                     $a_UserInfo['password'] = sha1($this->input->post('password'));
                     $this->session->set_userdata('remember_me', $this->input->post('remember_me'));
-                    $a_UserChecking = $this->user_model->check_user( $a_UserInfo );
+                    $a_UserChecking = $this->fuser_model->check_user( $a_UserInfo );
                     if($a_UserChecking){
                             $user_info = array(
                                 'email'     => $a_UserChecking->email,
+                                'fullname'     => $a_UserChecking->fullname,
                             );
                             $this->session->set_userdata($user_info);
                             redirect(base_url('home'));

@@ -20,6 +20,7 @@ class Contact extends MY_Controller {
         parent::__construct();
         $this->load->helper(array('form', 'url', 'cookie'));
         $this->load->library(array('form_validation','session'));
+        $this->load->model('admin/contact_model');
     }
     
     public function index(){
@@ -28,39 +29,47 @@ class Contact extends MY_Controller {
         $this->_loadFrontendFooter();
     }
     
-    public function test(){
-        
-        $this->load->view('frontend/contact/test');
-      
-    }
+    public function register_contact(){
+        if($_POST){
+            
+            $this->form_validation->set_rules('name', 'Name', 'trim|required|min_length[1]');
+            $this->form_validation->set_rules('phone', 'Phone', 'trim|required|min_length[10]');
+            $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
+            $this->form_validation->set_rules('subject', 'Subject', 'trim|required|min_length[1]');
+            $this->form_validation->set_rules('message', 'Message', 'trim|required|min_length[1]');
 
-        public function register_process(){
-        if( $this->session->has_userdata('email')){
-            redirect(base_url('account'));
-        }else {
-            if(isset($_POST['act']) && $_POST['act'] == 'register' ){
-              
-                $this->form_validation->set_rules('email', 'Email', 'trim|required|valid_email');
-                $this->form_validation->set_rules('password', 'Password', 'trim|required|min_length[6]');
-                #Kiểm tra điều kiện validate
-                if($this->form_validation->run() == TRUE){
-                    $a_UserInfo['email'] = $this->input->post('email');
-                    $a_UserInfo['password'] = sha1($this->input->post('password'));
-                    $this->session->set_userdata('remember_me', $this->input->post('remember_me'));
-                    $a_UserChecking = $this->user_model->check_user( $a_UserInfo );
-                    if($a_UserChecking){
-                            $user_info = array(
-                                'email'     => $a_UserChecking->email,
-                                'fullname' => $a_UserChecking->fullname,
-                            );
-                            $this->session->set_userdata($user_info);
-                            redirect(base_url('home'));
-                    }
-                    $this->b_Check = false;
+            #Kiểm tra điều kiện validate
+            if($this->form_validation->run() == TRUE){
+                
+                $email = $this->input->post('email');
+                $phone = $this->input->post('phone');
+                $name = $this->input->post('name');
+                $subject = $this->input->post('subject');
+                $message = $this->input->post('message');
+
+                $insert_array = array(
+                    'email'     => $email,
+                    'phone' => $phone,
+                    'name' => $name,
+                    'subject' => $subject,
+                    'message' => $message,
+                    'status' => 0,
+                    'created' => now()
+                );
+                try { 
+                    $this->contact_model->insert($insert_array);
+                    $array = array ('msg' => 'success');
+                    echo json_encode($array);die;
+                } catch (Exception $e) {
+                    $array = array ('msg' => 'error');
+                    echo json_encode($array);die;
                 }
+            } else {
+                $array = array ('msg' => 'error');
+                echo json_encode($array);die;                
             }
         }
-        $a_Data['b_Check']= $this->b_Check;
-        $this->load->view('admin/login/login', $a_Data);
+        $array = array ('msg' => 'error');
+        echo json_encode($array);die;     
     }
 }
