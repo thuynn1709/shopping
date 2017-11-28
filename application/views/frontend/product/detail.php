@@ -342,3 +342,7 @@
     </div><!--/recommended_items-->
 
 </div>
+
+</div>
+</div>
+</section>

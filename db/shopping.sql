@@ -10,7 +10,7 @@ Target Server Type    : MYSQL
 Target Server Version : 50505
 File Encoding         : 65001
 
-Date: 2017-10-20 15:27:04
+Date: 2017-11-28 17:12:39
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -297,6 +297,7 @@ CREATE TABLE `orders` (
   `pricetotal` int(11) DEFAULT NULL,
   `pay_method` tinyint(3) DEFAULT NULL COMMENT '1-tien mat, 0- thanh toan chuyen khoan',
   `pay_status` tinyint(3) DEFAULT NULL COMMENT '0-chua thanh toan, 1-da thanh toan',
+  `type` tinyint(1) DEFAULT '0' COMMENT '0 - user đã đăng kí, 1- khách vãng lai',
   `status` tinyint(3) DEFAULT NULL COMMENT '0- chua giao hang, 1-da giao hang',
   `created` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`)
@@ -305,7 +306,7 @@ CREATE TABLE `orders` (
 -- ----------------------------
 -- Records of orders
 -- ----------------------------
-INSERT INTO `orders` VALUES ('1', '1', '2', '230000', '0', '1', '1', '2017');
+INSERT INTO `orders` VALUES ('1', '1', '2', '230000', '0', '1', '0', '1', '2017');
 
 -- ----------------------------
 -- Table structure for order_detail
@@ -328,6 +329,27 @@ CREATE TABLE `order_detail` (
 -- Records of order_detail
 -- ----------------------------
 INSERT INTO `order_detail` VALUES ('2', '1', '8', '2', '120000', '10000', '1', '2147483647', '2147483647');
+
+-- ----------------------------
+-- Table structure for order_info
+-- ----------------------------
+DROP TABLE IF EXISTS `order_info`;
+CREATE TABLE `order_info` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `order_id` int(11) DEFAULT NULL,
+  `fullname` varchar(50) DEFAULT NULL,
+  `email` varchar(50) DEFAULT NULL,
+  `phone` varchar(50) DEFAULT NULL,
+  `province` tinyint(4) DEFAULT NULL,
+  `address` varchar(300) DEFAULT NULL,
+  `address_ship` varchar(300) DEFAULT NULL,
+  `created` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- ----------------------------
+-- Records of order_info
+-- ----------------------------
 
 -- ----------------------------
 -- Table structure for products
