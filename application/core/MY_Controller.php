@@ -12,6 +12,16 @@ class MY_Controller extends CI_Controller {
         $this->load->model('fmenu_model');
     }
     
+    
+
+    public function _loadFrontendHomeJavascript(){
+        $this->load->view('frontend/home_javascript');
+    }
+    
+    public function _loadFrontendProductJavascript(){
+        $this->load->view('frontend/product_javascript');
+    }
+    
     public function _loadFrontendHeader(){
         $menus = array();
         $menus = $this->fmenu_model->get_all();

@@ -22,11 +22,7 @@
         <link rel="apple-touch-icon-precomposed" sizes="114x114" href="<?php echo base_url(); ?>public/frontend/images/ico/apple-touch-icon-114-precomposed.png">
         <link rel="apple-touch-icon-precomposed" sizes="72x72" href="<?php echo base_url(); ?>public/frontend/images/ico/apple-touch-icon-72-precomposed.png">
         <link rel="apple-touch-icon-precomposed" href="<?php echo base_url(); ?>public/frontend/images/ico/apple-touch-icon-57-precomposed.png">
-        
-        <script src="<?php echo base_url(); ?>public/frontend/js/jquery.js"></script>
-        <script src="<?php echo base_url(); ?>public/frontend/js/jquery-3.2.1.min.js"></script>
-        <script src="<?php echo base_url(); ?>public/frontend/js/bootstrap.min.js"></script>
-        <script src="<?php echo base_url(); ?>public/admin/js/notify.js"></script>
+
         
     </head><!--/head-->
 
@@ -117,37 +113,37 @@
                             </div>
                             <div class="mainmenu pull-left">
                                 <ul class="nav navbar-nav collapse navbar-collapse">
-                                    <?php 
-                                    if (!empty($list_menus)){
-                                        foreach ($list_menus as $m) {                  
-                                    ?>
-                                        <?php 
-                                        if (!empty($m['details'])){
-                                        ?>
-                                        <li class="dropdown"><a href="#"><?php echo $m['name']; ?><i class="fa fa-angle-down"></i></a>
-                                            <ul role="menu" class="sub-menu">
-                                                <?php 
-                                                foreach ($m['details'] as $md) {                  
+                                    <?php
+                                    if (!empty($list_menus)) {
+                                        foreach ($list_menus as $m) {
+                                            ?>
+                                            <?php
+                                            if (!empty($m['details'])) {
                                                 ?>
-                                                <li><a href="shop.html"><?php echo $md->name; ?></a></li>
-                                                <?php                      
-                                                }
+                                                <li class="dropdown"><a href="#"><?php echo $m['name']; ?><i class="fa fa-angle-down"></i></a>
+                                                    <ul role="menu" class="sub-menu">
+                                                        <?php
+                                                        foreach ($m['details'] as $md) {
+                                                            ?>
+                                                            <li><a href="shop.html"><?php echo $md->name; ?></a></li>
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </ul>
+                                                </li>     
+                                                <?php
+                                            } else {
                                                 ?>
-                                            </ul>
-                                        </li>     
-                                        <?php                      
-                                        } else {                
-                                        ?>
-                                        <li><a href="index.html"><?php echo $m['name']; ?></a></li>
-                                        <?php                      
-                                        }           
-                                        ?>
-                                    
-                                    <?php                      
-                                        }                        
-                                    }                
+                                                <li><a href="index.html"><?php echo $m['name']; ?></a></li>
+                                                <?php
+                                            }
+                                            ?>
+
+                                            <?php
+                                        }
+                                    }
                                     ?>
-                                    
+
                                 </ul>
                             </div>
                         </div>
